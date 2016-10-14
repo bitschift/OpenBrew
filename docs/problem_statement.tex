@@ -38,34 +38,51 @@ hardware to influence the brewing process, creating a better product with each b
 
 \section{Proposed Solution}
 The solution we propose is twofold in nature.
-The first piece is a hardware implementation, which is controlled by the second piece, the autonomous software.
-\subsection{Hardware}
-In order to create a solid and reliable automated home-brewing setup, our hardware implementation needs to be simple and modular to accommodate peoples' various setups.
-We will construct our brewing setup with common, off-the-shelf components.
-Additionally, a microcontroller will be paired with general purpose sensors will be introduced into the brewing setup to measure and control the brewing process.
-These components should not be cost prohibitive for the average home-brewer.
-\subsection{Software}
-The most important software aspect we will be creating is the learned control policy to automate the brewing process. 
-By providing a learning algorithm with the proper inputs at initialization, and throughout the brewing process, the computer can completely control the complex chemical process.
-This allows the computer to improve over time based on the feedback from the user.
-To simplify this from an engineering and user perspective, this suggests a three part software solution.
+The first piece is a hardware implementation, which is controlled by the second piece, 
+the autonomous software.
 
-The first part would be a simple interface for the user to use so that they can interact with the control policy on a high level without needing to know concepts of machine learning.
-Secondly, there will need to be specific code for the microcontroller that can interface with a predetermined complex control policy.
-This interface would require the ability to translate inputs from the raw sensor data into a format for the policy to accept, and to take the  output of the policy and translate into specific actions.
-The last part is the machine learning and artificial intelligence aspect.
-Here, we will need to construct a method of creating and training a control policy that can satisfy the following:
+\subsection{Hardware}
+In order to create a solid and reliable automated home-brewing setup, our hardware 
+implementation needs to be simple and modular to accommodate peoples' various setups.
+We will construct our brewing setup with common, off-the-shelf components.
+Additionally, a microcontroller will be paired with general purpose sensors will be 
+introduced into the brewing setup to measure and control the brewing process.
+These components should not be cost prohibitive for the average home-brewer.
+
+\subsection{Software}
+The most important software aspect we will be creating is the learned control policy 
+to automate the brewing process. By providing a learning algorithm with the proper 
+inputs at initialization, and throughout the brewing process, the computer can completely 
+control the complex chemical process. This allows the computer to improve over time 
+based on the feedback from the user. To simplify this from an engineering and user 
+perspective, this suggests a three part software solution.
+
+The first part would be a simple interface for the user to use so that they can 
+interact with the control policy on a high level without needing to know concepts of 
+machine learning. Secondly, there will need to be specific code for the microcontroller 
+that can interface with a predetermined complex control policy. This interface would 
+require the ability to translate inputs from the raw sensor data into a format for 
+the policy to accept, and to take the  output of the policy and translate into specific 
+actions. The last part is the machine learning and artificial intelligence aspect.
+Here, we will need to construct a method of creating and training a control policy 
+that can satisfy the following:
+
 \begin{enumerate}
-	\item Accept feedback from the user, and incorporate this feedback into the policy for fine-tuning.
-	\item Provide real-time control commands based on the continuous input that can be used by the microcontroller.
-	\item Does not require extensive amounts of data for bootstrapping the learning of the policy.
+	\item Accept feedback from the user, and incorporate this feedback into the 
+		policy for fine-tuning.
+	\item Provide real-time control commands based on the continuous input that 
+		can be used by the microcontroller.
+	\item Does not require extensive amounts of data for bootstrapping the learning 
+		of the policy.
 \end{enumerate}
 
 \subsection{Business Aspects}
-Since this proposal is being supported by the Austin Entrepreneurship Program, our solution also needs to incorporate aspects of marketability.
-In order to shape our product into something people would be interested in, we will incorporate ideas from interviews with prospective customers into our design.
-We will also create business documents such as a lean canvas business model to help plan how this product will grow in the future.
-
+Since this proposal is being supported by the Austin Entrepreneurship Program, our 
+solution also needs to incorporate aspects of marketability. In order to shape our 
+product into something people would be interested in, we will incorporate ideas 
+from interviews with prospective customers into our design. We will also create 
+business documents such as a lean canvas business model to help plan how this product 
+will grow in the future.
 \section{Performance Metrics}
 
 \end{document}
