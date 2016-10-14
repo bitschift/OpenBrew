@@ -45,25 +45,25 @@ the autonomous software.
 In order to create a solid and reliable automated home-brewing setup, our hardware 
 implementation needs to be simple and modular to accommodate peoples' various setups.
 We will construct our brewing setup with common, off-the-shelf components.
-Additionally, a microcontroller will be paired with general purpose sensors will be 
+Additionally, a microcontroller paired with general purpose sensors will be 
 introduced into the brewing setup to measure and control the brewing process.
 These components should not be cost prohibitive for the average home-brewer.
 
 \subsection{Software}
-The most important software aspect we will be creating is the learned control policy 
+The most important software aspect is the learned control policy 
 to automate the brewing process. By providing a learning algorithm with the proper 
-inputs at initialization, and throughout the brewing process, the computer can completely 
-control the complex chemical process. This allows the computer to improve over time 
+inputs at initialization and throughout the brewing process, the computer can completely 
+control the complex chemical process. This allows the computer to improve the product 
 based on the feedback from the user. To simplify this from an engineering and user 
-perspective, this suggests a three part software solution.
+perspective, we suggest a three part software solution.
 
-The first part would be a simple interface for the user to use so that they can 
+The first part would be a simple interface for the user so they can 
 interact with the control policy on a high level without needing to know concepts of 
 machine learning. Secondly, there will need to be specific code for the microcontroller 
 that can interface with a predetermined complex control policy. This interface would 
 require the ability to translate inputs from the raw sensor data into a format for 
 the policy to accept, and to take the  output of the policy and translate into specific 
-actions. The last part is the machine learning and artificial intelligence aspect.
+actions. The third part is the machine learning and artificial intelligence aspect.
 Here, we will need to construct a method of creating and training a control policy 
 that can satisfy the following:
 
