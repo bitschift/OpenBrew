@@ -1,0 +1,9 @@
+# Vim
+.*.swp
+
+# LaTeX
+docs/*.aux
+docs/*.dvi
+docs/*.out
+docs/*.ps
+docs/*.log

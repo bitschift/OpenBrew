@@ -1,0 +1,108 @@
+\documentclass[letterpaper,10pt]{article}
+\pagestyle{empty}
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+\author{Connor Yates\\
+\texttt{yatesco@oregonstate.edu}
+\and
+Aravind Parasurama\\
+\texttt{parasura@oregonstate.edu}
+\and
+Cody Holliday\\
+\texttt{hollidac@oregonstate.edu}}
+\date{\today}
+\title{OpenBrew Problem Statement}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	Home beer or mead brewing is not currently a process as simple as brewing
+	coffee. We aim to change this, and make home brewing as easy as brewing coffee with the
+	OpenBrew project. The OpenBrew project will consist of two major components: A
+	hardware system for physically automating the brewing process, and a software system 
+	both managing the brewing process utilizing machine learning to optimize mead or beer 
+	recipes. Through these components, a user will be able to easily incorporate a fully 
+	automated, intelligent home brewing system into their existing setup, or use our 
+	product as a framework to construct a new brewing system.
+\end{abstract}
+
+\newpage
+
+\section{Definition of Problem}
+It is not possible to brew mead or beer at home with the same ease as brewing a morning cup of
+coffee, or baking a cake. Previously, limitations on available technology prevented such
+a product from existing, thus brewing has remained limited to either professionals or
+dedicated hobbyists. There exists technology now in the form of more powerful processors
+being more readily available, as well as easy-to-deploy networked sensors that can facilitate
+the development of an easy to use product that can automate beer or mead brewing.
+
+\section{Proposed Solution}
+The solution we propose is twofold in nature.
+The first piece is a hardware implementation, which is controlled by the second piece, 
+the autonomous software.
+
+\subsection{Hardware}
+In order to create a solid and reliable automated home-brewing setup, our hardware 
+implementation needs to be simple and modular to accommodate peoples' various setups.
+We will construct our brewing setup with common, off-the-shelf components.
+Additionally, a microcontroller paired with general purpose sensors will be 
+introduced into the brewing setup to measure and control the brewing process.
+These components should not be cost prohibitive for the average home-brewer.
+
+\subsection{Software}
+The most important software aspect is the learned control policy 
+to automate the brewing process. By providing a learning algorithm with the proper 
+inputs at initialization and throughout the brewing process, the computer can completely 
+control the complex chemical process. This allows the computer to improve the product 
+based on the feedback from the user. To simplify this from an engineering and user 
+perspective, we suggest a three part software solution.
+
+The first part would be a simple interface for the user so they can 
+interact with the control policy on a high level without needing to know concepts of 
+machine learning. Secondly, there will need to be specific code for the microcontroller 
+that can interface with a predetermined complex control policy. This interface would 
+require the ability to translate inputs from the raw sensor data into a format for 
+the policy to accept, and to take the  output of the policy and translate into specific 
+actions. The third part is the machine learning and artificial intelligence aspect.
+Here, we will need to construct a method of creating and training a control policy 
+that can satisfy the following:
+
+\begin{enumerate}
+	\item Accept feedback from the user, and incorporate this feedback into the 
+		policy for fine-tuning.
+	\item Provide real-time control commands based on the continuous input that 
+		can be used by the microcontroller.
+	\item Does not require extensive amounts of data for bootstrapping the learning 
+		of the policy.
+\end{enumerate}
+
+\subsection{Business Aspects}
+Since this proposal is being supported by the Austin Entrepreneurship Program, our 
+solution also needs to incorporate aspects of marketability. In order to shape our 
+product into something people would be interested in, we will incorporate ideas 
+from interviews with prospective customers into our design. We will also create 
+business documents such as a lean canvas business model to help plan how this product 
+will grow in the future.
+\section{Performance Metrics}
+The measurable outcome of our project is threefold; we create a device that 
+autonomously brews mead, compile data on the progress of our algorithm 
+over time, and begin developing a business around this device. 
+The device will have a user friendly interface that shows metrics and allows
+for basic user control over the brewing process The algorithm will determine
+how the mead will be brewed then interact with the microcontroller to brew 
+the mead. The microcontroller will control the mechanical parts according to
+the output of the algorithm. Throughout the process of development we 
+will record and graph data showing how the algorithm changes as it learns 
+from input we provide. 
+
+In addition to collecting data on batches of mead, we will be 
+incorporating business practices into our project at every step. We will 
+develop a business plan using the lean canvas model template, talk to 
+brewers and customers about the brewing process, and incorporate at least 
+three suggestions for our device in our final project.
+
+\end{document}
+
