@@ -15,13 +15,16 @@ Cody Holliday\\
 \title{OpenBrew Problem Statement}
 \begin{document}
 \maketitle
+
+\newpage
+
 \section{Overview}
-Section 2 describes the scope of the requirements for the BrewAI project.
+Section 2 describes the scope of the requirements for the Brew.AI project.
 Section 3 defines terms used in the document as well as terms that are normally used when discussing the project.
 Section 4 outlines the project in a high level, whereas Section 5 describes the requirements through user stories.
 
 \subsection{Scope}
-BrewAI is a device that automatically brews mead or beer.
+Brew.AI is a device that automatically brews mead or beer.
 The scope of this document focuses on the specifications of the device as well as the steps to build a business around it.
 
 
@@ -49,11 +52,65 @@ To this end, the document provides an overview of the project, followed by the s
 The specific requirements will provide context for specific goals, and means by which to measure the attainment of the goals.
 
 \section{Overall Description}
-BrewAI is a device that can automatically brew as well as learn how to improve on recipies over time.
-The device will have a streamlined and simple interface that will interact with the AI.
-The interface will also have more advanced settings for hobbiest brewers.
-The AI will learn using reenforcement learning, then operate the hardware through a microcontroller.
-The hardware will be waterproof and modular for easy cleaning.
+\subsection{Product Perspective}
+This project is self contained, but it does use other projects to help create it.
+TensorFlow is a library created by Google for the development of Artificial Intelligence.
+
+\subsubsection{User Interfaces}
+The user interface should be formatted for touch screens.
+The interface should have two states: pre-brewing and post-brewing.
+The pre-brewing interface will allow users to select the taste of their batch.
+There will also be a section for advanced settings that allow the user to tune how the device will function during the brewing process.
+The post-brewing interface will have the user rate the batch based on different characteristics of the batch as well as a general overall satisfaction with the batch.
+
+\subsubsection{Hardware Interfaces}
+The software will interact with the hardware through a microcontroller.
+This microcontroller will then take the commands from the software and translte them into commands for the hardware.
+The microcontroler will also take inputs from sensors on the hardware and give them to the software for processing.
+
+\subsubsection{Memory}
+The microcontroller will have limited memory space for instructions and sensory inputs.
+The computer attached to the device will also be limited in memory, so we need to accomidate for that..
+
+\subsubsection{Operations}
+The device will have three states: pre-brewing, brewing, and post-brewing.
+Pre and post brewing are characterized by inputs from the user.
+Pre-brewing will take inputs from the user either in a simple or advanced way.
+Simple inputs are how the mead should taste, and advanced inputs are technical details on how the device will make the brew.
+The brewing state will be just the device brewing the mead without input from the user.
+During the brewing state the user can cancel the operation.
+During the post-brewing state the user will have a menu that will have different sections on different aspects of the flavor.
+After completion of the short quiz, these menus will save the data and give it to the AI for analysis.
+Ideally data will be saved at every point in the operation so that when the machine is plugged in again, it can prompt the user if it wants to make the batch again or what the user thinks of the previous batch.
+
+\subsubsection{Site Adaptation Requirements}
+The device will have a sensor that can tell if the deivce is tipped or not so that it does not damage any of the hardware while in operation.
+This sensor will also cause the device to halt if tipped during operation.
+
+\subsection{Product Functions}
+The project will have two functions:
+\begin{itemize}
+	\item Brew beer or mead
+	\item Learn from the user how the previous batch tastes
+\end{itemize}
+
+\subsection{User Characteristics}
+User experience in the brewing process will range from absolute beginner to experienced brewer.
+These characteristics are reflected in the options given in the user interface.
+
+\subsection{Constraints}
+\subsubsection{Safety Considerations}
+A major consideration for dealing with food or beverages is safety.
+This project will incorporate safety measures so that when the device brews a batch it will be safe for human consumption.
+The device will have to be safeguarded to prevent injury of the user during operation.
+\subsubsection{Hardware Limitations}
+The hardware will be inexpensive as well as easy to incorporate into a singular device.
+The microcontroller will have to interface well with this device as well as the computer giving it instructions.
+The computer will need an interface for the microcontroller as well.
+When fully complete the hardware will be both modular and waterproof.
+
+\subsection{Assumptions and Dependencies}
+The AI will operate using the TensorFlow libraries designed by Google.
 
 \section{Specific Requirements}
 \subsection{Customer User Stories}
