@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20161028T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Requirements Document" note="" work="172800" start="20161028T000000Z" end="20161104T170000Z" work-start="20161028T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Survey Potential Users/Customers" note="" work="432000" start="20161104T170000Z" end="20161125T170000Z" work-start="20161107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Develop Lean Canvas Model" note="" work="201600" start="20161125T170000Z" end="20161206T170000Z" work-start="20161128T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Research AI, ML, RL structures" note="" work="576000" start="20161104T170000Z" end="20161202T170000Z" work-start="20161107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="5" name="Construct Prototype" note="" work="1296000" start="20161104T170000Z" end="20170106T170000Z" work-start="20161107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+      <task id="6" name="Hardware" note="" work="28800" start="20161104T170000Z" end="20161107T170000Z" work-start="20161107T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="7" name="Electronics" note="" work="144000" start="20161107T170000Z" end="20161114T170000Z" work-start="20161108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="6" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="8" name="Gather Data" note="" work="720000" start="20161114T170000Z" end="20161219T170000Z" work-start="20161115T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="9" name="Construct Control Policy" note="" work="403200" start="20161219T170000Z" end="20170106T170000Z" work-start="20161220T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="10" name="Gather More Data" note="" work="720000" start="20170106T170000Z" end="20170210T170000Z" work-start="20170109T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="11" name="Second Survey of Users" note="" work="201600" start="20170106T170000Z" end="20170117T170000Z" work-start="20170109T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="12" name="Update Lean Canvas Model" note="" work="86400" start="20170117T170000Z" end="20170120T170000Z" work-start="20170118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+        <predecessor id="1" predecessor-id="11" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="13" name="Second Prototype Iteration" note="" work="1296000" start="20170117T170000Z" end="20170321T170000Z" work-start="20170118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="11" type="FS"/>
+      </predecessors>
+      <task id="14" name="Assemble Hardware" note="" work="28800" start="20170117T170000Z" end="20170118T170000Z" work-start="20170118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="15" name="Electronics" note="" work="144000" start="20170118T170000Z" end="20170125T170000Z" work-start="20170119T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="14" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="16" name="Gather Data" note="" work="720000" start="20170125T170000Z" end="20170301T170000Z" work-start="20170126T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="15" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="17" name="Rework Control Policy" note="" work="403200" start="20170301T170000Z" end="20170321T170000Z" work-start="20170302T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="10" type="FS"/>
+          <predecessor id="1" predecessor-id="16" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="18" name="Prepare for Expo" note="" work="864000" start="20170321T170000Z" end="20170502T170000Z" work-start="20170322T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="13" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>

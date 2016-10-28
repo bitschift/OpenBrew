@@ -1,0 +1,154 @@
+\documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
+\pagestyle{empty}
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+\author{Connor Yates\\
+\texttt{yatesco@oregonstate.edu\\}
+\and
+Aravind Parasurama\\
+\texttt{parasura@oregonstate.edu\\}
+\and
+Cody Holliday\\
+\texttt{hollidac@oregonstate.edu\\}}
+\date{\today}
+\title{Brew.AI Problem Statement}
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+\section{Overview}
+Section 1A describes the scope of the requirements for the Brew.AI project.
+Section 2 defines terms used in the document as well as terms that are normally used when discussing the project.
+Section 3 Introduces the purpose of this document.
+Section 4 outlines the project in a high level.
+Section 5 describes the requirements through user stories.
+
+\subsection{Scope}
+Brew.AI is a device that automatically brews mead or beer.
+The scope of this document focuses on the specifications of the device as well as the steps to build a business around it.
+
+
+\section{Definitions}
+\begin{itemize}
+	\item Actuators - Electromechanical devices that allow the microprocessor to effect the fermentation process.
+	\item Artificial Intelligence - A learned control policy which controls the microcontroller.
+	\item AI - See Artificial Intelligence.
+	\item Brewing Setup - The collection of brewing vessels where fermentation occurs.
+	\item Microcontroller - A small, simple computer connected to sensors and actuators on the brewing setup.
+	\item Sensors - A collection of electronic sensors which measure useful data, such as temperature and specific gravity.
+\end{itemize}
+
+\section{Introduction}
+Broadly, this document serves to layout the requirements of this project.
+These requirements focus on both business and technological aspects.
+This document aims to assist in
+\begin{itemize}
+	\item Providing specific deliverables and deadlines for the developers.
+	\item Define the initial scope of the project.
+	\item Create a structure to advance the business possibilities of the project.
+	\item Incorporating the mindset and wants of the user into the final project.
+\end{itemize}
+To this end, the document provides an overview of the project, followed by the specific requirements.
+The specific requirements will provide context for specific goals, and means by which to measure the attainment of the goals.
+
+\section{Overall Description}
+\subsection{Product Perspective}
+This project is self contained, but it does use other projects to help create it.
+TensorFlow is a library created by Google for the development of Artificial Intelligence.
+
+\subsubsection{User Interfaces}
+The user interface should be formatted for touch screens.
+The interface should have two states: pre-brewing and post-brewing.
+The pre-brewing interface will allow users to select the taste of their batch.
+There will also be a section for advanced settings that allow the user to tune how the device will function during the brewing process.
+The post-brewing interface will have the user rate the batch based on different characteristics of the batch as well as a general overall satisfaction with the batch.
+
+\subsubsection{Hardware Interfaces}
+The software will interact with the hardware through a microcontroller.
+This microcontroller will then take the commands from the software and translte them into commands for the hardware.
+The microcontroler will also take inputs from sensors on the hardware and give them to the software for processing.
+
+\subsubsection{Memory}
+The microcontroller will have limited memory space for instructions and sensory inputs.
+The computer attached to the device will also be limited in memory, so we need to accomidate for that..
+
+\subsubsection{Operations}
+The device will have three states: pre-brewing, brewing, and post-brewing.
+Pre and post brewing are characterized by inputs from the user.
+Pre-brewing will take inputs from the user either in a simple or advanced way.
+Simple inputs are how the mead should taste, and advanced inputs are technical details on how the device will make the brew.
+The brewing state will be just the device brewing the mead without input from the user.
+During the brewing state the user can cancel the operation.
+During the post-brewing state the user will have a menu that will have different sections on different aspects of the flavor.
+After completion of the short quiz, these menus will save the data and give it to the AI for analysis.
+Ideally data will be saved at every point in the operation so that when the machine is plugged in again, it can prompt the user if it wants to make the batch again or what the user thinks of the previous batch.
+
+\subsubsection{Site Adaptation Requirements}
+The device will have a sensor that can tell if the deivce is tipped or not so that it does not damage any of the hardware while in operation.
+This sensor will also cause the device to halt if tipped during operation.
+
+\subsection{Product Functions}
+The project will have two functions:
+\begin{itemize}
+	\item Brew beer or mead
+	\item Learn from the user how the previous batch tastes
+\end{itemize}
+
+\subsection{User Characteristics}
+User experience in the brewing process will range from absolute beginner to experienced brewer.
+These characteristics are reflected in the options given in the user interface.
+
+\subsection{Constraints}
+\subsubsection{Safety Considerations}
+A major consideration for dealing with food or beverages is safety.
+This project will incorporate safety measures so that when the device brews a batch it will be safe for human consumption.
+The device will have to be safeguarded to prevent injury of the user during operation.
+\subsubsection{Hardware Limitations}
+The hardware will be inexpensive as well as easy to incorporate into a singular device.
+The microcontroller will have to interface well with this device as well as the computer giving it instructions.
+The computer will need an interface for the microcontroller as well.
+When fully complete the hardware will be both modular and waterproof.
+
+\subsection{Assumptions and Dependencies}
+The AI will operate using the TensorFlow libraries designed by Google.
+
+\section{Specific Requirements}
+\subsection{Customer User Stories}
+\begin{itemize}
+	\item As a customer with no brewing experience, I want an interface that is simple and streamlined so that I don't have to deal with the technical details of brewing.
+	\item As a user I want the data gathered by the device to be saved so that if I unplug the machine I won't lose my past brewing information.
+	\item As a hobbyist brewer I want to be able to access advanced brewing settings so that I can precisely manipulate a brewing batch.
+	\item As a user I want the device to be waterproof so that the batch doesn't destroy the computer inside.
+	\item As a customer I want a brewing device that is easy to take apart so that it is easy to clean.
+	\item As a user I want the device to detect when a batch has gone bad so that I am not harmed by incorrectly made batches.
+	\item As an amateur brewer I want the AI to control the brewing hardware so that I don't have to operate the hardware myself.
+	\item As a user I want to be able to select what kind of drink I want so that I can have a better variety of drinks that it can make.
+	\item As an amateur brewer I want a device that will learn how to make better batches so that I can drink tasty alcoholic beverages.
+	\item As a user I want the device to tell me if my inputs would make a bad batch so that I don't waste ingredients.
+\end{itemize}
+\subsection{Technical Requirements}
+Based upon our own ideas of for the project, as well as the concepts from the user stories, the technical requirements can be summarized as follows.
+These requirements are presented in order of their completion.
+I.e., requirements must be completed in their presented order.
+\begin{itemize}
+	\item Assemble a brewing setup.
+	\item Acquire electronics hardware - microcontroller, actuators, and sensors.
+	\item Gather data for training machine learning algorithm.
+	\item Design learning structure for the control policy.
+	\item Create the learning structure and control policy.
+	\item Train the policy.
+	\item Use the policy to automate the fermentation process.
+	\item Create a user interface to monitor and control the brewing process.
+\end{itemize}
+\subsection{Business Requirements}
+As we develop this project we must treat it as if we are starting a business.
+To go about starting a business we have to go through a series of steps to set it up.
+\begin{itemize}
+	\item Develop a business plan using the Lean Canvas Model
+	\item Interview businesses and homebrewers about their needs as brewers as well as what they want to change about their process.
+	\item After developing a prototype, ask businesses and homebrewers about possible features to add to the device.
+\end{itemize}
+\end{document}
