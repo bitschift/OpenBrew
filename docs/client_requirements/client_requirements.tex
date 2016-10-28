@@ -1,4 +1,4 @@
-\documentclass[letterpaper,10pt]{article}
+\documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{article}
 \pagestyle{empty}
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
@@ -15,9 +15,6 @@ Cody Holliday\\
 \title{OpenBrew Problem Statement}
 \begin{document}
 \maketitle
-
-\newpage
-
 \section{Overview}
 Section 2 describes the scope of the requirements for the BrewAI project.
 Section 3 defines terms used in the document as well as terms that are normally used when discussing the project.
@@ -29,8 +26,28 @@ The scope of this document focuses on the specifications of the device as well a
 
 
 \section{Definitions}
+\begin{description}
+	\item[Actuators] Electromechanical devices that allow the microprocessor to effect the fermentation process.
+	\item[Artificial Intelligence] A learned control policy which controls the microcontroller.
+	\item[AI] See Artificial Intelligence.
+	\item[Brewing Setup] The collection of brewing vessels where fermentation occurs.
+	\item[Microcontroller] A small, simple computer connected to sensors and actuators on the brewing setup.
+	\item[Sensors] A collection of electronic sensors which measure useful data, such as temperature and specific gravity.
+\end{description}
 
 \section{Introduction}
+Broadly, this document serves to layout the requirements of this project.
+These requirements focus on both business and technological aspects.
+This document aims to assist in
+\begin{itemize}
+	\item Providing specific deliverables and deadlines for the developers.
+	\item Define the initial scope of the project.
+	\item Create a structure to advance the business possibilities of the project.
+	\item Incorporating the mindset and wants of the user into the final project.
+\end{itemize}
+To this end, the document provides an overview of the project, followed by the specific requirements.
+The specific requirements will provide context for specific goals, and means by which to measure the attainment of the goals.
+
 \section{Overall Description}
 BrewAI is a device that can automatically brew as well as learn how to improve on recipies over time.
 The device will have a streamlined and simple interface that will interact with the AI.
@@ -39,46 +56,33 @@ The AI will learn using reenforcement learning, then operate the hardware throug
 The hardware will be waterproof and modular for easy cleaning.
 
 \section{Specific Requirements}
-As a customer with no brewing experience\\
-I want an interface that is simple and streamlined\\
-So that I don't have to deal with the technical details of brewing.\\
-
-As a customer\\
-I want a brewing device that is easy to take apart\\
-So that it is easy to clean\\
-
-As an amateur brewer\\
-I want a device that will learn how to make better batches\\
-So that I can drink tasty alcoholic beverages.\\
-
-As a hobbyist brewer\\
-I want to be able to access advanced brewing settings\\
-So that I can precisely manipulate a brewing batch.\\
-\\
-As an amateur brewer\\
-I want the AI to control the brewing hardware\\
-So that I don't have to operate the hardware myself\\
-
-As a user\\
-I want the data gathered by the device to be saved\\
-So that if I unplug the machine I won't lose my past brewing information.\\
-
-As a user\\
-I want the device to be waterproof\\
-So that the batch doesn't destroy the computer inside.\\
-
-As a user\\
-I want the device to detect when a batch has gone bad\\
-So that I am not harmed by incorrectly made batches.\\
-
-As a user\\
-I want to be able to select what kind of drink I want\\
-So that I can have a better variety of drinks that it can make.\\
-
-As a user\\
-I want the device to tell me if my inputs would make a bad batch\\
-So that I don't waste ingredients.\\
-
+\subsection{Customer User Stories}
+\begin{itemize}
+	\item As a customer with no brewing experience, I want an interface that is simple and streamlined so that I don't have to deal with the technical details of brewing.
+	\item As a user I want the data gathered by the device to be saved so that if I unplug the machine I won't lose my past brewing information.
+	\item As a hobbyist brewer I want to be able to access advanced brewing settings so that I can precisely manipulate a brewing batch.
+	\item As a user I want the device to be waterproof so that the batch doesn't destroy the computer inside.
+	\item As a customer I want a brewing device that is easy to take apart so that it is easy to clean.
+	\item As a user I want the device to detect when a batch has gone bad so that I am not harmed by incorrectly made batches.
+	\item As an amateur brewer I want the AI to control the brewing hardware so that I don't have to operate the hardware myself.
+	\item As a user I want to be able to select what kind of drink I want so that I can have a better variety of drinks that it can make.
+	\item As an amateur brewer I want a device that will learn how to make better batches so that I can drink tasty alcoholic beverages.
+	\item As a user I want the device to tell me if my inputs would make a bad batch so that I don't waste ingredients.
+\end{itemize}
+\subsection{Technical Requirements}
+Based upon our own ideas of for the project, as well as the concepts from the user stories, the technical requirements can be summarized as follows.
+These requirements are presented in order of their completion.
+I.e., requirements must be completed in their presented order.
+\begin{itemize}
+	\item Assemble a brewing setup.
+	\item Acquire electronics hardware - microcontroller, actuators, and sensors.
+	\item Gather data for training machine learning algorithm.
+	\item Design learning structure for the control policy.
+	\item Create the learning structure and control policy.
+	\item Train the policy.
+	\item Use the policy to automate the fermentation process.
+	\item Create a user interface to monitor and control the brewing process.
+\end{itemize}
 \subsection{Business Requirements}
 As we develop this project we must treat it as if we are starting a business.
 To go about starting a business we have to go through a series of steps to set it up.
@@ -87,5 +91,4 @@ To go about starting a business we have to go through a series of steps to set i
 	\item Interview businesses and homebrewers about their needs as brewers as well as what they want to change about their process.
 	\item After developing a prototype, ask businesses and homebrewers about possible features to add to the device.
 \end{itemize}
-
 \end{document}
