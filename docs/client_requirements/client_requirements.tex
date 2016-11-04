@@ -12,7 +12,7 @@ Aravind Parasurama\\
 Cody Holliday\\
 \texttt{hollidac@oregonstate.edu\\}}
 \date{\today}
-\title{Brew.AI Problem Statement}
+\title{brew.ai Problem Statement}
 \begin{document}
 \maketitle
 
@@ -20,25 +20,30 @@ Cody Holliday\\
 \tableofcontents
 \newpage
 \section{Overview}
-Section 1A describes the scope of the requirements for the Brew.AI project.
+Section 1A describes the scope of the requirements for the brew.ai project.
 Section 2 defines terms used in the document as well as terms that are normally used when discussing the project.
 Section 3 Introduces the purpose of this document.
 Section 4 outlines the project in a high level.
 Section 5 describes the requirements through user stories.
 
 \subsection{Scope}
-Brew.AI is a device that automatically brews mead or beer.
-The scope of this document focuses on the specifications of the device as well as the steps to build a business around it.
-
+brew.ai is a device that automatically brews mead or beer, and learns how to brew better over time.
+The scope of this document focuses on the specifications of the device as well 
+as the steps to build a business around it.
 
 \section{Definitions}
 \begin{itemize}
-	\item Actuators - Electromechanical devices that allow the microprocessor to effect the fermentation process.
-	\item Artificial Intelligence - A learned control policy which controls the microcontroller.
+	\item Actuators - Electromechanical devices that allow the microprocessor to 
+		affect the fermentation process.
+	\item Artificial Intelligence - A learned control policy which controls 
+		the microcontroller.
 	\item AI - See Artificial Intelligence.
-	\item Brewing Setup - The collection of brewing vessels where fermentation occurs.
-	\item Microcontroller - A small, simple computer connected to sensors and actuators on the brewing setup.
-	\item Sensors - A collection of electronic sensors which measure useful data, such as temperature and specific gravity.
+	\item Brewing Setup - The collection of brewing vessels where fermentation 
+		occurs.
+	\item Microcontroller - A small, simple computer connected to sensors and 
+		actuators on the brewing setup.
+	\item Sensors - A collection of electronic sensors which measure useful data, 
+		such as temperature and specific gravity.
 \end{itemize}
 
 \section{Introduction}
@@ -52,43 +57,48 @@ This document aims to assist in
 	\item Incorporating the mindset and wants of the user into the final project.
 \end{itemize}
 To this end, the document provides an overview of the project, followed by the specific requirements.
-The specific requirements will provide context for specific goals, and means by which to measure the attainment of the goals.
+The specific requirements will provide context for specific goals, and means by which to 
+measure the attainment of the goals.
 
 \section{Overall Description}
 \subsection{Product Perspective}
 This project is self contained, but it does use other projects to help create it.
 TensorFlow is a library created by Google for the development of Artificial Intelligence.
+TensorLayer is an extension on top of TensorFlow for Reinforcement Learning extensions.
 
 \subsubsection{User Interfaces}
-The user interface should be formatted for touch screens.
-The interface should have two states: pre-brewing and post-brewing.
+The Android user interface should be designed per Google material design guidelines.
+The Android interface should have two states: pre-brewing and post-brewing.
 The pre-brewing interface will allow users to select the taste of their batch.
-There will also be a section for advanced settings that allow the user to tune how the device will function during the brewing process.
-The post-brewing interface will have the user rate the batch based on different characteristics of the batch as well as a general overall satisfaction with the batch.
+There will also be a section for advanced settings that allow the user to tune how the
+device will function during the brewing process.
+The post-brewing interface will have the user rate the batch based on different 
+characteristics of the batch as well as a general overall satisfaction with the batch.
 
 \subsubsection{Hardware Interfaces}
-The software will interact with the hardware through a microcontroller.
-This microcontroller will then take the commands from the software and translte them into commands for the hardware.
-The microcontroler will also take inputs from sensors on the hardware and give them to the software for processing.
+The Android software will interact with the brewing hardware through a microcontroller.
+The microcontroller will provide the Android software an interface for interacting with 
+the brewing hardware; allowing the software both to modify brewing behavior and to gather
+telemetry about an ongoing process.
 
 \subsubsection{Memory}
-The microcontroller will have limited memory space for instructions and sensory inputs.
-The computer attached to the device will also be limited in memory, so we need to accomidate for that..
+The microcontroller will have limited memory space for instructions and sensory inputs. Any
+process of complexity will need to be kept on the Android system or learning service backend.
 
 \subsubsection{Operations}
 The device will have three states: pre-brewing, brewing, and post-brewing.
 Pre and post brewing are characterized by inputs from the user.
 Pre-brewing will take inputs from the user either in a simple or advanced way.
 Simple inputs are how the mead should taste, and advanced inputs are technical details on how the device will make the brew.
-The brewing state will be just the device brewing the mead without input from the user.
+The brewing state will be the device brewing the mead without input from the user.
 During the brewing state the user can cancel the operation.
 During the post-brewing state the user will have a menu that will have different sections on different aspects of the flavor.
 After completion of the short quiz, these menus will save the data and give it to the AI for analysis.
 Ideally data will be saved at every point in the operation so that when the machine is plugged in again, it can prompt the user if it wants to make the batch again or what the user thinks of the previous batch.
 
 \subsubsection{Site Adaptation Requirements}
-The device will have a sensor that can tell if the deivce is tipped or not so that it does not damage any of the hardware while in operation.
-This sensor will also cause the device to halt if tipped during operation.
+The brewing device will incorporate sensors and microcontrollers that are effectively housed
+in order to prevent any kind of water damage to sensitive parts.
 
 \subsection{Product Functions}
 The project will have two functions:
@@ -103,7 +113,7 @@ These characteristics are reflected in the options given in the user interface.
 
 \subsection{Constraints}
 \subsubsection{Safety Considerations}
-A major consideration for dealing with food or beverages is safety.
+A major consideration for dealing with food or beverages is cleanliness.
 This project will incorporate safety measures so that when the device brews a batch it will be safe for human consumption.
 The device will have to be safeguarded to prevent injury of the user during operation.
 \subsubsection{Hardware Limitations}
@@ -113,21 +123,19 @@ The computer will need an interface for the microcontroller as well.
 When fully complete the hardware will be both modular and waterproof.
 
 \subsection{Assumptions and Dependencies}
-The AI will operate using the TensorFlow libraries designed by Google.
+The AI will operate using the TensorFlow libraries designed by Google, and TensorLayer extension libraries for reinforcement learning.
 
 \section{Specific Requirements}
 \subsection{Customer User Stories}
 \begin{itemize}
-	\item As a customer with no brewing experience, I want an interface that is simple and streamlined so that I don't have to deal with the technical details of brewing.
-	\item As a user I want the data gathered by the device to be saved so that if I unplug the machine I won't lose my past brewing information.
-	\item As a hobbyist brewer I want to be able to access advanced brewing settings so that I can precisely manipulate a brewing batch.
-	\item As a user I want the device to be waterproof so that the batch doesn't destroy the computer inside.
-	\item As a customer I want a brewing device that is easy to take apart so that it is easy to clean.
-	\item As a user I want the device to detect when a batch has gone bad so that I am not harmed by incorrectly made batches.
-	\item As an amateur brewer I want the AI to control the brewing hardware so that I don't have to operate the hardware myself.
-	\item As a user I want to be able to select what kind of drink I want so that I can have a better variety of drinks that it can make.
-	\item As an amateur brewer I want a device that will learn how to make better batches so that I can drink tasty alcoholic beverages.
-	\item As a user I want the device to tell me if my inputs would make a bad batch so that I don't waste ingredients.
+	\item As an amateur with no brewing experience, I want an interface that is simple and streamlined so that I don't have to deal with the technical details of brewing.
+	\item As an amateur I want the device to detect when a batch is bad so that I am not harmed by incorrectly made batches.
+	\item As an amateur I want the AI to control the brewing hardware and improve on recipes so that I don't have to operate the hardware myself.
+	\item As an amateur I want to be able to select what kind of drink I want so that I can have a better variety of drinks that it can make.
+	\item As an amateur I want the device to tell me if my inputs would make a bad batch so that I don't waste ingredients.
+	\item As a professional brewer I want to be able to access advanced brewing settings so that I can precisely manipulate a brewing batch.
+	\item As both a professional and amateur I want the data gathered by the device to be saved so that if I unplug the machine I won't lose my past brewing information.
+	\item As both a professional and amateur user, I want a brewing device that is easy to maintain.
 \end{itemize}
 \subsection{Technical Requirements}
 Based upon our own ideas of for the project, as well as the concepts from the user stories, the technical requirements can be summarized as follows.
