@@ -4,6 +4,18 @@
 \usepackage{pgfgantt}
 \geometry{textheight=9.5in, textwidth=7in}
 
+\newcommand{\subparagraph}{}
+\usepackage{titlesec}
+
+\titleformat{\section}[block]{\bfseries\Large}{\thesection}{0.4em}{}
+\titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{0.4em}{}
+\titleformat{\subsubsection}[block]{\bfseries\normalsize}{\thesubsubsection}{0.4em}{}
+\setlength{\parindent}{0pt}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+
 \author{Connor Yates\\
 \texttt{yatesco@oregonstate.edu\\}
 \and
