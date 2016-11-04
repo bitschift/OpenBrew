@@ -33,14 +33,15 @@ Cody Holliday\\
 \tableofcontents
 \newpage
 \section{Overview}
-Section 1A describes the scope of the requirements for the brew.ai project.
+Section 1.1 describes the scope of the requirements for the brew.ai project.
 Section 2 defines terms used in the document as well as terms that are normally used when discussing the project.
 Section 3 Introduces the purpose of this document.
 Section 4 outlines the project in a high level.
 Section 5 describes the requirements through user stories.
+Section 6 describes the stretch goals for the project.
 
 \subsection{Scope}
-brew.ai is a device that automatically brews mead or beer, and learns how to brew better over time.
+brew.ai is a device that automatically brews mead and learns how to brew better over time.
 The scope of this document focuses on the specifications of the device as well 
 as the steps to build a business around it.
 
@@ -62,12 +63,12 @@ as the steps to build a business around it.
 \section{Introduction}
 Broadly, this document serves to layout the requirements of this project.
 These requirements focus on both business and technological aspects.
-This document aims to assist in
+This document aims to assist in:
 \begin{itemize}
 	\item Providing specific deliverables and deadlines for the developers.
 	\item Define the initial scope of the project.
 	\item Create a structure to advance the business possibilities of the project.
-	\item Incorporating the mindset and wants of the user into the final project.
+	\item Incorporating the mindset, wants, and needs of the user into the final project.
 \end{itemize}
 To this end, the document provides an overview of the project, followed by the specific requirements.
 The specific requirements will provide context for specific goals, and means by which to 
@@ -85,13 +86,13 @@ The Android interface should have two states: pre-brewing and post-brewing.
 The pre-brewing interface will allow users to select the taste of their batch.
 There will also be a section for advanced settings that allow the user to tune how the
 device will function during the brewing process.
-The post-brewing interface will have the user rate the batch based on different 
+The post-brewing interface will have the user rate the batch based on predefined 
 characteristics of the batch as well as a general overall satisfaction with the batch.
 
 \subsubsection{Hardware Interfaces}
 The Android software will interact with the brewing hardware through a microcontroller.
 The microcontroller will provide the Android software an interface for interacting with 
-the brewing hardware; allowing the software both to modify brewing behavior and to gather
+the brewing hardware; allowing the software to both modify brewing behavior and to gather
 telemetry about an ongoing process.
 
 \subsubsection{Hardware Devices}
@@ -111,8 +112,8 @@ The device will have three states: pre-brewing, brewing, and post-brewing.
 Pre and post brewing are characterized by inputs from the user.
 Pre-brewing will take inputs from the user either in a simple or advanced way.
 Simple inputs are how the mead should taste, and advanced inputs are technical details on how the device will make the brew.
-The brewing state will be the device brewing the mead without input from the user.
-During the brewing state the user can cancel the operation.
+The brewing state will entail the device brewing the mead without input from the user.
+During the brewing state, the user only has the option to cancel the brewing process..
 During the post-brewing state the user will have a menu that will have different sections on different aspects of the flavor.
 After completion of the short quiz, these menus will save the data and give it to the AI for analysis.
 Ideally data will be saved at every point in the operation so that when the machine is plugged in again, it can prompt the user if it wants to make the batch again or what the user thinks of the previous batch.
@@ -124,7 +125,7 @@ in order to prevent any kind of water damage to sensitive parts.
 \subsection{Product Functions}
 The project will have two functions:
 \begin{itemize}
-	\item Brew beer or mead
+	\item Brew mead
 	\item Learn from the user how the previous batch tastes
 \end{itemize}
 
@@ -141,7 +142,7 @@ The device will have to be safeguarded to prevent injury of the user during oper
 The hardware will be inexpensive as well as easy to incorporate into a singular device.
 The microcontroller will have to interface well with this device as well as the computer giving it instructions.
 The computer will need an interface for the microcontroller as well.
-When fully complete the hardware will be both modular and waterproof.
+When fully complete the hardware will be both modular and water resistant..
 
 \subsection{Assumptions and Dependencies}
 The AI will operate using the TensorFlow libraries designed by Google, and TensorLayer extension libraries for reinforcement learning.
@@ -153,10 +154,10 @@ The AI will operate using the TensorFlow libraries designed by Google, and Tenso
 		occassional hobby, quality results will be accessible with brew.ai. An easy to set up, fully linked automated brewing system can
 		become an integral part of holiday cooking when brewing for the family.
 	\item A backend learning service attached to the device can help two classes of consumers. The amateur brewer can utilize this 
-		service to effortlessly create simple and unique flavors with beer and mead. The professional brewer can utilize this service
+		service to effortlessly create simple and unique flavors of mead. The professional brewer can utilize this service
 		to better improve recipes that undergo constant revision.
 	\item A simple, preprogrammed microcontroller solution for controlling the brewing hardware helps keep the technology out of the way
-		of consumers. Having less functionality on the microcontroller removes any necessity of updates on that level, and also makes
+		of consumers. Having less functionality on the microcontroller removes any necessity for updates on that level, and also makes
 		the product more servicable as users can simply swap out hardware devices on their systems.
 	\item An Android client provides a friendly and easy to use interface for the consumer. The nature of touch screen interfaces lends 
 		itself to an easy to use, but powerful layout. The ability to deliver over the air updates on the fly to Android applications
@@ -217,13 +218,18 @@ I.e., requirements must be completed in their presented order.
 \end{ganttchart}
 \subsection{Business Requirements}
 As we develop this project we must treat it as if we are starting a business.
-To go about starting a business we have to go through a series of steps to set it up.
+The steps to start this process are:
 \begin{itemize}
 	\item Develop a business plan using the Lean Canvas Model
 	\item Interview businesses and homebrewers about their needs as brewers as well as what they want to change about their process.
 	\item After developing a prototype, ask businesses and homebrewers about possible features to add to the device.
 	\item Make a pitch deck.
 	\item Pitch the idea at an event.
-	\item Interview with a potential customer.
+	\item Interview with 10 potential customers.
 \end{itemize}
+
+\section{Stretch Goals}
+The stretch goal of the project is to implement beer brewing functionality.
+This would include modification of the hardware to include the usage of hopps in the brewing process.
+
 \end{document}
