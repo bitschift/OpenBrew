@@ -1,6 +1,7 @@
 \documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
 \pagestyle{empty}
 \usepackage{geometry}
+\usepackage{pgfgantt}
 \geometry{textheight=9.5in, textwidth=7in}
 
 \author{Connor Yates\\
@@ -151,6 +152,17 @@ I.e., requirements must be completed in their presented order.
 	\item Use the policy to automate the fermentation process.
 	\item Create a user interface to monitor and control the brewing process.
 \end{itemize}
+\begin{ganttchart}{3}{8}
+	\gantttitle{2016-2017}{6} \\
+	\gantttitlelist{3,...,8}{1} \\
+	\ganttgroup{Assemble brewing setup}{3}{6} \\
+	\ganttgroup{Build software solution}{6}{8} \\
+	\ganttbar{Acquire electronics hardware}{3}{4} \\
+	\ganttlinkedbar{Construct brewing hardware}{5}{6} \ganttnewline
+	\ganttlinkedmilestone{Hardware complete}{6} \ganttnewline
+	\ganttlinkedbar{Build Android client}{5}{7} \ganttnewline
+	\ganttlinkedbar{Build learning backend}{6}{8}
+\end{ganttchart}
 \subsection{Business Requirements}
 As we develop this project we must treat it as if we are starting a business.
 To go about starting a business we have to go through a series of steps to set it up.
@@ -158,5 +170,8 @@ To go about starting a business we have to go through a series of steps to set i
 	\item Develop a business plan using the Lean Canvas Model
 	\item Interview businesses and homebrewers about their needs as brewers as well as what they want to change about their process.
 	\item After developing a prototype, ask businesses and homebrewers about possible features to add to the device.
+	\item Make a pitch deck.
+	\item Pitch the idea at an event.
+	\item Interview with a potential customer.
 \end{itemize}
 \end{document}
