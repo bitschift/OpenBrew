@@ -2,8 +2,10 @@
 .*.swp
 
 # LaTeX
-docs/*.aux
-docs/*.dvi
-docs/*.out
-docs/*.ps
-docs/*.log
+docs/*/*.aux
+docs/*/*.dvi
+docs/*/*.out
+docs/*/*.ps
+docs/*/*.log
+docs/*/*.toc
+docs/*/*.pdf
