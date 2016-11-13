@@ -9,3 +9,5 @@ docs/*/*.ps
 docs/*/*.log
 docs/*/*.toc
 docs/*/*.pdf
+docs/*/*.bbl
+docs/*/*.blg
