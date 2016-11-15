@@ -53,11 +53,31 @@ Decisions made in one section may effect the choices in another section.
 However, there is still a large degree of freedom between each section, especially with regards to the preexisting software packages that are available.
 
 \subsection{Learning Algorithm}
+The class of learning algorithm used is a major choice when setting up the machine learning aspect of the project.
+
+\subsubsection{Q-Learning}
+\subsubsection{Bayesian Modeling with Model Averaging}
+\subsubsection{Deep Learning}
+Added not because I think it is a good choice for this type of problem, but rather because people like to talk about ``deep learning'', so this section aims to provide evidence as to why deep learning is not applicable to this type of problem.
+\subsubsection{Genetic Algorithms}
+
 
 \subsection{Decision Making Structure}
+Some of these methods presented are heavily tied to a specific type of learning algorithm, eg Bayesian networks are mostly only of use when paired with Bayesian models.
+However, the differences between these types of structures helps define the state space the learner will operate over.
+For example, a neural network can be used as a continuous approximate of a Q-table in continuous reinforcement learning domains.
+The decisions present in this section will shape how the problem domain is modeled.
+\subsubsection{Neural Networks}
+\subsubsection{State-Action Table}
+\subsubsection{Bayesian Networks}
 
 \subsection{Preexisting Implementations}
+This section looks at pre-implemented libraries that are available for machine learning routines.
+Considerations on memory usage, programming language API, and available functionality are the primary concerns for this sections.
 \subsubsection{Theano}
+\subsubsection{Keras/Tensorflow}
+\subsubsection{FANN}
+\subsubsection{Torch}
 
 
 
