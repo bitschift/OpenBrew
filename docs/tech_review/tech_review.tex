@@ -118,6 +118,8 @@ This action is then acted upon by the agent, and the cycle begins again with sen
 One issue with this method is that the entire table has to be stored by the agent at all times.
 It does not have to be actively loaded into memory constantly, but the table quickly takes up room as the dimensionality of the state grows.
 This makes the state-action table representation ill-suited to high-dimensional problems.
+However, while this makes this solution infeasible in high-dimensional problems, it creates a strong case for smaller-dimensional problems.
+Lookup tables are incredibly quick to access and edit, which allows the agent to have speedy response times in both learning and acting phases.
 
 \subsubsection{Bayesian Networks}
 Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
