@@ -67,8 +67,13 @@ Bluetooth will link the brewing hardware system with the Android front-end, as w
 
 \section{Machine Learning \\ -- \textbf{\textit{Connor Yates}}}
 \subsection{Introduction}
-While a vague title, this section investigaes one of the defining features of brew.ai.
+While a vague title, this section investigates one of the defining features of brew.ai.
 In order to create an automated brewing system that not only controls the process in an automated fashion, but can learn from mistakes and improve upon the product, a method of artificial intelligence must be used.
+The artificial intelligence that must be imbued in the project has the specific goal of controlling the brewing process.
+This is done by sending high level signals such as ``raise temperature'' or ``reduce stir rate'' to the hardware motor controller discussed in Aravind's section.
+In order to make these decisions, a continual stream of data from the sensors is fed into the artificial intelligence module, which inform the decision.
+Learning will be done in a ``online'' manner, since this allows improvements to the controller policy to happen in between batches \cite{RussellNorvig}.
+
 There are several parts to the artificial intelligence setup for the brew.ai project.
 This section will focus on three main aspects: learning algorithm, decision making structure, and preexisting implementations.
 It is important to note that these aspects are not mutually exclusive. 
@@ -77,31 +82,127 @@ However, there is still a large degree of freedom between each section, especial
 
 \subsection{Learning Algorithm}
 The class of learning algorithm used is a major choice when setting up the machine learning aspect of the project.
-
+This will dictate how the controller policy will behave while we try to feed it data, which is the most complex part of the machine learning subsection.
 \subsubsection{Q-Learning}
+Q-learning is a traditional reinforcement learning technique where all possible states and actions are paired up, and a reward mapping between the current state and potential actions can be learned and exploited \cite{SuttonBarto}.
+This method is based off a dynamic programming representation of learning, where knowledge from nearby states gets combined into the final value of the state-action pair.
+This is important because it creates a solid method of temporal-difference learning \cite{SuttonBarto}, as it becomes possible to associate rewards to series of actions.
+As more chains of actions are taken, it can become clear to the agent which actions are preferable in which states.
+By learning the action-value function, which returns the most favorable reward at a given state, the agent learns to act optimally within the world.
 \subsubsection{Bayesian Modeling with Model Averaging}
-\subsubsection{Deep Learning}
-Added not because I think it is a good choice for this type of problem, but rather because people like to talk about ``deep learning'', so this section aims to provide evidence as to why deep learning is not applicable to this type of problem.
-\subsubsection{Genetic Algorithms}
+Based on the standard Bayesian probabilistic equations, Bayesian modeling uses Bayesian networks as a framework for learning \cite{RussellNorvig}.
 
+While there are different approaches in which Bayesian modeling can be used, the most applicable to our domain is the application known as structure learning \cite{RussellNorvig}.
+In this method, machine learning techniques are used to determine the structure of the Bayesian network which best represents the data.
+
+With smaller data sets, such as what I anticipate with this project, a method can be used for Bayesian modeling where multiple models are produced with various dimensionality requirements, and then averaged to create a single model \cite{RussellNorvig}
+This allows us to create a better fitting model without needing large amounts of data like other methods would require.
+
+\subsubsection{Deep Learning}
+Deep learning is a popular subject in today's media, with the success of projects like AlphaGo grabbing headlines \cite{alphago}.
+Conceptually, deep learning focuses on leveraging smart methods of analyzing data to extract high level abstractions and features within complex data sets \cite{Goodfellow-et-al-2016-Book}.
+While the technology behind deep learning is impressive, it heavily relies on utilizing massive datasets in order to learn complex, obscure patterns.
+This is fundamentally impossible with our project, since we do not have the time nor budget to spend a year gathering data.
+
+\subsubsection{Genetic Algorithms}
+Genetic algorithms look at creating powerful solutions to problems by leveraging biologically-inspired techniques \cite{RussellNorvig}.
+The concepts of mutation, selection, and genetic crossover have been successfully applied to a variety of state-search problems in the past \cite{RussellNorvig}.
+Agent policies, which govern their actions, can be represented as numerical arrays.
+The specific transformation for this depends on the model used (ie, neural networks vs state tables).
+In either case, genetic algorithms use a population of agent policies which all run and receive a reward.
+These rewards are used to calculate the fitness of an policy, which determines how likely the policy is to create offspring and continue to exist \cite{RussellNorvig}.
+At the end of each generation of policy performance, the rewards are assigned, fitness is determined, and the creation of new policies begins.
+This method is generally modeled after biological reproduction, and can use concepts such as genome crossover and genetic mutation to create new policies to be evaluated.
 
 \subsection{Decision Making Structure}
 Some of these methods presented are heavily tied to a specific type of learning algorithm, eg Bayesian networks are mostly only of use when paired with Bayesian models.
 However, the differences between these types of structures helps define the state space the learner will operate over.
 For example, a neural network can be used as a continuous approximate of a Q-table in continuous reinforcement learning domains.
 The decisions present in this section will shape how the problem domain is modeled.
+
 \subsubsection{Neural Networks}
+Neural networks are a computational equivalent to neurons within human brains \cite{SuttonBarto}.
+The network is made from a series of individual neurons, which are connected in layers.
+An individual neuron can be though of as a single linear function: it receives an input signal, applies some weighting and bias, and creates an output signal.
+The individual neuron is not incredibly powerful, but when combined in series, they gain the ability to create complex function approximates \cite{SuttonBarto}.
+
+When the weights to individual neurons are set correctly, the connected series of neurons can approximate complex phenomena that would be near impossible to model by hand.
+This is one of the major appeals to using neural networks for machine learning tasks.
+Additionally, neurons typically receive floating point numbers as input, which does not limit them to discrete domains.
+As networks are built, there is no theoretical limit to the number of input or output signals.
+This is useful as it allows the network to easily receive each sensor as an input, and send signals to each actuator as output.
+
 \subsubsection{State-Action Table}
+State-action tables are a simple method of determine what actions to take.
+Simply put, the agent looks at what state it is in - the status of all the information the sensors can provide to the agent.
+This state is used as a key which is looked up in the table, where an action is read out.
+This action is then acted upon by the agent, and the cycle begins again with sensing.
+
+One issue with this method is that the entire table has to be stored by the agent at all times.
+It does not have to be actively loaded into memory constantly, but the table quickly takes up room as the dimensionality of the state grows.
+This makes the state-action table representation ill-suited to high-dimensional problems.
+However, while this makes this solution infeasible in high-dimensional problems, it creates a strong case for smaller-dimensional problems.
+Lookup tables are incredibly quick to access and edit, which allows the agent to have speedy response times in both learning and acting phases.
+
 \subsubsection{Bayesian Networks}
+Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
+They allow us to mathematically represent dependencies between fields of information.
+For example, the question ``Is it warm in the house?'' is dependent upon the answers to ``Is it summer?'' and ``Do the tenants have a heater?''.
+Depending on the status of the answers to the latter questions, we can make a more informed decision about the status of warmth in the house.
+
+Within the context of our problem, a Bayesian network provides the ability to take current sensor readings, and use those to populate a probability table which represents our system.
+The dimensionality of that table is determined by the expert in the system (myself, in our case) but the Bayesian network provides the structure on how to fill out the table.
+This table is then used to calculate desired probabilities about how much impact given actions would have on the system, which would give us the necessary information to make a decision about the next action to take.
 
 \subsection{Preexisting Implementations}
 This section looks at pre-implemented libraries that are available for machine learning routines.
 Considerations on memory usage, programming language API, and available functionality are the primary concerns for this sections.
-\subsubsection{Theano}
-\subsubsection{Keras/Tensorflow}
-\subsubsection{FANN}
-\subsubsection{Torch}
+While there are many different machine learning and artificial intelligence libraries available, the ones presented below were selected for their immediate relevance to the project.
+\subsubsection{Keras}
+Keras is a high level machine learning suite built for the Python programming language \cite{keras}.
+It is billed as a deep learning library for Python, but as it provides a standard implementation of neural networks, can be used for any learning method involving neural networks.
+A major advantage to this library is that while it provides a simple, high level API for Python, it relies on either Theano or Tensorflow as the mathematical back-end.
+Both of these packages are heavily optimized, GPU enabled linear algebra suites which can greatly increase the speed of machine learning programs.
 
+But while Keras provides strong and fast neural network manipulation within its API, it provides little to no support for general artificial intelligence and machine learning algorithms, such as a basic evolutionary algorithm implementation to work off of.
+If this package is used, it would require a non-trivial amount of work to successfully implement the chosen learning algorithm.
+
+\subsubsection{FANN}
+FANN, the Fast Artificial Neural Networks library, is a singular purpose, C language library with bindings in C++ \cite{fann}.
+It is built to create basic neural networks and keep the computational overhead a light as possible.
+Since it is built from a strictly typed language, with GPU support built in, and a singular purpose in mind, FANN is able to optimize its performance over common neural network operations \cite{fann}.
+However, this specialization comes at the cost of being inflexible and less user friendly.
+Using FANN would also require hand-building the higher-level machine learning algorithms, but instead of in a softer language like Python, direct interactions with the FANN library occurs through C/C++.
+Since the final solution is not designed with breakneck speed in mind, the benefits in performance are quickly outweighed by the costs in future development time.
+
+\subsubsection{Torch}
+Torch is a self described ``scientific computing framework with wide support for machine learning algorithms that puts GPUs first'' \cite{torch}.
+It specializes in providing a more general framework than the previous two entries, with the goal of being useful to different types of scientific computing and research.
+Torch has access to powerful GPU libraries and fast internal C routines, but provides a high level scripting language interface similar to Keras.
+In the case of Torch, the LUAJIT language is used, which is a special version of the traditional LUA scripting language that utilizes a just-in-time compiler \cite{torch}.
+
+Of special note is the community repository of commonly implemented-packages written for Torch.
+While all three presented technologies are open source, Torch is the only one boasting of a strong community driven repository of useful extensions to the base package.
+
+\subsection{Recommendation}
+For the final recommendation of the presented technologies, I put forward an initial combination of Q-learning with neural networks using the Keras library.
+Q-Learning is a strong, well proven method of reinforcement learning, and in our project, the ability to assign rewards to performances will be an easy and effective method of providing a learning signal.
+While Q-value tables are commonly used in toy problems, neural networks can be used to approximate q-tables in more fuzzy, continuous domains.
+Genetic algorithms are an attractive proposal for this problem since they naturally grow outward from a single starting point.
+But in order for these algorithms to be effective, there needs to be a significant population size with enough generations to allow for convergence to a single performance.
+This level of simulation and real world data collecting is infeasible with our time and resources.
+
+I choose to use Keras for this project mainly due to my familiarity with Python. 
+Keras is a library I have used before, so I am more intimate with its quirks, and I feel confident in being able to build missing components from scratch quickly and efficiently in Python.
+
+If there is time during the project, after we have collected our data I am curious as to how a combination Q-learning and Bayesian model search would perform.
+In this idea, Bayseian model generation would generate a high level model of state transitions, and provide a belief as to what state the system is in.
+From this point, Q-learning would be applied utilizing a Q-value tabnle to learn optimal actions over the states generated by the Bayesian modeling.
+I believe that this could help bootstrap the learning of optimal actions in a complex process with smaller data sets.
+While intriguing, I leave this topic open to further discussion and research and recommend Q-learning with neural networks using the Keras library
+\newpage
+\bibliography{tech_review}
+\bibliographystyle{ieeetr}
 
 
 \end{document}
