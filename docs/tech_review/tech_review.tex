@@ -96,8 +96,23 @@ Some of these methods presented are heavily tied to a specific type of learning 
 However, the differences between these types of structures helps define the state space the learner will operate over.
 For example, a neural network can be used as a continuous approximate of a Q-table in continuous reinforcement learning domains.
 The decisions present in this section will shape how the problem domain is modeled.
+
 \subsubsection{Neural Networks}
+Neural networks are a computational equivalent to neurons within human brains \cite{SuttonBarto}.
+The network is made from a series of individual neurons, which are connected in layers.
+An individual neuron can be though of as a single linear function: it receives an input signal, applies some weighting and bias, and creates an output signal.
+The individual neuron is not incredibly powerful, but when combined in series, they gain the ability to create complex function approximates \cite{SuttonBarto}.
+
+When the weights to individual neurons are set correctly, the connected series of neurons can approximate complex phenomena that would be near impossible to model by hand.
+This is one of the major appeals to using neural networks for machine learning tasks.
+Additionally, neurons typically receive floating point numbers as input, which does not limit them to discrete domains.
+As networks are built, there is no theoretical limit to the number of input or output signals.
+This is useful as it allows the network to easily receive each sensor as an input, and send signals to each actuator as output.
+
 \subsubsection{State-Action Table}
+State-action tables are a simple method of determine what actions to take.
+Simply put, the agent looks at what state it is in - the stat
+
 \subsubsection{Bayesian Networks}
 Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
 They allow us to mathematically represent dependencies between fields of information.
