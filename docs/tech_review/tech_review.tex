@@ -153,6 +153,13 @@ Using FANN would also require hand-building the higher-level machine learning al
 Since the final solution is not designed with breakneck speed in mind, the benefits in performance are quickly outweighed by the costs in future development time.
 
 \subsubsection{Torch}
+Torch is a self described ``scientific computing framework with wide support for machine learning algorithms that puts GPUs first'' \cite{torch}.
+It specializes in providing a more general framework than the previous two entries, with the goal of being useful to different types of scientific computing and research.
+Torch has access to powerful GPU libraries and fast internal C routines, but provides a high level scripting language interface similar to Keras.
+In the case of Torch, the LUAJIT language is used, which is a special version of the traditional LUA scripting language that utilizes a just-in-time compiler \cite{torch}.
+
+Of special note is the community repository of commonly implemented-packages written for Torch.
+While all three presented technologies are open source, Torch is the only one boasting of a strong community driven repository of useful extensions to the base package.
 
 \subsection{Recommendation}
 \subsubsection{Learning Algorithm}
