@@ -63,8 +63,6 @@ The carbon sensor will serve the purpose of measuring fermentation levels.
 \subsection{Bluetooth}
 Bluetooth will link the brewing hardware system with the Android front-end, as well as the learning back-end.
 
-\section{User Interface}
-
 \section{Machine Learning \\ -- \textbf{\textit{Connor Yates}}}
 \subsection{Introduction}
 While a vague title, this section investigates one of the defining features of brew.ai.
@@ -201,8 +199,9 @@ From this point, Q-learning would be applied utilizing a Q-value tabnle to learn
 I believe that this could help bootstrap the learning of optimal actions in a complex process with smaller data sets.
 While intriguing, I leave this topic open to further discussion and research and recommend Q-learning with neural networks using the Keras library
 \newpage
-\section{User Interface Device}
-
+\section{User Interface \\ -- \textbf{\textit{Cody Holliday}}}
+\subsection{User Interface Device}
+sub
 \subsubsection{Android}
 An Android device would fit a user interface well, as it already integrates touch control features into the platform.
 This allows us to easily create an interface for the device, as all it would require is an Android app to display and receive data.
@@ -215,25 +214,37 @@ A touch screen would place all of the processing and rendering of the interface 
 The advantage of this choice would be to reduce the complexity of the system, since it is only a screen.
 Touch controls would be easily implemented using the Raspberry Pi touch display (CITEsa).
 The interface itself can be programmed in the Kivy Python GUI library.
-This method does put a larger load on the Raspberry Pi than the Android method, and it is difficult to set up.
+This method does put a larger load on the Raspberry Pi than the Android method, and it is more difficult to set up.
 
 https://www.raspberrypi.org/blog/the-eagerly-awaited-raspberry-pi-display/ 
 
 \subsubsection{Physical Buttons And Screen}
-This option poses a 
+This option is similar to the touch screen, but simpler to set up.
+Buttons are wired into the Raspberry Pi, and a screen is attached..
+Touch screens require higher processing power from a device than a simple button and screen interface.
+There are multiple ways to handle the display on the screen.
+The display could just be a series of pictures sent to the display, or the interface would be written in the Python Kivy language.
 
-\section{Data Generation and Flow}
+
+\subsection{Data Generation and Flow}
 Android is the most likely choice of the previous three, so this section is a building on that assumption.
 This explores three different ways that data from the microcontroller can be analyzed and subsequently graphed.
 
 \subsubsection{Data Analyzed on Raspberry Pi, Graph on Raspberry Pi}
 If both analysis of data and graphing were only done on the Raspberry Pi, then transfer of information would be much simpler.
+The data is sent from the microcontroller to the Pi, then the Pi sends a graph to the interface.
+Python would be used to analyze the data and a library called Plotly could be used to graph that data.
 
-This coordination issue poses a much more complex problem 
 
+https://plot.ly/python/
 
 \subsubsection{Data Analyzed on Raspberry Pi, Graph on Interface}
+Spreading the processing of the data over both devices reduces the overall load on both.
+Graphing libraries are available on Android to make graphing simpler.
+The advantage of native graphing is that the graph can be easily rendered for an Android device.
+Sending a graph of image to the device could result in scaling and color issues.
 
+http://www.android-graphview.org/
 
 \subsubsection{Data Analyzed on Interface, Graph on Interface}
 There are a couple of ways to handle the flow of data in this system.
@@ -248,9 +259,18 @@ In order to stream the data through the Pi, input and output would have to be co
 This method could lead to concurrency issues, and that is beyond the scope of this project.
 
 
+\subsection{Interface Between Front End and Device}
+The assumption for this section is that the interface is independent of the Raspberry Pi.
+
+\subsubsection{USB}
 
 
-\section{Interface Between Front End and Device}
+\subsubsection{BlueTooth}
+
+
+\subsubsection{Wifi Direct}
+
+
 \bibliography{tech_review}
 \bibliographystyle{ieeetr}
 
