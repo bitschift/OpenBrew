@@ -201,6 +201,56 @@ From this point, Q-learning would be applied utilizing a Q-value tabnle to learn
 I believe that this could help bootstrap the learning of optimal actions in a complex process with smaller data sets.
 While intriguing, I leave this topic open to further discussion and research and recommend Q-learning with neural networks using the Keras library
 \newpage
+\section{User Interface Device}
+
+\subsubsection{Android}
+An Android device would fit a user interface well, as it already integrates touch control features into the platform.
+This allows us to easily create an interface for the device, as all it would require is an Android app to display and receive data.
+The trickiest part for this option is communication of data between the Android device and the hardware.
+Several options are available depending on the method used to connect the device to the hardware.
+However, inherent organization in the Android app framework helps with readability and simplicity of the code.
+
+\subsubsection{Touch Screen}
+A touch screen would place all of the processing and rendering of the interface onto the Raspberry Pi.
+The advantage of this choice would be to reduce the complexity of the system, since it is only a screen.
+Touch controls would be easily implemented using the Raspberry Pi touch display (CITEsa).
+The interface itself can be programmed in the Kivy Python GUI library.
+This method does put a larger load on the Raspberry Pi than the Android method, and it is difficult to set up.
+
+https://www.raspberrypi.org/blog/the-eagerly-awaited-raspberry-pi-display/ 
+
+\subsubsection{Physical Buttons And Screen}
+This option poses a 
+
+\section{Data Generation and Flow}
+Android is the most likely choice of the previous three, so this section is a building on that assumption.
+This explores three different ways that data from the microcontroller can be analyzed and subsequently graphed.
+
+\subsubsection{Data Analyzed on Raspberry Pi, Graph on Raspberry Pi}
+If both analysis of data and graphing were only done on the Raspberry Pi, then transfer of information would be much simpler.
+
+This coordination issue poses a much more complex problem 
+
+
+\subsubsection{Data Analyzed on Raspberry Pi, Graph on Interface}
+
+
+\subsubsection{Data Analyzed on Interface, Graph on Interface}
+There are a couple of ways to handle the flow of data in this system.
+Either the data is streamed through the Raspberry  Pi, or the interface is hooked directly into the sensors of the hardware.
+The simplest way to stream data from the microcontroller would be through BlueTooth.
+The microcontroller would connect directly to the interface and stream the data.
+This would make the analysis of data completely independent in both the Raspberry Pi and the interface.
+Making these independent would put less of a load on the Pi so that it can utilize the CPU solely for Machine Learning.
+However, this could lead to differences in results due to the differences in architecture and language implementation.
+Alternatively, the data could be streamed through the Raspberry Pi.
+In order to stream the data through the Pi, input and output would have to be coordinated between the microcontroller and the interface.
+This method could lead to concurrency issues, and that is beyond the scope of this project.
+
+
+
+
+\section{Interface Between Front End and Device}
 \bibliography{tech_review}
 \bibliographystyle{ieeetr}
 
