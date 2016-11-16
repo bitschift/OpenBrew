@@ -44,8 +44,13 @@ Finally, each broad topic will have a recommendation about which specific techno
 
 \section{Machine Learning \\ -- \textbf{\textit{Connor Yates}}}
 \subsection{Introduction}
-While a vague title, this section investigaes one of the defining features of brew.ai.
+While a vague title, this section investigates one of the defining features of brew.ai.
 In order to create an automated brewing system that not only controls the process in an automated fashion, but can learn from mistakes and improve upon the product, a method of artificial intelligence must be used.
+The artificial intelligence that must be imbued in the project has the specific goal of controlling the brewing process.
+This is done by sending high level signals such as ``raise temperature'' or ``reduce stir rate'' to the hardware motor controller discussed in Aravind's section.
+In order to make these decisions, a continual stream of data from the sensors is fed into the artificial intelligence module, which inform the decision.
+Learning will be done in a ``online'' manner, since this allows improvements to the controller policy to happen in between batches \cite{RussellNorvig}.
+
 There are several parts to the artificial intelligence setup for the brew.ai project.
 This section will focus on three main aspects: learning algorithm, decision making structure, and preexisting implementations.
 It is important to note that these aspects are not mutually exclusive. 
