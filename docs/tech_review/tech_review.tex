@@ -217,11 +217,9 @@ However, inherent organization in the Android app framework helps with readabili
 \subsubsection{Touch Screen}
 A touch screen would place all of the processing and rendering of the interface onto the Raspberry Pi.
 The advantage of this choice would be to reduce the complexity of the system, since it is only a screen.
-Touch controls would be easily implemented using the Raspberry Pi touch display (CITEsa).
+Touch controls would be easily implemented using the Raspberry Pi touch display \cite{TouchScreen}.
 The interface itself can be programmed in the Kivy Python GUI library \cite{Kivy}.
 This method does put a larger load on the Raspberry Pi than the Android method, and it is more difficult to set up.
-
-https://www.raspberrypi.org/blog/the-eagerly-awaited-raspberry-pi-display/ 
 
 \subsubsection{Physical Buttons And Screen}
 This option is similar to the touch screen, but simpler to set up.
@@ -238,18 +236,13 @@ This explores three different ways that data from the microcontroller can be ana
 \subsubsection{Data Analyzed on Controller, Graph on Controller}
 If both analysis of data and graphing were only done on the Raspberry Pi, then transfer of information would be much simpler.
 The data is sent from the microcontroller to the Pi, then the Pi sends a graph to the interface.
-Python would be used to analyze the data and a library called Plotly could be used to graph that data.
-
-
-https://plot.ly/python/
+Python would be used to analyze the data and a library called Plotly could be used to graph that data \cite{Plotly}.
 
 \subsubsection{Data Analyzed on Controller, Graph on Interface}
 Spreading the processing of the data over both devices reduces the overall load on both.
-Graphing libraries are available on Android to make graphing simpler.
+Graphing libraries are available on Android to make graphing simpler \cite{Graphview}.
 The advantage of native graphing is that the graph can be easily rendered for an Android device.
 Sending a graph of image to the device could result in scaling and color issues.
-
-http://www.android-graphview.org/
 
 \subsubsection{Data Analyzed on Interface, Graph on Interface}
 There are a couple of ways to handle the flow of data in this system.
@@ -267,7 +260,7 @@ This method could lead to concurrency issues, and that is beyond the scope of th
 The assumption for this section is that the interface is independent of the Raspberry Pi.
 
 \subsubsection{USB}
-Options are available for Android to communicate with a computer via USB.
+There is an interface option available for Android to communicate with a computer via USB \cite{USB}.
 This would be a reliable data transfer method as there would be no possibility for interference.
 Hard wiring also means that devices would not need to find each other again if power is lost.
 Given that lives do not depend on brew.ai, it has to be assumed that the device will lose power at some point.
@@ -276,21 +269,17 @@ A USB connection would make startup and resuming simpler and faster than wireles
 http://stackoverflow.com/questions/21808223/send-data-through-usb-from-android-app-to-pc
 
 \subsubsection{BlueTooth}
-BlueTooth is a common interface for many devices, including Android.
+BlueTooth is a common interface for many devices, including Android \cite{BlueTooth}.
 Using this communication method could allow the interface to connect directly to the microcontroller and receive data.
 This could be useful to provide instant measurements of the batch without having to connect through the Raspberry Pi.
 A BlueTooth connection would also allow the interface to process the data itself without having to relay through any device.
 
-https://developer.android.com/guide/topics/connectivity/bluetooth.html
 
 \subsubsection{Wifi Direct}
 Wifi Direct would allow the interface to communicate through the Raspberry Pi directly \cite{PiWifiDirect}.
 Both the Raspberry Pi and the Android have wifi Direct interfaces \cite{AndroidWifiDirect}
 The benefit of Wifi Direct is that it allows the interface to be completely separate from the Controller to avoid possible shorts due to moisture.
 In addition, using wireless communication eliminates the failure point of the wire for communication, but the Android still needs to be plugged into power so the wire is not removed from the equation.
-
-http://raspberrypi.stackexchange.com/questions/45451/connect-to-raspberry-pi-3-over-wi-fi-direct
-https://developer.android.com/guide/topics/connectivity/wifip2p.html
 
 \subsection{Recommendation}
 Android is the best option for an interface as it allows the processing to be spread over multiple devices rather than just one.
