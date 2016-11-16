@@ -59,8 +59,13 @@ However, there is still a large degree of freedom between each section, especial
 
 \subsection{Learning Algorithm}
 The class of learning algorithm used is a major choice when setting up the machine learning aspect of the project.
-
+This will dictate how the controller policy will behave while we try to feed it data, which is the most complex part of the machine learning subsection.
 \subsubsection{Q-Learning}
+Q-learning is a traditional reinforcement learning technique where all possible states and actions are paired up, and a reward mapping between the current state and potential actions can be learned and exploited \cite{SuttonBarto}.
+This method is based off a dynamic programming representation of learning, where knowledge from nearby states gets combined into the final value of the state-action pair.
+This is important because it creates a solid method of temporal-difference learning \cite{SuttonBarto}, as it becomes possible to associate rewards to series of actions.
+As more chains of actions are taken, it can become clear to the agent which actions are preferable in which states.
+By learning the action-value function, which returns the most favorable reward at a given state, the agent learns to act optimally within the world.
 \subsubsection{Bayesian Modeling with Model Averaging}
 \subsubsection{Deep Learning}
 Added not because I think it is a good choice for this type of problem, but rather because people like to talk about ``deep learning'', so this section aims to provide evidence as to why deep learning is not applicable to this type of problem.
@@ -84,6 +89,7 @@ Considerations on memory usage, programming language API, and available function
 \subsubsection{FANN}
 \subsubsection{Torch}
 
+\subsection{Recommendation}
 
 
 \end{document}
