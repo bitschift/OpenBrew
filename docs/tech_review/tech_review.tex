@@ -134,9 +134,24 @@ This table is then used to calculate desired probabilities about how much impact
 \subsection{Preexisting Implementations}
 This section looks at pre-implemented libraries that are available for machine learning routines.
 Considerations on memory usage, programming language API, and available functionality are the primary concerns for this sections.
+While there are many different machine learning and artificial intelligence libraries available, the ones presented below were selected for their immediate relevance to the project.
 \subsubsection{Keras}
-Keras is a high level machine learning suite built for the Python programming language.
+Keras is a high level machine learning suite built for the Python programming language \cite{keras}.
+It is billed as a deep learning library for Python, but as it provides a standard implementation of neural networks, can be used for any learning method involving neural networks.
+A major advantage to this library is that while it provides a simple, high level API for Python, it relies on either Theano or Tensorflow as the mathematical back-end.
+Both of these packages are heavily optimized, GPU enabled linear algebra suites which can greatly increase the speed of machine learning programs.
+
+But while Keras provides strong and fast neural network manipulation within its API, it provides little to no support for general artificial intelligence and machine learning algorithms, such as a basic evolutionary algorithm implementation to work off of.
+If this package is used, it would require a non-trivial amount of work to successfully implement the chosen learning algorithm.
+
 \subsubsection{FANN}
+FANN, the Fast Artificial Neural Networks library, is a singular purpose, C language library with bindings in C++ \cite{fann}.
+It is built to create basic neural networks and keep the computational overhead a light as possible.
+Since it is built from a strictly typed language, with GPU support built in, and a singular purpose in mind, FANN is able to optimize its performance over common neural network operations \cite{fann}.
+However, this specialization comes at the cost of being inflexible and less user friendly.
+Using FANN would also require hand-building the higher-level machine learning algorithms, but instead of in a softer language like Python, direct interactions with the FANN library occurs through C/C++.
+Since the final solution is not designed with breakneck speed in mind, the benefits in performance are quickly outweighed by the costs in future development time.
+
 \subsubsection{Torch}
 
 \subsection{Recommendation}
