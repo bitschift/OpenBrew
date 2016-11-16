@@ -1,4 +1,4 @@
-\documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
+zdocumentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
 \pagestyle{empty}
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
@@ -82,8 +82,14 @@ While the technology behind deep learning is impressive, it heavily relies on ut
 This is fundamentally impossible with our project, since we do not have the time nor budget to spend a year gathering data.
 
 \subsubsection{Genetic Algorithms}
-Genetic algorithms look at solving problems by leveraging inspiration from 
-
+Genetic algorithms look at creating powerful solutions to problems by leveraging biologically-inspired techniques \cite{RussellNorvig}.
+The concepts of mutation, selection, and genetic crossover have been successfully applied to a variety of state-search problems in the past \cite{RussellNorvig}.
+Agent policies, which govern their actions, can be represented as numerical arrays.
+The specific transformation for this depends on the model used (ie, neural networks vs state tables).
+In either case, genetic algorithms use a population of agent policies which all run and receive a reward.
+These rewards are used to calculate the fitness of an policy, which determines how likely the policy is to create offspring and continue to exist \cite{RussellNorvig}.
+At the end of each generation of policy performance, the rewards are assigned, fitness is determined, and the creation of new policies begins.
+This method is generally modeled after biological reproduction, and can use concepts such as genome crossover and genetic mutation to create new policies to be evaluated.
 
 \subsection{Decision Making Structure}
 Some of these methods presented are heavily tied to a specific type of learning algorithm, eg Bayesian networks are mostly only of use when paired with Bayesian models.
