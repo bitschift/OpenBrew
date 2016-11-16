@@ -24,7 +24,7 @@ Aravind Parasurama\\
 Cody Holliday\\
 \texttt{hollidac@oregonstate.edu\\}}
 \date{\today}
-\title{brew.ai Client Requirements}
+\title{brew.ai Tech Review}
 \begin{document}
 \maketitle
 
@@ -38,30 +38,87 @@ After the introduction, a review of the potential technologies will be given.
 Each broad topic will be divvied into three or more sub-topics, which will address specific technologies that will be combined to address the broad topic of the section.
 Finally, each broad topic will have a recommendation about which specific technologies should be used.
 
-\section{Controller Hardware}
-\subsection{AVR Microcontrollers}
-AVR microcontrollers provide an accessible and powerful solution for interfacing with multiple sensors and making multiple 
-components work together.
+\section{Controller Hardware \\ -- \textbf{\textit{Aravind Parasurama}}}
+\subsection{Introduction}
+Mead making involves a number of simple steps, and careful calibration \cite{makingmead}. The process involves: 
+\begin{enumerate}
+	\item Mixing water and honey (called 'must'),
+	\item Measuring the gravity of the must,
+	\item Pitching yeast, and
+	\item Fermenting
+\end{enumerate}
+In order to automate this process, the user will simply have to prepare the must, and pitch the yeast after the device measures initial gravity.
+The physical device will be in the form of a bucket lid, that will contain all of the necessary brewing hardware. A heating and cooling element will
+	dangle from the lid and gently touch the surface of the fermenting yeast, and will maintain water temperature as such. No components should be at
+	risk of water damage.
+The device itself will require a microcontroller in the form of a Teensy 2.0 or Teensy 3.2, a temperature control unit in the form of a peltier junction
+	or boiling plate, a temperature measurement unit in the form of a thermistor or thermocouple, a fermentation measurement element in the form of a 
+	hydrometer and a carbon dioxide sensor, and a transmitter implemented with either bluetooth or the nRF2401.
 
+\subsection{Microcontroller Solution}
+The brew.ai hardware will centrally require a microcontroller for all cooking and transmitting routines.
+The current options are between a Teensy 2.0, powered by the AVR based ATmega32u4, and the Teensy 3.2, powered by the ARM based Cortex-M4 \cite{teensy}. 
+\subsubsection{Teensy 3.2}
+ARM microcontrollers provide more power, and multiple threads, for running complex routines with ease.
+However, the Cortex M4 MK20DX256VLH7 \cite{datasheet} on the Teensy 3.2 does not make interfacing with various pin features as easy as AVR does, and thus 
+programming on this chip is more difficult.
+The Teensy 3.2 could enable more advanced real-time computing on the brewing hardware itself, however, this might be unnecessary and the added cost of the
+	Teensy 3.2 makes the 2.0 a much more attractive option.
+\subsubsection{Teensy 2.0}
+AVR microcontrollers provide an accessible and powerful solution for interfacing with multiple sensors and making multiple components work together.
+The Teensy 2.0 provides a very useful breakout for interfacing with GPIO, PWM, the ADC, and other features in the ATmega32u4.
+The datasheet for this processor is also very accessible, making maintenance of code much easier.
 
-\subsection{Thermocouple}
+\subsection{Cooking Hardware}
+The cooking hardware is essentially a set of microcontroller modules that will be connected to and controlled by the Teensy.
+We require a hydrometer, a temperature control unit, a carbon dioxide sensor, and a temperature measurement unit.
+\subsubsection{Digital Hydrometer}
+A digital hydrometer is required for measuring the initial gravity of the must, as well as for keeping subsequent measurements for fermentation control.
+These modules are readily available, and should not require significant power, nor should they require any difficult calibration steps.
+\subsubsection{Thermistor}
+A thermistor is a resistor device that can be attached to the ADC registers of the Teensy for temperature measurement.
+These devices are generic, however their individual construction and tuning will necessitate individual thermistor calibration every time a thermistor
+	is broken and needs to be replaced.
+\subsubsection{Thermocouple}
 The thermocouple device is an essentially plug-and-play device for measuring immediate temperature, and can be attached to 
-any GPIO on the AVR microcontroller. 
+	any GPIO on the AVR microcontroller \cite{thermocouple}. 
 The advantage of a thermocouple over a thermistor is the lack of the tedious recalibration step needed everytime a thermistor 
-needs to be replaced. 
+	needs to be replaced. 
 It is worth noting the generally larger size, and increased cost of using a thermocouple.
-
-\subsection{Peltier}
-The peltier junction is a thermoelectric temperature control device that operates by creating a temperature difference on
-either side of the device.
-These devices range in price, and more expensive junctions can generate a greater temperature differential more efficiently, 
-and also last longer.
-
-\subsection{Carbon Sensor}
+\subsubsection{Peltier Junction}
+The peltier junction is a thermoelectric temperature control device that operates by creating a temperature difference on either side of the 
+	device \cite{peltier}.
+These devices range in price, and more expensive junctions can generate a greater temperature differential more efficiently, and also last longer.
+Use of the peltier junction for temperature control will necessitate a heatsink to be attached to one side, so as to allow both heating and cooling 
+	functionality.
+Peltier junctions are power hungry devices, and thus require an external power supply.
+The most effective way to control a peltier junction is with pulse-width modulation.
+\subsubsection{Boiling Plate}
+A boiling plate would be connected to the lid and placed under the bucket for temperature control.
+Unlike a peltier junction, a boiling plate cannot finely control temperature, or provide cooling.
+Boiling plates would be less expensive, and would require less extra hardware to get running.
+\subsubsection{Carbon Dioxide Sensor}
 The carbon sensor will serve the purpose of measuring fermentation levels.
+Carbon dioxide sensors should be like digital hydrometers in that they are mostly plug-and-play in nature, and should require no calibration.
 
-\subsection{Bluetooth}
-Bluetooth will link the brewing hardware system with the Android front-end, as well as the learning back-end.
+\subsection{Data Transmission}
+In order for the user to get analytics and feedback about their brewing, and for the system in general to work, a wireless data transmitter is needed.
+The choices are between the nRF2401 2.4GHz transmitter, and a generic USART bluetooth module.
+\subsubsection{nRF2401}
+The nRF2401 is a very inexpensive 2.4GHz transmitter, capable of connecting to a wifi network, or ad-hoc connections to other 2.4GHz 
+	transmitters \cite{nrf}.
+The nRF2401 has very little support in code, and entire libraries would need to be written in order to effectively and reliably use the transmitter.
+The added libraries would add large amounts of technical debt to a primarily hardware component of brew.ai.
+\subsubsection{USART Bluetooth}
+Bluetooth USART modules are plentily availble, however for a slightly higher cost than the nRF2401.
+These modules easily communicate over the USART functionality of the Teensy, and the calibration is minimal.
+Many devices can easily connect to a bluetooth module, as it is a standard functionality.
+
+\subsection{Recommendation}
+For the specific needs of brew.ai, the choices between the technical options are straightforward.
+The Teensy 2.0 will serve the microcontroller needs of this project.
+USART bluetooth modules will be used for data transmission, if not direct USART to a Raspberry Pi type device.
+A carbon dioxide sensor and a digital hydrometer are needed, along with a thermistor for measuring temperature, and a peltier junction for controlling it.
 
 \section{User Interface}
 
