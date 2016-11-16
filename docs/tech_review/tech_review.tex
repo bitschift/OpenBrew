@@ -111,7 +111,13 @@ This is useful as it allows the network to easily receive each sensor as an inpu
 
 \subsubsection{State-Action Table}
 State-action tables are a simple method of determine what actions to take.
-Simply put, the agent looks at what state it is in - the stat
+Simply put, the agent looks at what state it is in - the status of all the information the sensors can provide to the agent.
+This state is used as a key which is looked up in the table, where an action is read out.
+This action is then acted upon by the agent, and the cycle begins again with sensing.
+
+One issue with this method is that the entire table has to be stored by the agent at all times.
+It does not have to be actively loaded into memory constantly, but the table quickly takes up room as the dimensionality of the state grows.
+This makes the state-action table representation ill-suited to high-dimensional problems.
 
 \subsubsection{Bayesian Networks}
 Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
