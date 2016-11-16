@@ -13,7 +13,7 @@ ps: dvi
 
 dvi: $(TARGET).tex
 	latex $(TARGET).tex
-	#bibtex $(TARGET)
+	bibtex $(TARGET)
 	latex $(TARGET).tex
 	latex $(TARGET).tex
 

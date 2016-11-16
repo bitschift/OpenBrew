@@ -67,9 +67,21 @@ This is important because it creates a solid method of temporal-difference learn
 As more chains of actions are taken, it can become clear to the agent which actions are preferable in which states.
 By learning the action-value function, which returns the most favorable reward at a given state, the agent learns to act optimally within the world.
 \subsubsection{Bayesian Modeling with Model Averaging}
+Based on the standard Bayesian probabilistic equations, Bayesian modeling uses Bayesian networks as a framework for learning \cite{RussellNorvig}.
+
+While there are different approaches in which Bayesian modeling can be used, the most applicable to our domain is the application known as structure learning \cite{RussellNorvig}.
+In this method, machine learning techniques are used to determine the structure of the Bayesian network which best represents the data.
+
+With smaller data sets, such as what I anticipate with this project, a method can be used for Bayesian modeling where multiple models are produced with various dimensionality requirements, and then averaged to create a single model \cite{RussellNorvig}
+This allows us to create a better fitting model without needing large amounts of data like other methods would require.
+
 \subsubsection{Deep Learning}
-Added not because I think it is a good choice for this type of problem, but rather because people like to talk about ``deep learning'', so this section aims to provide evidence as to why deep learning is not applicable to this type of problem.
+Deep learning is a popular subject in today's media, with the success of projects like AlphaGo grabbing headlines \cite{alphago}.
+While the technology behind deep learning is impressive, it heavily relies on utilizing massive datasets in order to learn complex, obscure patterns.
+This is fundamentally impossible with our project, since we do not have the time nor budget to spend a year gathering data.
+
 \subsubsection{Genetic Algorithms}
+Genetic algorithms look at solving problems by leveraging inspiration from 
 
 
 \subsection{Decision Making Structure}
@@ -80,6 +92,14 @@ The decisions present in this section will shape how the problem domain is model
 \subsubsection{Neural Networks}
 \subsubsection{State-Action Table}
 \subsubsection{Bayesian Networks}
+Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
+They allow us to mathematically represent dependencies between fields of information.
+For example, the question ``Is it warm in the house?'' is dependent upon the answers to ``Is it summer?'' and ``Do the tenants have a heater?''.
+Depending on the status of the answers to the latter questions, we can make a more informed decision about the status of warmth in the house.
+
+Within the context of our problem, a Bayesian network provides the ability to take current sensor readings, and use those to populate a probability table which represents our system.
+The dimensionality of that table is determined by the expert in the system (myself, in our case) but the Bayesian network provides the structure on how to fill out the table.
+This table is then used to calculate desired probabilities about how much impact given actions would have on the system, which would give us the necessary information to make a decision about the next action to take.
 
 \subsection{Preexisting Implementations}
 This section looks at pre-implemented libraries that are available for machine learning routines.
@@ -90,6 +110,14 @@ Considerations on memory usage, programming language API, and available function
 \subsubsection{Torch}
 
 \subsection{Recommendation}
+\subsubsection{Learning Algorithm}
+\subsubsection{Decision Making Structure}
+\subsubsection{Preexisting Implementation}
+
+
+\newpage
+\bibliography{tech_review}
+\bibliographystyle{ieeetr}
 
 
 \end{document}
