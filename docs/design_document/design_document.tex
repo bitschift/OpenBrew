@@ -36,7 +36,7 @@
 \vspace{2cm}
 Sponsor
 
-Dale McCauly, College of Business, Oregon State University
+Dale McCauley, College of Business, Oregon State University
 
 \vspace{0.5cm}
 	Approved: \today{}
@@ -96,6 +96,30 @@ Dale McCauly, College of Business, Oregon State University
 
 
 \subsection{Brewing Hardware and Electronic Controls} %aravind's section
+The brewing hardware is expected to perform the commands received from the Android client, while also automatically managing
+some basic regulation functions on its own. The hardware will collect data about the brewing process and relay that back to the
+Android application.
+
+\subsubsection{Temperature control implementations}
+For temperature control, a peltier junction will be used, attached to a heatsink on one side. The temperature control module will
+hang from the lid of the device, and touch the liquid so as to apply a temperature differential to the liquid itself. Peltier junctions 
+operate with pulse-width modulation, and at the levels of current required, an H-BRIDGE will have to be utilized in conjunction with the 
+peltier module.
+
+\subsubsection{Data collection from brewing process}
+For data collection, an array of sensors has been chosen:
+\begin{enumerate}
+	\item A thermocouple, for minimal calibration temperature data gathering
+	\item A carbon dioxide sensor, for measuring current fermentation levels
+	\item A digital hydrometer for measuring initial gravity
+\end{enumerate}
+\subsubsection{Hardware connection to the client}
+Data will be transmitted to the front-end by means of bluetooth. A bluetooth module will be used that supports interfacing directly with AVR's
+USART functionality. This bluetooth module should easily pair with the Android application and transfer data.
+
+\subsubsection{Central control system}
+To bring all of the hardware components together, we will be using the Teensy 2.0, powered by the ATmega32u4. This microcontroller allows for basic
+routines to be performed, and has a variety of hardware functionality that will be extensively used in this project.
 
 \section{Design Rationale}
 
