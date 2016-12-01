@@ -3,6 +3,8 @@
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
 
+\usepackage{float}
+\usepackage{graphicx}
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
 
@@ -73,6 +75,25 @@ Dale McCauly, College of Business, Oregon State University
 % the views describe the specific implementations that each viewpoint covers. Refer to the doc for more info.
 
 \subsection{Abstract Learning from Previous Trials} %connor's
+From the inception, a major component of this project is the idea that it can learn from mistakes and experiments, and improve the quality of the brew over time.
+This section looks at the system design from the viewpoint of artificial intelligence creation.
+From this perspective, all other design choices of the project are abstracted into general data sources and sinks.
+To further illustrate this point, the view Impact on Other Designs, in Section~\ref{sec:AIImpact}, will introduce the reader to this viewpoint by describing its view of the rest of the system.
+From there, the AI system's internal view of the brew.ai system will be explained and designed.
+
+\subsubsection{Impact on Other Designs}\label{sec:AIImpact}
+From the viewpoint of learning, the two other major viewpoints, electronic hardware and user interfaces, have little to no impact upon the operations of the system.
+There will be interaction between these viewpoints, but that does not imply the other sections will autonomously impact the operation of the system.
+
+From the AI perspective, the system is built as a thinking agent, with the ability to send and receive signals.
+This allows the agent to change the world it sees (input signals) through its actions (sent signals).
+
+\begin{figure}
+\begin{center}\label{fig:AIsystemDesign}
+	\caption{brew.ai System Heirarchy from the viewpoint of the agent}
+	\includegraphics[scale=0.5]{tmp.eps}
+\end{center}
+\end{figure}
 \subsubsection{Learning Algorithm} % Replace with design viewpoint name.
 % talk about what algorithm I chose.
 % Any design considerations that this algorithm requires
