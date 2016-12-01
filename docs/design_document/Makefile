@@ -13,8 +13,8 @@ ps: dvi
 
 dvi: $(TARGET).tex
 	latex $(TARGET).tex
-	#bibtex $(TARGET)
-	#latex $(TARGET).tex
+	bibtex $(TARGET)
+	latex $(TARGET).tex
 	latex $(TARGET).tex
 
 clean-doc:

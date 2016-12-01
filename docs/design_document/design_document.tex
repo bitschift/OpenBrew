@@ -41,7 +41,7 @@ Sponsor
 Dale McCauly, College of Business, Oregon State University
 
 \vspace{0.5cm}
-	Approved: \today{}
+	Approved: 
 
 	Version: 1.0
 
@@ -57,15 +57,23 @@ Dale McCauly, College of Business, Oregon State University
 % Perhaps get rid of these subsection titles, and just combine it into one larger section with appropriate paragraph spacings.
 % These talk about the Purpose, scope, etc, of this paper.
 \subsection{Purpose}
+This document describes the architecture and design of the brew.ai project.
+It conforms to the IEEE 1016 System Design Document specification, and lays out the design of hardware, learning, and android interfaces for the project.
+
 \subsection{Scope}
+Stated generally, brew.ai is a device which automatically brews fermented drinks and improves its performance over time based on user feedback.
+This allows for users 
 \subsection{Context}
-\subsection{Summary}
+\subsection{Overview}
+
 
 \section{Glossary}
 
 \section{Stakeholders and Design Concerns}
 % Here we list out the design concerns of stakeholders (users, etc...) that we address in this document.
 % By laying out the design concerns now, we can address each in turn in the subsequent design sections.
+
+\section{System Overview}
 
 \section{Design Viewpoints}
 % Details each design point we choose for this project.
@@ -87,19 +95,43 @@ There will be interaction between these viewpoints, but that does not imply the 
 
 From the AI perspective, the system is built as a thinking agent, with the ability to send and receive signals.
 This allows the agent to change the world it sees (input signals) through its actions (sent signals).
+The hardware will be the main component the AI will interact with, as it provides information about the world through sensors, and can change the world through its actuators.
+From this perspective, the hardware is generalized into the two categories: sensors and actuators.
+This is a common view for an agent to take in regards to its interaction with the world~\cite{RussellNorvig}.
+A diagram summarizing the agent's view of the system is presented in Figure~\ref{fig:AIsystemDesign}.
 
 \begin{figure}
 \begin{center}\label{fig:AIsystemDesign}
 	\caption{brew.ai System Heirarchy from the viewpoint of the agent}
-	\includegraphics[scale=0.5]{tmp.eps}
+	\includegraphics[scale=0.3]{tmp.eps}
 \end{center}
 \end{figure}
+
+The agent will also view the user interface as source of actuators and sensors, but this will be limited in scope.
+The main task of the agent is to brew drinks, not report information to the user.
+Therefore, the main decision-making processes will focus on the hardware interaction (reading sensor values, changing temperature levels, etc.) and not on intelligent interaction with the user.
+The direct interaction between the user and the AI will be limited to sending statistical information for display, and basic controls such as start-stop controls.
+
+A standard communication layer will be necessary to communicate between the AI, hardware, and interface.
+This will be implemented with standard protocols and library packages, such as JSON for interface communication, and byte streams for hardware interaction.
+Builtin Python libraries exist for these communication protocols, and subsequently will be used.
+
 \subsubsection{Learning Algorithm} % Replace with design viewpoint name.
 % talk about what algorithm I chose.
 % Any design considerations that this algorithm requires
 % design of this piece, in the context of the project
 
+
 \subsubsection{Decision Making Structures}
+An important aspect of intelligent decision making is the computational structure which allows for decisions to be made.
+Neural networks are a classic method of non-linear function approximation which 
+
+\begin{figure}\label{fig:nn}
+\begin{center}\label{fig:AIsystemDesign}
+	\caption{Proposed Neural Network Structure}
+	\includegraphics[scale=0.3]{tmp.eps}
+\end{center}
+\end{figure}
 
 \subsubsection{Library Implementations}
 
@@ -119,6 +151,10 @@ This allows the agent to change the world it sees (input signals) through its ac
 \subsection{Brewing Hardware and Electronic Controls} %aravind's section
 
 \section{Design Rationale}
+
+\section{Testing Details and Timeline}
+% Reuse gantt chart for project timeline, and specify where testing would take place in that chart.
+% Add details for testing your own components, and potentially testing interactions with other components.
 
 \section{Summary}
 
