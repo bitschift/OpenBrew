@@ -152,7 +152,7 @@ The dataflow diagram in Figure~\ref{fig:dataflow} summarizes the internal messag
 % each viewpoint then has its own "view". There can be more than one of these.
 % the views describe the specific implementations that each viewpoint covers. Refer to the doc for more info.
 
-\subsection{Abstract Learning from Previous Trials}\label{sec:learning}%connor's
+\subsection{Abstract Learning from Previous Trials \\ -- \textbf{\textit{Connor Yates}}}\label{sec:learning}
 From the inception, a major component of this project is the idea that it can learn from mistakes and experiments, and improve the quality of the brew over time.
 This section looks at the system design from the viewpoint of artificial intelligence creation.
 From this perspective, all other design choices of the project are abstracted into general data sources and sinks.
@@ -264,7 +264,7 @@ These actions will be sent to the microcontroller, where they will be used to co
 It will learn by using the Q-learning iterative update function (Equation~\ref{eq:Q(s,a)}), and receiving its reward from the user.
 
 
-\subsection{Android-Based User Interface Design}\label{sec:android}%cody's
+\subsection{Android-Based User Interface Design \\ -- \textbf{\textit{Cody Holliday}}}\label{sec:android}
 \subsubsection{Interface Device}
 The device chosen for the user interface was the Android device.
 Android has a well-used set of tools and a huge community for development, which is why it is the best choice.
@@ -315,7 +315,7 @@ However, data transfer and analysis will not take place at the same time on the 
 The brewing device is a long term solution to the homebrewing problem, so we need to maximize the life of the device.
 To prevent premature loss of a CPU, the processing load will be spread out over both the controller and the user interface device.
 
-\subsection{Brewing Hardware and Electronic Controls}\label{sec:hardware}%aravind's section
+\subsection{Brewing Hardware and Electronic Controls \\-- \textbf{\textit{Aravind Parasurama}}}\label{sec:hardware}
 The brewing hardware is expected to perform the commands received from the Android client, while also automatically managing
 some basic regulation functions on its own. The hardware will collect data about the brewing process and relay that back to the
 Android application.
