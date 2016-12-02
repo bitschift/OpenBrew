@@ -210,20 +210,19 @@ The data flow between the Android and the controller will be implemented using a
 
 \subsubsection{UI Connection to controller}
 A USB connection to the controller was determined as the best option for this project.
-A simple method of interfacing the Android to the controller is using an Android Debug Bridge \cite{ADBDOCS}.
-The Android Debug Bridge is a program that  allows an Android device to be controlled via the command line.
-The command line tool allows a PC to manage app installation and activity, as well as file transfers to the device from the PC.
-ADB can be installed on a Raspberry Pi, so there are no inherent issues with compatibility \cite{ADBPI}.
-To transfer data from the controller to the Android, the controller can just use the ADB command line tool to send the data as a file to the device.
-The ADB also allows for port forwarding, so the Android device will communicate with the controller via a TCP connection.
-The simplicity of this interface allows for more complex control mechanisms between the controller and the interface as well as leaves room for design improvements.
+A simple method of interfacing the Android to the controller is through Bluetooth.
+All Android devices support Bluetooth interfaces, so there is no limitation on what Android device we use \cite{Bluetooth}.
+There are 5 different versions of Bluetooth and all but one are viable options \cite{BlueVersions}.
+Bluetooth version 4 is the best solution since it allows for low energy transmission, which will lengthen the battery life of the Android.
+Bluetooth 5 offers faster speeds, but is not as widespread as Bluetooth 4.
 
-The controller will have a Python program running that will interact with the Android device using a combination of sockets and bash scripts.
-The sockets will be used for control mechanisms, such as starting the brewing process, and the bash scripts will be used as a method for sending data.
-Data from a batch is sent from the controller to the Android as a file so that the Android can graph the data locally.
-The commands to send the data will live in bash scripts that will be called by the Python program.
-Any images that need to be generated on the controller can be sent to the Android via ADB as well.
-Physical advantages of a USB connection include preventing loss of data due to interference or connection issues as well as reduce the number of connections on the power supply.
+The controller can use a Bluetooth dongle to connect to the Android interface.
+There is a kernel module for Linux called Bluez, which allows a computer to pair with a Bluetooth device \cite{Bluez}.
+The Bluetooth device can be opened up as a socket, so the connection between the controller and the Android will be a TCP connection.
+The module makes the dongle available to the program on the controller as an object in the dev directory.
+This makes implementation of a socket simple, as the kernel makes the Bluetooth device easily available.
+Routing the data to the device can be implemented as a facet of the program that will run the Reinforcement Learning algorithm.
+
 
 
 \subsubsection{Dataflow to UI}
