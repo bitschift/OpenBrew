@@ -118,7 +118,7 @@ From this perspective, the hardware is generalized into the two categories: sens
 This is a common view for an agent to take in regards to its interaction with the world~\cite{RussellNorvig}.
 A diagram summarizing the agent's view of the system is presented in Figure~\ref{fig:AIsystemDesign}.
 
-\begin{figure}\label{fig:AIsystemDesign}
+\begin{figure}[h]\label{fig:AIsystemDesign}
 \begin{center}
 	\caption{brew.ai System Heirarchy from the viewpoint of the agent}
 	\includegraphics[scale=0.3]{tmp.eps}
@@ -166,7 +166,11 @@ At time $t$, the state $s_t$ will be defined as
 The units and order of magnitude of the first three signals will be kept at the sensor defaults.
 The time dimension will be provided in hours, represented as a floating point number to allow for sub-hour accuracy.
 
-Agent action design
+There are three available actions for the agent to choose from.
+Two are based on actuators in the brewing setup.
+These actuators are a submersible heating element, and a motor controlled stirring mechanism.
+The agent can control the power state of the heating element, and the power state of the electric stirrer.
+Additionally, the agent can take an action to signal that the brewing process has completed, bringing the process to an end.
 
 \subsubsection{Decision Making Structures}
 An important aspect of intelligent decision making is the computational structure which allows for decisions to be made.
@@ -174,8 +178,16 @@ Neural networks are a classic method of non-linear function approximation~\cite{
 This can be done by collapsing the state into a single dimensional vector, and using this as the input to the neural net.
 The neural net will output the Q-value associated with each action for this state, which are used by the Q-learning as normal, if they came from a Q-table.
 
-\textbf{describe neural network structure}
-Input layer, hidden layer, output layer, activation function
+The neural network will take as input the state $s_t$, and output Q values for each associated action.
+It will have at least 1 hidden layer residing between the input and output layers.
+An example neural net structure is given in Figure~\ref{fig:nn}.
+
+\begin{figure}[h]\label{fig:nn}
+\begin{center}
+	\caption{Proposed Neural Network Structure}
+	\includegraphics[scale=0.3]{tmp.eps}
+\end{center}
+\end{figure}
 
 In order to train the neural network to approximate the Q-table, backpropagation will be used along with a sum-of-squares loss function.
 Methods such as backpropogation are standard entries in neural-network and machine learning libraries, which we will use to provide the implementation.
@@ -184,18 +196,10 @@ If the neural network structure does not provide reliable performance, then we w
 The reason this is not used by default is because we have a continuous state space, which cannot be contained in a finite table.
 However, by observing the incoming data, we can provide an encoding scheme which will map the continuous domain of data inputs into a finite, discrete set which can be used to construct the table.
 
-
-\begin{figure}\label{fig:nn}
-\begin{center}
-	\caption{Proposed Neural Network Structure}
-	\includegraphics[scale=0.3]{tmp.eps}
-\end{center}
-\end{figure}
-
 \subsubsection{Overall Agent Structure}
 This section will tie together the designs laid out previously, and provide a total system diagram for the agent.
 
-\begin{figure}\label{fig:AgentStructure}
+\begin{figure}[h]\label{fig:AgentStructure}
 \begin{center}
 	\caption{Agent structure, showing learning functions, neural network, and data insertion points}
 	\includegraphics[scale=0.3]{tmp.eps}
