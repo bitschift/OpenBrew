@@ -134,9 +134,9 @@ Finally, the user interface needs to receive the current status of the brewing p
 This information, which encompasses elements such as runtime, temperature, and estimated completion time, will be sent in the JSON format.
 
 The dataflow diagram in Figure~\ref{fig:dataflow} summarizes the internal message passing in the brewing system.
-\begin{figure}[h]\label{fig:dataflow}
+\begin{figure}[h]
 \begin{center}
-	\caption{Dataflow Between the Three Major Components}
+	\caption{Dataflow Between the Three Major Components \label{fig:dataflow}}
 	\includegraphics[width=\linewidth]{dataflow.eps}
 \end{center}
 \end{figure}
@@ -166,9 +166,8 @@ From this perspective, the hardware is generalized into the two categories: sens
 This is a common view for an agent to take in regards to its interaction with the world~\cite{RussellNorvig}.
 A diagram summarizing the agent's view of the system is presented in Figure~\ref{fig:AIsystemDesign}.
 
-\begin{figure}[h]\label{fig:AIsystemDesign}
-\begin{center}
-	\caption{brew.ai System Hierarchy from the viewpoint of the agent}
+\begin{figure}[h]\begin{center}
+	\caption{brew.ai System Hierarchy from the viewpoint of the agent \label{fig:AIsystemDesign}}
 	\includegraphics[height=18em]{highView.eps}
 \end{center}
 \end{figure}
@@ -230,9 +229,9 @@ The neural network will take as input the state $s_t$, and output Q values for e
 It will have at least 1 hidden layer residing between the input and output layers.
 An example neural net structure is given in Figure~\ref{fig:nn}.
 
-\begin{figure}[h]\label{fig:nn}
+\begin{figure}[h]
 \begin{center}
-	\caption{Proposed Neural Network Structure}
+	\caption{Proposed Neural Network Structures \label{fig:nn}}
 	\includegraphics[width=\linewidth]{nn.eps}
 \end{center}
 \end{figure}
@@ -247,9 +246,9 @@ However, by observing the incoming data, we can provide an encoding scheme which
 \subsubsection{Overall Agent Structure}
 Combining the ideas from the previous sections, the learning agent is summarized as follows, both in diagram and paragraph.
 
-\begin{figure}[h]\label{fig:AgentStructure}
+\begin{figure}[h]
 \begin{center}
-	\caption{Agent structure, showing learning functions, neural network, and data insertion points}
+	\caption{Agent structure, showing learning functions, neural network, and data insertion points \label{fig:AgentStructure}}
 	\includegraphics[width=\linewidth]{totalagent.eps}
 \end{center}
 \end{figure}
