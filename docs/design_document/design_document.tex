@@ -138,11 +138,33 @@ Builtin Python libraries exist for these communication protocols, and subsequent
 % talk about what algorithm I chose.
 % Any design considerations that this algorithm requires
 % design of this piece, in the context of the project
-The agent will be using standard Q-learning, as it provides a proven framework for creating intelligent agents that can learn
+The agent will be using standard Q-learning, as it provides a proven framework for creating intelligent agents that can learn with delayed rewards~\cite{SuttonBarto}.
+This is applicable to our problem since the main reward signal (the input from the user) is not available until the brewing process is complete.
 
-Q-learning design
+The standard Q-learning algorithm requires a set of states $S$ and a set of available actions $A$.
+By performing an action $a_t$ from $A$, the agent is able to change the current state $s_t$.
+The Q-table comes into play by learning which action is the best action to take when the agent is in state $s_t$~\cite{SuttonBarto}
+The central idea of the algorithm is the value iteration update, defined in Equation~\ref{eq:Q(s,a)}
+\begin{equation}\label{eq:Q(s,a)}
+	Q(s_t,a_t) \leftarrow Q(s_t, a_t) + \alpha \cdot \left( r_{t+1} + \gamma \cdot \max_a Q(s_{t+1},a) - Q(s_t,a_t) \right)
+\end{equation}
 
-Agent state design
+Any given state $s_t$ will be composed of the following information:
+\begin{itemize}
+	\item A numerical signal from the thermocouple
+	\item A numerical signal from the carbon dioxide sensor
+	\item A numerical signal from the digital hydrometer
+	\item A numerical signal representing the current runtime of the brewing process
+\end{itemize}
+The first three signals come from sensors present in the brewing setup, which will allow the agent to perceive how the current brewing process is proceeding.
+The last signal will help the agent differentiate between the start and end of the brewing process, to help differentiate between potentially similar looking states which may require different responses.
+The state will be composed as a linear array of this information.
+At time $t$, the state $s_t$ will be defined as
+\begin{equation}
+	s_t = \langle T_t, C_t, G_t, t \rangle
+\end{equation}
+The units and order of magnitude of the first three signals will be kept at the sensor defaults.
+The time dimension will be provided in hours, represented as a floating point number to allow for sub-hour accuracy.
 
 Agent action design
 
@@ -151,14 +173,6 @@ An important aspect of intelligent decision making is the computational structur
 Neural networks are a classic method of non-linear function approximation~\cite{RussellNorvig},  which we will use to approximate the Q-table.
 This can be done by collapsing the state into a single dimensional vector, and using this as the input to the neural net.
 The neural net will output the Q-value associated with each action for this state, which are used by the Q-learning as normal, if they came from a Q-table.
-
-
-\begin{algorithm}[H]\label{alg:Qlearning}
-	\caption{Q-Learning Standard Algorithm}
-	statement in Algorithm
-
-\end{algorithm}
-
 
 \textbf{describe neural network structure}
 Input layer, hidden layer, output layer, activation function
