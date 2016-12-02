@@ -38,14 +38,14 @@
 \textbf{Cody Holliday} hollidac@oregonstate.edu
 
 \vspace{2cm}
-Sponsor
+\textbf{Sponsor}
 
 Dale McCauley, College of Business, Oregon State University
 
 \vspace{0.5cm}
-	Approved: 
+	\textbf{Approved:} 
 
-	Version: 1.0
+	\textbf{Version:} 1.0
 
 
 \newpage
@@ -108,11 +108,34 @@ This is addressed in Section~\ref{sec:android}.
 While these design concerns are broad, when put together they describe the basis of the project.
 
 \section{System Overview}
-In order to satisfy the
+In order to satisfy the three major design concerns, this project is cleanly divided into three respective technological sections.
+These technological sections are self-contained, except for data messages which must be shared intermittently.
+This section provides a brief overview of these sections, and describes the method by which they will communicate.
 
-\begin{figure}[h]\label{fig:SystemOverview}
+To implement the intelligent learning, a standard reinforcement learning agent will be created, and will be able to communicate with both sections.
+Hardware will be created to solve the task of automated brewing, and will communicate exclusively with the intelligent agent.
+A user interface will be created on an dedicated platform, which will communicate with the intelligent agent.
+In this design, the intelligent agent can act as the translator between the hardware and user interface.
+
+\subsection{Data Design}
+The messages passed between the hardware, agent, and interface are described in this section.
+All three sections must be able to transmit and receive specific message types.
+The hardware must continually pass current sensor readings to the intelligent agent.
+These sensor readings will be communicated as a byte stream, since they are nothing more complicated than a few numbers.
+The hardware must be able to receive action requests from the agent.
+Action requests will be sent as a status number, signifying which of the three actions described in Section~\ref{sec:learning} the hardware should take.
+The user interface will need to communicate basic user requests to the intelligent agent.
+Some of these requests, such as an emergency stop, will not take part in the learning process.
+Rather, they are passed to the agent module because it already contains this level of functionality, as seen in Section~\ref{sec:learning}.
+The user interface will also need to communicate the user's satisfaction to the learning agent.
+This message will take part in the learning process, but is not necessary for the learning agent to have until after the batch is completed.
+Finally, the user interface needs to receive the current status of the brewing process.
+This information, which encompasses elements such as runtime, temperature, and estimated completion time, will be sent in the JSON format.
+
+The dataflow diagram in Figure~\ref{fig:dataflow} summarizes the internal message passing in the brewing system.
+\begin{figure}[h]\label{fig:dataflow}
 \begin{center}
-	\caption{Design of Overall System Interactions}
+	\caption{Dataflow Between the Three Major Components}
 	\includegraphics[scale=0.3]{tmp.eps}
 \end{center}
 \end{figure}
