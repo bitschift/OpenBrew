@@ -95,8 +95,21 @@ The third major section contains technical design information, to be used by dev
 \section{Stakeholders and Design Concerns}
 % Here we list out the design concerns of stakeholders (users, etc...) that we address in this document.
 % By laying out the design concerns now, we can address each in turn in the subsequent design sections.
+While the design team and sponsor are direct stakeholders of this project, they do not have any concerns, apart from technological feasibility, that impact the design of the product.
+Rather, the eventual users are the stakeholders whose requirements influence the final design of the product.
+
+There are three major design concerns when viewing this product from the viewpoint of the user.
+First, the brewing system must be able to learn from past trials, based on user feedback. 
+This design concern is addressed in Section~\ref{sec:learning}.
+Secondly, the system must automate the brewing process. 
+This design concern is addressed in Section~\ref{sec:hardware}.
+Finally, the user must have a method of interacting with the brewing device, to measure progress and see how the system is performing.
+This is addressed in Section~\ref{sec:android}.
+While these design concerns are broad, when put together they describe the basis of the project.
 
 \section{System Overview}
+In order to satisfy the
+
 \begin{figure}[h]\label{fig:SystemOverview}
 \begin{center}
 	\caption{Design of Overall System Interactions}
@@ -111,7 +124,7 @@ The third major section contains technical design information, to be used by dev
 % each viewpoint then has its own "view". There can be more than one of these.
 % the views describe the specific implementations that each viewpoint covers. Refer to the doc for more info.
 
-\subsection{Abstract Learning from Previous Trials} %connor's
+\subsection{Abstract Learning from Previous Trials}\label{sec:learning}%connor's
 From the inception, a major component of this project is the idea that it can learn from mistakes and experiments, and improve the quality of the brew over time.
 This section looks at the system design from the viewpoint of artificial intelligence creation.
 From this perspective, all other design choices of the project are abstracted into general data sources and sinks.
@@ -224,7 +237,7 @@ These actions will be sent to the microcontroller, where they will be used to co
 It will learn by using the Q-learning iterative update function (Equation~\ref{eq:Q(s,a)}), and receiving its reward from the user.
 
 
-\subsection{Android-Based User Interface Design} %cody's
+\subsection{Android-Based User Interface Design}\label{sec:android}%cody's
 \subsubsection{Interface Device}
 The device chosen for the user interface was the Android device.
 Android has a well-used set of tools and a huge community for development, which is why it is the best choice.
@@ -276,7 +289,7 @@ However, data transfer and analysis will not take place at the same time on the 
 The brewing device is a long term solution to the homebrewing problem, so we need to maximize the life of the device.
 To prevent premature loss of a CPU, the processing load will be spread out over both the controller and the user interface device.
 
-\subsection{Brewing Hardware and Electronic Controls} %aravind's section
+\subsection{Brewing Hardware and Electronic Controls}\label{sec:hardware}%aravind's section
 The brewing hardware is expected to perform the commands received from the Android client, while also automatically managing
 some basic regulation functions on its own. The hardware will collect data about the brewing process and relay that back to the
 Android application.
