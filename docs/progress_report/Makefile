@@ -1,6 +1,4 @@
-TARGET=design_doc
-#TEX=/usr/local/apps/tex_live/current/bin/x86_64-linux/latex
-TEX=latex
+TARGET=progress_report
 
 default: pdf
 
@@ -8,16 +6,16 @@ clean: clean-doc
 # Documentation
 
 pdf: ps
-	ps2pdf $(TARGET).ps
+	ps2pdf $(TARGET).ps 
 
 ps: dvi
 	dvips $(TARGET).dvi
 
 dvi: $(TARGET).tex
-	$(TEX) $(TARGET).tex
-	bibtex $(TARGET)
-	$(TEX) $(TARGET).tex
-	$(TEX) $(TARGET).tex
+	latex $(TARGET).tex
+	#bibtex $(TARGET)
+	#latex $(TARGET).tex
+	#latex $(TARGET).tex
 
 clean-doc:
 	rm -f $(TARGET).aux
