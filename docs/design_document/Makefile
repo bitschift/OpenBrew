@@ -1,4 +1,5 @@
 TARGET=design_document
+TEX=/usr/local/apps/tex_live/current/bin/x86_64-linux/latex
 
 default: pdf
 
@@ -12,10 +13,10 @@ ps: dvi
 	dvips $(TARGET).dvi
 
 dvi: $(TARGET).tex
-	latex $(TARGET).tex
+	$(TEX) $(TARGET).tex
 	bibtex $(TARGET)
-	latex $(TARGET).tex
-	latex $(TARGET).tex
+	$(TEX) $(TARGET).tex
+	$(TEX) $(TARGET).tex
 
 clean-doc:
 	rm -f $(TARGET).aux
