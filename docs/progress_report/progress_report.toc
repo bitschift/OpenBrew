@@ -1,0 +1,19 @@
+\contentsline {section}{\numberline {I}Purposes and Goals}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-A}}Project Purpose}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-B}}Project Goals}{3}
+\contentsline {section}{\numberline {II}Current Project Status}{3}
+\contentsline {section}{\numberline {III}Problems Encountered}{3}
+\contentsline {section}{\numberline {IV}Retrospective}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Week Summaries}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}1}Weeks 1 and 2}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}2}Week 3}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}3}Week 4}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}4}Week 5}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}5}Week 6}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}6}Week 7}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}7}Week 8}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}8}Week 9}{5}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}9}Week 10}{5}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}10}Week 11 (Finals Week)}{5}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Analysis of Performance}{5}
+\contentsline {section}{\numberline {V}Summary}{5}
