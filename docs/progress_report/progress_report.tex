@@ -1,5 +1,5 @@
 \documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
-\pagestyle{empty}
+
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
 
@@ -11,14 +11,6 @@
 
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
-
-\titleformat{\section}[block]{\bfseries\Large}{\thesection}{0.4em}{}
-\titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{0.4em}{}
-\titleformat{\subsubsection}[block]{\bfseries\normalsize}{\thesubsubsection}{0.4em}{}
-\setlength{\parindent}{0pt}
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
 \begin{document}
 \begin{center}
@@ -33,6 +25,10 @@
 	\textbf{Aravind Parasurama}\\parasura@oregonstate.edu
 
 	\textbf{Cody Holliday}\\hollidac@oregonstate.edu
+
+	\vspace{2cm}
+	{\Large CS 461, Fall 2016}
+	\vspace{1cm}
 \end{center}
 
 \begin{abstract}
@@ -44,8 +40,32 @@
 \newpage
 
 \section{Purposes and Goals}% Connor
+\subsection{Project Purpose}
+Brew.ai is a hardware and software solution for automated brewing of mead or beer.
+Currently, home brewing requires a lot of time, knowledge, and patience. 
+As such, it is not accessible to amateurs, and brew.ai seeks to solve this problem. 
+From amateurs to professional brewers, we want brew.ai to be useful by automating the brewing process and helping brewers make better tasting products. 
 
-\section{Current Project Status}% Cody?
+\subsection{Project Goals}
+At the end of the project, we look to produce a physical device that contains the necessary electronics and software to control the brewing process.
+The brew.ai device itself is a bucket lid that will fit over a brewing device and have various modules incorporated in it. 
+The lid device will monitor and control temperature, send and receive commands/data to and from the Android application, and monitor fermentation status.
+From the perspective of a user, setup will be essentially plug-and-play. 
+No technical knowledge is needed beyond knowing how to pair a Bluetooth device an Android device, open an app, and put ingredients into a bucket.
+brew.ai also will improve on its recipe over time by leveraging the power of reinforcement learning and the users own feedback on the product it creates.
+A main goal of this project is creating a product with the ability to learn from each batch, and improve its performance.
+
+\section{Current Project Status}% Cody
+Currently we are at the end of the design stage, but we have already made efforts to start brewing.
+One batch of mead is currently brewing and should be done in the coming weeks.
+To gather as much data as possible, the plan is to make batches every week to quickly increase the size of our data set.
+We have yet to create metrics by which we will judge the success of batches, but we will do so before we test the current batch is complete.
+As we move towards the implementation stage of our development, we will be developing the hardware and software of the device.
+We have yet to purchase the User Interface device, as well as the sensors and hardware.
+The controller, the microcontroller, and the bluetooth dongle do not need to be purchased, as we already own them.
+On the business side of this project, there has been no progress.
+A business plan still needs to be developed, and local brewers need to be consulted about the issues they have with their brewing process.
+
 
 \section{Problems Encountered}%Aravind?
 Problems encountered this term were regarding design decisions.
@@ -68,16 +88,39 @@ During this section of the class, projects were presented by their respective sp
 As we had already picked a project topic and found a sponsor, this section did not see much progress, apart from orienting ourselves with the class schedule.
 
 \subsubsection{Week 3} % Connor
+This week saw progress on administrative tasks, such as meeting with Dale, our sponsor, and becoming more familiar with his requirements for formal business proposals from our group.
+We also created the GitHub repository for our project, and added all the necessary people as collaborators.
+We are starting to acquire our hardware for the project, from a microcontroller to brewing containers. 
+These parts we are acquiring at the moment are items we already have, or can build from items we have on hand.
 
 \subsubsection{Week 4} % Connor
+In an uneventful week, we made revisions to our problem statement which would be approved by Dale at a later date.
+Initial brewing mead samples will start soon.
+Additionally, we started to think about writing the next document, the requirements document.
 
 \subsubsection{Week 5} % Connor
+Aravind setup the GitHub hooks for waffle.io, so we can keep track of our issues in a coherent, visual manner.
+We were occupied with work from other classes this week, but still completed a rough draft of the requirements document.
+This document will be edited by Dale and us in the coming week, so we can make changes and produce a final document.
+It would have been nice to have complete document to present to Dale this week, but unfortunately this was just not feasible with our busy schedules.
 
 \subsubsection{Week 6}
+Having little time to do work is a recurring theme this week.
+We were unable to finish the requirements document before meeting with Dale, but we were able to finish before the deadline.
+Further work needs to be done to synchronize our work schedules so that we have more time to review our documents.
 
 \subsubsection{Week 7}
+This week we decided what portions of the project we would be responsible for.
+Connor chose to handle the Reinforcement Learning algorithm, and Aravind chose to handle the brewing hardware.
+Cody is handling the User Interface of the device.
+At the beginning of the week we brewed a batch of mead which should sit for a couple weeks.
+We had some issues with the instructions that were given to me by a friend.
+The instructions were not specific enough in some places which led to confusion.
+We found some instructions online that helped us with the parts that we were struggling with.
 
 \subsubsection{Week 8}
+There were some unforeseen issues unrelated to the project that caused the Tech Review document to take longer than expected, but we were able to complete it.
+Not much else happened this week.
 
 \subsubsection{Week 9} % aravind
 We began work on the design document. This week was Thanksgiving.
@@ -96,10 +139,10 @@ This week, we are working on completing the progress report document, and creati
 		\toprule
 		\textbf{Positives} & \textbf{Deltas} & \textbf{Actions} \\
 		\midrule
-
-		%example
-		Eat Pancakes & Ate food, but still hungry & Find more pancakes \\
-
+		We have a good relationship with our sponsor Dale. It helps that he's a very relatable person who is easy to get along with. & Coordination on tackling tasks is still lackluster, and could be improved. & Utilizing our waffle.io page to keep meticulous records of issues and assignments, while tedious, would clarify who is doing what part of the assignments.\\
+		We are flexible when scheduling meetings, and have not had issues coming up with specific meeting times to meet with Dale.& Documents are being prepared close to the deadlines, causing undue worry.& We organize and divide up our work well. But this generally only happens when we are all able to work on the document. This process could be done sooner, to allow for each person to work on the assignments at an easier pace.\\
+		We began brewing mead at the beginning of week 7, so we should have our first data point soon. & We have a small amount of data on brewing batches of mead. & We brew at least 3 batches of mead \\
+		
 		\bottomrule
 	\end{tabular}
 \end{center}
@@ -109,5 +152,11 @@ This week, we are working on completing the progress report document, and creati
 %\bibliographystyle{ieeetr}
 
 \section{Summary}
+This term was not perfect, and there are several identifiable items that our group can improve upon.
+However, labeling this term as bad or ineffective would be inappropriate.
+We successfully worked on our documents and turned them in, even if the process could have been more efficient and easier for us to complete.
+While iterations on our working structure and communication dynamics this next term can help us improve as a group, we have a relatively successful base to start upon.
+This project will have some complex technical aspects which we will have to solve, namely the reinforcement learning structures.
+By taking our current workflow and performing the necessary changes, we will be able to adequately tackle this project in the coming months.
 
 \end{document}
