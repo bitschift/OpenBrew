@@ -1,26 +1,55 @@
 Why are you interested in homebrewing?
+Cause its fun. Um.... Experimentation is fun and most of the beeris I make yuou can't buy at the store.
+Cool niche things, like chocolate cocount ale
 
 How much experience do you have homebrewing?
+3-4 yuears
   followup: What is your homebrewing setup?
+Really Janky, Don't have fine grain temperature control, so can't do whole grain.
+Temperature is hard, since reading most temperatures off an analog thermometer.
 
 What are some major issues that you see in your homebrewing process?
+Temperature control is the biggest one, sparging is difficult to physically perform with a 100 degreee pot, a funell, and a sizeve, with steam burns, transporting wort from point a to point b
 
 How would you improve on your current setup?
+Fix above.
+Something that regulates temp automatically, and something to I could deal with pouring, but ideally it would be nice to fix.
+A bucket with a built in sizeve.
   followup: How much does cost limit you in improving your setup? Is there a space limitation as well?
+Don't see space limitatins, but expects to be costly becasue its specalized.
 
 How much control do you like to have when homebrewing? What aspects of your setup allow you easily control the process?
+I lke to be involved in every step, otherwise its boring.
+Would enjoy a partially automated system, especially around temperature control.
 
 What would your ideal small scale brewing setup look like?
+Bucket with temp control with a spout.
 
 How much would you be willing to spend on that setup?
+$100, especially if it worked. would be skeptical initlally
 
 How do you think the home brewing market could be expanded?
+There's a lot of stuff to expensively automate currently, so its currently expanded but cost prohibitive.
+Kegs are awesome, but they are around $150.
 
 Are there any demographics that are often overlooked in the homebrewing market?
+Not sure
 
 [Describe product before asking]
 What do you think of this device? Is this something you would want?
+Yes/No, it doesn't brew enough, want's 5 gallon batches, 
+It would be good for cost effective beta tests and experiments. Experimentation is too costly if it fails.
+
+If it was a larger scale, it would be interesting, but sometimes would want to make changes in the middle of brewing.
+
+This is a hobby, so hobbiests like to learn about it. Saving money is fun, and its fun, so it would be important to teach the user why actions are being taken.
 
 How comfortable are you with autonomous fermentation? Is there something that would make you more comfortable with this device?
+With others having it, don't cahre
+With owing one, would be good for experimentation.
+With drinking, wouldn't feel too unsafe, especially if it garuantees a clean working environment.
 
 What do you think our product should have that would improve the user's experience in brewing?
+Small scale experimentation, 99% use case.
+
+
