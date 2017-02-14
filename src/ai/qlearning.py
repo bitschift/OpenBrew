@@ -27,9 +27,9 @@ class LearningAgent:
         # Experience replay aspects
         self._memory = list()
         self._discount = .9
-        self._max_mem = 100
+        self._max_mem = 11000
 
-    def _q_update(self):
+    def _q_update(self, rating):
         pass
 
     def _record(self, state_info, brew_finished):
@@ -48,12 +48,17 @@ class LearningAgent:
         pass
 
 
-    def give_feedback(self):
+    def give_feedback(self, rating):
         '''
         Pass feedback to the learning agent about the previous run.
         Q-Learning occurs after this function is run.
         '''
-        pass
+        # Apply reward to action history
+        # Perform Q-update on history
+        # train on updated history
+
+
+        
 
     def get_action(self, temperature, co2, gravity, time):
         '''
