@@ -216,6 +216,11 @@ These actuators are a submersible heating element, and a motor controlled stirri
 The agent can control the power state of the heating element, and the power state of the electric stirrer.
 Additionally, the agent can take an action to signal that the brewing process has completed, bringing the process to an end.
 
+During the learning phase, experience replay will be used in conjunction with the standard Q-learning algorithm to increase learning speeds.
+Experience replay is an additional technique which stores this history of state action pairs, and (at its most simple) selects a random state action pair for the Q-learning update~\cite{Pieters2016}.
+As experiences are stored, they are used multiple times in the learning process.
+This increases the knowledge available during learning, and sees faster learning convergence~\cite{Pieters2016}.
+
 \subsubsection{Decision Making Structures}
 An important aspect of intelligent decision making is the computational structure which allows for decisions to be made.
 Neural networks are a classic method of non-linear function approximation~\cite{RussellNorvig},  which we will use to approximate the Q-table.
