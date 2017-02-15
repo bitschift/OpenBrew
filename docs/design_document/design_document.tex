@@ -261,6 +261,18 @@ The agent will take actions by taking the action associated with the maximum Q-v
 These actions will be sent to the microcontroller, where they will be used to control the state of the brewing process.
 It will learn by using the Q-learning iterative update function (Equation~\ref{eq:Q(s,a)}), and receiving its reward from the user.
 
+\subsubsection{Python Class Structure}
+To implement the design in Figure~\ref{fig:AgentStructure}, the learning agent will be created in a Python Class object with the structure shown in Figure \ref{fig:AgentClassStructure}.
+
+\begin{figure}[h]
+\begin{center}
+	\caption{Learning agent class structure \label{fig:AgentClassStructure}}
+	\includegraphics[width=\linewidth]{AgentClass.eps}
+\end{center}
+\end{figure}
+
+The agent class is relatively simple, requiring only a memory module and the Keras neural network model.
+In this case, the memory module is implemented as a Python list.
 
 \subsection{Android-Based User Interface Design \\ -- \textbf{\textit{Cody Holliday}}}\label{sec:android}
 \subsubsection{Interface Device}
