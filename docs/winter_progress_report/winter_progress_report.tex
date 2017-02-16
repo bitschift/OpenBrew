@@ -1,0 +1,151 @@
+\documentclass[draftclsnofoot,onecolumn,letterpaper,10pt]{IEEEtran}
+
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{algorithm2e}
+\usepackage{pgfgantt}
+\usepackage{booktabs}
+
+\newcommand{\subparagraph}{}
+\usepackage{titlesec}
+
+\begin{document}
+\begin{center}
+	{\huge\textbf{Senior Software Engineering Design Group 7}}
+	\vspace{1cm}
+
+	{\Huge\textbf{brew.ai Progress Report -- Winter Term}}
+
+	\vspace{2cm}
+	\textbf{Connor Yates}\\yatesco@oregonstate.edu
+
+	\textbf{Aravind Parasurama}\\parasura@oregonstate.edu
+
+	\textbf{Cody Holliday}\\hollidac@oregonstate.edu
+
+	\vspace{2cm}
+	{\Large CS 462, Winter 2017}
+	\vspace{1cm}
+\end{center}
+
+\begin{abstract}
+
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Purposes and Goals}
+\subsection{Project Purpose}
+Brew.ai is a hardware and software solution for automated brewing of mead or beer.
+Currently, home brewing requires a lot of time, knowledge, and patience. 
+As such, it is not accessible to amateurs, and brew.ai seeks to solve this problem. 
+From amateurs to professional brewers, we want brew.ai to be useful by automating the brewing process and helping brewers make better tasting products. 
+
+\subsection{Project Goals}
+At the end of the project, we look to produce a physical device that contains the necessary electronics and software to control the brewing process.
+The brew.ai device itself is a bucket lid that will fit over a brewing device and have various modules incorporated in it. 
+The lid device will monitor and control temperature, send and receive commands/data to and from the Android application, and monitor fermentation status.
+From the perspective of a user, setup will be essentially plug-and-play. 
+No technical knowledge is needed beyond knowing how to pair a Bluetooth device an Android device, open an app, and put ingredients into a bucket.
+brew.ai also will improve on its recipe over time by leveraging the power of reinforcement learning and the users own feedback on the product it creates.
+A main goal of this project is creating a product with the ability to learn from each batch, and improve its performance.
+
+\section{Current Project Status}
+In general, brew.ai is slightly behind schedule. Recently, we have procured all the hardware necessary to create our brewing device, and coding has been started on the AI and UI sections. Even with this progress, there are still many things to be done, and the separate components still need to be completed and integrated.
+
+\subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
+The artificial intelligence agent is moving along well, but could be more finished.
+
+The code is not long currently, well under 100 lines.
+This is attributed mostly to the use of the Keras library, which allows me to create the neural network in a handful of lines.
+From there, I have been working on implementing the Q-value update function, which allows the agent to learn.
+Simultaneously, I am working on implementing the experience replay algorithm, which influences the way ``experiences'' are pulled for the Q-value update function.
+Experience replay works by storing recent experiences (state-reward pairs) and selecting from that memory during training.
+This way, a single experience can be used during learning more than once, and can help encode time dependent structures in the neural net.
+
+Once this code is completed, it will be very short, around 250 lines at the most. The use of Python and robust neural network libraries helps keep the codebase small. Additionally, the algorithms themselves are not long; just complicated.
+To finish writing the AI, I will need to complete the Q-update function (which updates the neural network) and implement the experience replay algorithm.
+
+After this functionality is completed, the next step will be to write an execution loop using the interface provided by the Teensy microcontroller.
+This execution loop will read data from the microcontroller to create a state for the neural network to process.
+The neural network will generate an action to take, which is sent back to the microcontroller to be executed in the brewing system.
+
+In order to test the learning parameters and ability of the neural network to learn a Q-value function, I will also write a small simulator for brewing process.
+This will be a simple model of the system, as writing code to actually model chemical interactions would be prohibitively difficult.
+Instead, the simulator will provide update the state of the system using a combination of simple functions.
+For example, temperature changes can be simply modeled as increasing when the heating element is on, and cooling when it is not.
+The rate of the change is given by the simple temperature differential equations.
+The specific gravity will simply modeled as a linear function of time, since sugars are converted to alcohol in a one-way fashion.
+By creating a simple simulator of the system and training to hit a specific curve through the state space, we can see how effectively and quickly the agent is able to learn a brewing process.
+
+If there are any errors or inconsistencies in this basic learning phase, this can be used to refine the agent design into a better working agent for the task of brewing.
+
+
+
+\subsubsection{Roadblocks and Solutions}
+As it stands, there are no major technical or intellectual blocks to completing this section of the project.
+I understand the math behind Q-Learning and experience replay (which are the two main aspects of the AI).
+I also have designed and begun implementation on a Python class structure which would allow me to train an agent, once we have data.
+However, even with an understanding of the theoretical aspects of the reinforcement learning techniques, this is my first time writing code to implement Q-learning.
+This new-to-me implementation of the algorithm is contributing to the slowdown I see on my section of the project.
+While there is not much code to write, it is very precise and careful code which I am writing.
+
+The main delay in completing the AI has been time.
+Between research duties, grad school applications, and homework loads, free time this term has been few and far between.
+However, the second half of the term will be better in this regard. This week our research team finished a project for a journal, which was ongoing for the last few months.
+Additionally, I will be demoting my grading status for one of my classes this term, as it is just for fun.
+This will allow me to reallocate time from that class to this project.
+
+
+
+\section{Problems Encountered}
+Problems encountered this term were regarding design decisions.
+There were a number of ways we could arrange the combination of learning, hardware and user interface components of the project.
+We had considerable debate over elements such as communication between modules, and what platforms each component would run on.
+
+\section{Retrospective}
+The retrospective lays out a history of what has happened this development cycle, along with an analysis of our performance this term.
+The history is presented first, in Section~\ref{sec:weekSummaries}, with summaries of our progress each week.
+Analysis, presented in a table format in Section~\ref{sec:analysis}, with columns on positives, deltas, and actions.
+
+\subsection{Week Summaries}\label{sec:weekSummaries}
+This section outlines our progress from week to week.
+Each week is numbered via its position in the academic term.
+The summaries are presented in a weekly format, with each week presenting a summary of our performance.
+This summary is compiled from our individual weekly updates into one single summary for the week. % Change this if need be, if the other format works better
+
+\subsubsection{Weeks 1 and 2}
+
+\subsubsection{Week 3} % Connor
+
+\subsubsection{Week 4} % Connor
+
+\subsubsection{Week 5} % Connor
+
+\subsubsection{Week 6}
+
+\subsubsection{Week 7}
+
+\subsubsection{Week 8}
+
+\subsubsection{Week 9} % aravind
+
+\subsubsection{Week 10} % aravind
+
+\subsubsection{Week 11 (Finals Week)} % aravind
+
+
+\section{Summary}
+This term was not perfect, and there are several identifiable items that our group can improve upon.
+However, labeling this term as bad or ineffective would be inappropriate.
+We successfully worked on our documents and turned them in, even if the process could have been more efficient and easier for us to complete.
+While iterations on our working structure and communication dynamics this next term can help us improve as a group, we have a relatively successful base to start upon.
+This project will have some complex technical aspects which we will have to solve, namely the reinforcement learning structures.
+By taking our current workflow and performing the necessary changes, we will be able to adequately tackle this project in the coming months.
+
+\end{document}
