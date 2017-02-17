@@ -97,6 +97,55 @@ To more accurately measure the fermentation process, the hardware will also need
 to incorporate pH sensing, carbon sensing, and ethanol sensing.
 
 \subsection{Android Interface}
+Currently there has been little progress on the development of the interface, however since the device can be controlled through a command ilne interface, this does not impede us from testing the AI or the hardware.
+
+
+\subsubsection{Work Done and Roadblocks}
+Since the User Interface has fallen on me to complete, there has been little done in the way of creating a testing skeleton.
+All of the roadblocks have been due to lack of time on my part. Especially week 6 which started off with my birthday
+and Valentines day and ended with two midterms.
+My current solution to my lack of time is to take an incomplete in one of my heavier courses so that I can focus on the development of the User Interface.
+Currently I have one way communication from the Android to my laptop. I can connect my phone to my 
+computer, then input text into a text field and send it to the computer where a python script captures and prints the string.
+
+
+\subsubsection{Work Left Undone}
+My first goal is to create two way Bluetooth communication between the controller and the Android device.
+To implement two way communication I need to write a message handler that can listen and receive messages on a Bluetooth socket. 
+Once this is finished I need to test it on the Raspberry Pi and make sure it interfaces with Bluetooth correctly.
+There may be differences between how Raspian Linux and Ubuntu Linux handle Bluetooth sockets, but this should be 
+a minor change if needed.
+
+
+After the Bluetooth communication is fully implemented, then we can begin on developing the control protocol.
+The Raspberry Pi and the Android device will exchange messages in a simple text format separated by non-letter characters.
+Data from the brewing process will be formatted in a JSON object as part of this string.
+The Android device will put this data into an object, then use the Graphview Android library to plot the data on the Android Device.
+I will also need to develop the interface between the Bluetooth listener on the controller and the AI itself.
+This should be as simple as using control structures in the main program and an asynchronous listener to handle messages from the Bluetooth connection.
+The final part of the app development will be making this as an app that a user can download on their phone.
+This will allow us to offer a less expensive version of the product without the Android device interface.
+Currently the Python side looks specifically for my phone, but it can be generalized to support other devices.
+This app would be free on the Google Play store as a companion product to the Brew.AI device.
+
+\subsubsection{App Design}
+The app design will be simple with as little steps between starting and brewing as possible. 
+Four options are available on the home screen: Brew For Me, Let Me Brew, Data, and Settings. 
+The Brew For Me button will take the user to a screen that contains a list of ingredients as well as amounts.
+Once the user has checked off each of those ingredients, the start button becomes available to the user to press to start brewing.
+The Let Me Brew button is similar to the Brew For Me button, but gives the user control of the amounts of each of the ingredients.
+After the ingredients screen a process screen comes up listing all the different variables in the brewing process.
+The screen will have default or suggested numbers for these variables, but the user can alter these as they wish.
+
+
+At this point for both buttons the user is prompted to add flavorings to the batch and log what they put in.
+Once the user is done with ingredients and process settings, brewing begins.
+The last two buttons are data, and settings. The data button takes the user to another screen where they can see data from all the batches they have ever brewed.
+The data will be presented in two forms: a graph of all the data from each batch combined, and each batch separately.
+This will include graphs over time of how each batch changed, much like how it is shown during the brewing process.
+The settings button will give the user control over the visual aspect of the app and allow them to enable usability options.
+Other features would include clearing the brewing data off the Android to prevent it from becoming full, but the data sets will probably be small and take up kilobytes of space on the phone.
+
 
 \subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
 \subsubsection{AI Review and Purpose}
