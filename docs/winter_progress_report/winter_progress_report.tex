@@ -61,17 +61,38 @@ We will need to concentrate effort on this project in the coming weeks to bring 
 
 \subsection{Hardware\\{\em\textbf{Aravind Parasurama}}}
 \subsubsection{Overview}
+brew.ai hardware is modular, flexible, and scalable.
+The current testing hardware is a generic large mason jar with a tight-sealing
+electronic lid, however the brew.ai platform can easily work with setups ranging
+from what is used for testing to a professional brewing operation with multiple
+brews being automated.
+The hardware components can be categorized as the microcontroller element, and
+everything else.
+For this demo, the microcontroller of choice is the AVR ATmega32u4, which provides
+us with a nice range of GPIO, PWM and ADC pins to work with when broken out.
+The completed AVR routine will execute commands received from the AI, and send
+sensor data to the AI.
+Sensors are plug-and-play as per the user's discretion, however the crucial elements
+for operation are the heating and cooling element, the water table sensor, and
+the thermometer.
+As the heating element requires a lot of power for continous operation, the brew.ai
+hardware will require a consistent power source.
 
 \subsubsection{Current Status}
 The hardware is shaping up to be a safely housed microcontroller unit with support
-for plug-and-play functionality with a variety of sensors relevant to brewing.
-At this time, the microcontroller supports operating a heating element, a stirringelement.
+for plug-and-play functionality with a variety of sensors relevant to brewing. \\
+At this time, the microcontroller supports operating a heating element, the water
+table sensor, and a stirring element.
+The microcontroller routine receieves key-value packets over USART, with the keys
+indicating which operation needs to be executed.
 The microcontroller will also periodically read and send data from a temperature
 module, a pH sensor, and a digital hydrometer of some sort.
 Microcontroller code is entirely written in C, with the platform of choice being
 AVR.
+For easy plug-and-play functionality, a number of AVR libraries for interfacing
+with i2c and SPI. \\
 The current testing hardware is a large glass mason jar, with electronic components
-fashioned into the lid.
+like the microcontroller, thermometer and ultrasonic sensor fashioned into the lid.
 The heating element protrudes from the lid, and the magnetic stirring element
 is attached to the bottom.
 
