@@ -57,11 +57,38 @@ A main goal of this project is creating a product with the ability to learn from
 
 \section{Current Project Status}
 In general, brew.ai is slightly behind schedule. Recently, we have procured all the hardware necessary to create our brewing device, and coding has been started on the AI and UI sections. Even with this progress, there are still many things to be done, and the separate components still need to be completed and integrated.
+We will need to concentrate effort on this project in the coming weeks to bring it back up to schedule so it may be seen to a successful conclusion.
+
+\subsection{Hardware}
+\subsection{Android Interface}
 
 \subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
-The artificial intelligence agent is moving along well, but could be more finished.
+\subsubsection{AI Review and Purpose}
+The artificial intelligence aspect of this project is to create an autonomous agent which watches over the brewing process.
+The agent will have the ability to read data from sensors immersed in the brew, and act upon its decisions.
+Available actions are a stirring element, a heating element, and a trigger to stop the brewing process.
 
-The code is not long currently, well under 100 lines.
+Instead of hand-coding a specific policy based on historical data, we elected to use reinforcement learning.
+Specifically, we will use Q-learning with experience replay to train a neural network to gauge what actions should be taken when presented with a representation of the world.
+Q-learning traditionally uses a table to store Q-values for a finite set of state-actions pairs.
+We will represent our brewing process as a 4-dimensional state storing the current temperature, specific gravity, $CO_2$ level, and time.
+These variables are continuous, and have a potentially infinite range.
+Instead of attempting to manually bin their continuous domain into a discreet one, we will use a neural network to stand in place of the Q-table.
+Neural networks are general function approximators, and have been shown to be able to approximate the function encoded by the Q-table.
+This method will provide the structure for an intelligent, autonomous agent which learns from its environment.
+
+In order to test the performance and robustness of the AI, we are considering creating a simple simulator of a brewing system, based on simple physics principles.
+This system will allow us to create basic, but meaningful test data with which to train the AI on. 
+The need for this secondary system is not yet cemented, but I will be proceeding as if it is needed.
+T
+
+
+\subsubsection{AI Progress}
+The artificial intelligence agent is moving along well, but could be more finished.
+The neural network is implemented, and its input/output interfaces have been tested.
+However, work is needed to complete the reinforcement learning algorithms which will give the AI the power to learn.
+
+The code base is still small, under 100 lines.
 This is attributed mostly to the use of the Keras library, which allows me to create the neural network in a handful of lines.
 From there, I have been working on implementing the Q-value update function, which allows the agent to learn.
 Simultaneously, I am working on implementing the experience replay algorithm, which influences the way ``experiences'' are pulled for the Q-value update function.
@@ -75,7 +102,8 @@ After this functionality is completed, the next step will be to write an executi
 This execution loop will read data from the microcontroller to create a state for the neural network to process.
 The neural network will generate an action to take, which is sent back to the microcontroller to be executed in the brewing system.
 
-In order to test the learning parameters and ability of the neural network to learn a Q-value function, I will also write a small simulator for brewing process.
+\subsubsection{Simple Simulator}
+In order to test the learning parameters and ability of the neural network to learn a Q-value function, I will consider writing a small simulator for brewing process.
 This will be a simple model of the system, as writing code to actually model chemical interactions would be prohibitively difficult.
 Instead, the simulator will provide update the state of the system using a combination of simple functions.
 For example, temperature changes can be simply modeled as increasing when the heating element is on, and cooling when it is not.
@@ -84,8 +112,6 @@ The specific gravity will simply modeled as a linear function of time, since sug
 By creating a simple simulator of the system and training to hit a specific curve through the state space, we can see how effectively and quickly the agent is able to learn a brewing process.
 
 If there are any errors or inconsistencies in this basic learning phase, this can be used to refine the agent design into a better working agent for the task of brewing.
-
-
 
 \subsubsection{Roadblocks and Solutions}
 As it stands, there are no major technical or intellectual blocks to completing this section of the project.
@@ -101,51 +127,11 @@ However, the second half of the term will be better in this regard. This week ou
 Additionally, I will be demoting my grading status for one of my classes this term, as it is just for fun.
 This will allow me to reallocate time from that class to this project.
 
-
-
-\section{Problems Encountered}
-Problems encountered this term were regarding design decisions.
-There were a number of ways we could arrange the combination of learning, hardware and user interface components of the project.
-We had considerable debate over elements such as communication between modules, and what platforms each component would run on.
-
-\section{Retrospective}
-The retrospective lays out a history of what has happened this development cycle, along with an analysis of our performance this term.
-The history is presented first, in Section~\ref{sec:weekSummaries}, with summaries of our progress each week.
-Analysis, presented in a table format in Section~\ref{sec:analysis}, with columns on positives, deltas, and actions.
-
-\subsection{Week Summaries}\label{sec:weekSummaries}
-This section outlines our progress from week to week.
-Each week is numbered via its position in the academic term.
-The summaries are presented in a weekly format, with each week presenting a summary of our performance.
-This summary is compiled from our individual weekly updates into one single summary for the week. % Change this if need be, if the other format works better
-
-\subsubsection{Weeks 1 and 2}
-
-\subsubsection{Week 3} % Connor
-
-\subsubsection{Week 4} % Connor
-
-\subsubsection{Week 5} % Connor
-
-\subsubsection{Week 6}
-
-\subsubsection{Week 7}
-
-\subsubsection{Week 8}
-
-\subsubsection{Week 9} % aravind
-
-\subsubsection{Week 10} % aravind
-
-\subsubsection{Week 11 (Finals Week)} % aravind
+I believe the AI section has, at most, 20 hours of coding work before it is completed.
+Subsequently, finishing this section of the project should happen soon
+This will allow me to help my teammates with their sections, as well as keep on top of the planning needed to create a successful expo presentation.
 
 
 \section{Summary}
-This term was not perfect, and there are several identifiable items that our group can improve upon.
-However, labeling this term as bad or ineffective would be inappropriate.
-We successfully worked on our documents and turned them in, even if the process could have been more efficient and easier for us to complete.
-While iterations on our working structure and communication dynamics this next term can help us improve as a group, we have a relatively successful base to start upon.
-This project will have some complex technical aspects which we will have to solve, namely the reinforcement learning structures.
-By taking our current workflow and performing the necessary changes, we will be able to adequately tackle this project in the coming months.
 
 \end{document}
