@@ -8,6 +8,7 @@
 \usepackage{algorithm2e}
 \usepackage{pgfgantt}
 \usepackage{booktabs}
+\graphicspath{ {images/} }
 
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
@@ -96,6 +97,8 @@ The change in the water table should indicate progress in fermentation.
 To more accurately measure the fermentation process, the hardware will also need
 to incorporate pH sensing, carbon sensing, and ethanol sensing.
 
+
+
 \subsection{Android Interface}
 Currently there has been little progress on the development of the interface, however since the device can be controlled through a command ilne interface, this does not impede us from testing the AI or the hardware.
 
@@ -107,8 +110,33 @@ and Valentines day and ended with two midterms.
 My current solution to my lack of time is to take an incomplete in one of my heavier courses so that I can focus on the development of the User Interface.
 Currently I have one way communication from the Android to my laptop. I can connect my phone to my 
 computer, then input text into a text field and send it to the computer where a python script captures and prints the string.
+Here are the screenshots of my current progress.
+
+\newpage
+\vfill
+
+\begin{figure}
+\label{fig:layout}
+\caption{Here is the layout of the app currently.}
+\includegraphics[scale=0.4]{android-layout.eps}
+\end{figure}
 
 
+\begin{figure}
+\label{fig:code}
+\caption{This is some of the code for button functionality.}
+\includegraphics[scale=0.4]{android-code.eps}
+\end{figure}
+
+
+\begin{figure}
+\label{fig:python}
+\caption{This is the python script written to transmit and receive information.}
+\includegraphics[scale=0.4]{python-server.eps}
+\end{figure}
+
+\vfill
+\clearpage
 \subsubsection{Work Left Undone}
 My first goal is to create two way Bluetooth communication between the controller and the Android device.
 To implement two way communication I need to write a message handler that can listen and receive messages on a Bluetooth socket. 
