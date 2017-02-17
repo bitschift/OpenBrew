@@ -60,10 +60,12 @@ In general, brew.ai is slightly behind schedule. Recently, we have procured all 
 We will need to concentrate effort on this project in the coming weeks to bring it back up to schedule so it may be seen to a successful conclusion.
 
 \subsection{Hardware\\{\em\textbf{Aravind Parasurama}}}
+\subsubsection{Overview}
+
+\subsubsection{Current Status}
 The hardware is shaping up to be a safely housed microcontroller unit with support
 for plug-and-play functionality with a variety of sensors relevant to brewing.
-At this time, the microcontroller supports operating a heating element, a stirring
-element.
+At this time, the microcontroller supports operating a heating element, a stirringelement.
 The microcontroller will also periodically read and send data from a temperature
 module, a pH sensor, and a digital hydrometer of some sort.
 Microcontroller code is entirely written in C, with the platform of choice being
@@ -73,6 +75,7 @@ fashioned into the lid.
 The heating element protrudes from the lid, and the magnetic stirring element
 is attached to the bottom.
 
+\subsubsection{Tasks Left}
 The hardware portion of the project has some work to go.
 A reliable and easily reproducible method of measuring fermentation needs to be made.
 A 3D printed enclosure needs to be designed for the testing hardware to be usable.
@@ -80,6 +83,7 @@ More testing hardware also needs to be created, so that there can be a nice demo
 As the current protoype cycle is ending, professional feedback on current brewing progress
 needs to be sought.
 
+\subsubsection{Roadblocks}
 Implementing hardware from design resulted in a lot of roadblocks.
 Finding a reliable, food safe heating element has been difficult.
 The current solution to that is to repurpose water heater elements, however those
@@ -96,7 +100,7 @@ The change in the water table should indicate progress in fermentation.
 To more accurately measure the fermentation process, the hardware will also need
 to incorporate pH sensing, carbon sensing, and ethanol sensing.
 
-\subsection{Android Interface}
+\subsection{Android Interface\\{\em\textbf{Cody Holliday}}}
 Currently there has been little progress on the development of the interface, however since the device can be controlled through a command ilne interface, this does not impede us from testing the AI or the hardware.
 
 
@@ -105,15 +109,15 @@ Since the User Interface has fallen on me to complete, there has been little don
 All of the roadblocks have been due to lack of time on my part. Especially week 6 which started off with my birthday
 and Valentines day and ended with two midterms.
 My current solution to my lack of time is to take an incomplete in one of my heavier courses so that I can focus on the development of the User Interface.
-Currently I have one way communication from the Android to my laptop. I can connect my phone to my 
+Currently I have one way communication from the Android to my laptop. I can connect my phone to my
 computer, then input text into a text field and send it to the computer where a python script captures and prints the string.
 
 
 \subsubsection{Work Left Undone}
 My first goal is to create two way Bluetooth communication between the controller and the Android device.
-To implement two way communication I need to write a message handler that can listen and receive messages on a Bluetooth socket. 
+To implement two way communication I need to write a message handler that can listen and receive messages on a Bluetooth socket.
 Once this is finished I need to test it on the Raspberry Pi and make sure it interfaces with Bluetooth correctly.
-There may be differences between how Raspian Linux and Ubuntu Linux handle Bluetooth sockets, but this should be 
+There may be differences between how Raspian Linux and Ubuntu Linux handle Bluetooth sockets, but this should be
 a minor change if needed.
 
 
@@ -129,8 +133,8 @@ Currently the Python side looks specifically for my phone, but it can be general
 This app would be free on the Google Play store as a companion product to the Brew.AI device.
 
 \subsubsection{App Design}
-The app design will be simple with as little steps between starting and brewing as possible. 
-Four options are available on the home screen: Brew For Me, Let Me Brew, Data, and Settings. 
+The app design will be simple with as little steps between starting and brewing as possible.
+Four options are available on the home screen: Brew For Me, Let Me Brew, Data, and Settings.
 The Brew For Me button will take the user to a screen that contains a list of ingredients as well as amounts.
 Once the user has checked off each of those ingredients, the start button becomes available to the user to press to start brewing.
 The Let Me Brew button is similar to the Brew For Me button, but gives the user control of the amounts of each of the ingredients.
