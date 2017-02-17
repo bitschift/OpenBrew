@@ -42,15 +42,15 @@
 \section{Purposes and Goals}
 \subsection{Project Purpose}
 Brew.ai is a hardware and software solution for automated brewing of mead or beer.
-Currently, home brewing requires a lot of time, knowledge, and patience. 
-As such, it is not accessible to amateurs, and brew.ai seeks to solve this problem. 
-From amateurs to professional brewers, we want brew.ai to be useful by automating the brewing process and helping brewers make better tasting products. 
+Currently, home brewing requires a lot of time, knowledge, and patience.
+As such, it is not accessible to amateurs, and brew.ai seeks to solve this problem.
+From amateurs to professional brewers, we want brew.ai to be useful by automating the brewing process and helping brewers make better tasting products.
 
 \subsection{Project Goals}
 At the end of the project, we look to produce a physical device that contains the necessary electronics and software to control the brewing process.
-The brew.ai device itself is a bucket lid that will fit over a brewing device and have various modules incorporated in it. 
+The brew.ai device itself is a bucket lid that will fit over a brewing device and have various modules incorporated in it.
 The lid device will monitor and control temperature, send and receive commands/data to and from the Android application, and monitor fermentation status.
-From the perspective of a user, setup will be essentially plug-and-play. 
+From the perspective of a user, setup will be essentially plug-and-play.
 No technical knowledge is needed beyond knowing how to pair a Bluetooth device an Android device, open an app, and put ingredients into a bucket.
 brew.ai also will improve on its recipe over time by leveraging the power of reinforcement learning and the users own feedback on the product it creates.
 A main goal of this project is creating a product with the ability to learn from each batch, and improve its performance.
@@ -59,7 +59,43 @@ A main goal of this project is creating a product with the ability to learn from
 In general, brew.ai is slightly behind schedule. Recently, we have procured all the hardware necessary to create our brewing device, and coding has been started on the AI and UI sections. Even with this progress, there are still many things to be done, and the separate components still need to be completed and integrated.
 We will need to concentrate effort on this project in the coming weeks to bring it back up to schedule so it may be seen to a successful conclusion.
 
-\subsection{Hardware}
+\subsection{Hardware\\{\em\textbf{Aravind Parasurama}}}
+The hardware is shaping up to be a safely housed microcontroller unit with support
+for plug-and-play functionality with a variety of sensors relevant to brewing.
+At this time, the microcontroller supports operating a heating element, a stirring
+element.
+The microcontroller will also periodically read and send data from a temperature
+module, a pH sensor, and a digital hydrometer of some sort.
+Microcontroller code is entirely written in C, with the platform of choice being
+AVR.
+The current testing hardware is a large glass mason jar, with electronic components
+fashioned into the lid.
+The heating element protrudes from the lid, and the magnetic stirring element
+is attached to the bottom.
+
+The hardware portion of the project has some work to go.
+A reliable and easily reproducible method of measuring fermentation needs to be made.
+A 3D printed enclosure needs to be designed for the testing hardware to be usable.
+More testing hardware also needs to be created, so that there can be a nice demo in May.
+As the current protoype cycle is ending, professional feedback on current brewing progress
+needs to be sought.
+
+Implementing hardware from design resulted in a lot of roadblocks.
+Finding a reliable, food safe heating element has been difficult.
+The current solution to that is to repurpose water heater elements, however those
+are not reputed for their food safety.
+Measuring fermentation has also been problematic.
+Traditionally, in home brewing, a brewer would measure fermentation by measuring
+the change in specific gravity of the solution over time.
+Unfortunately, the process of measuring specific gravity is analog, and there does
+not exist a low-cost, simple way of digitally measuring specific gravity with a
+sensor.
+The current proposed solution for this is to incorporate an ultrasonic sensor to
+detect the waterlevel over set intervals.
+The change in the water table should indicate progress in fermentation.
+To more accurately measure the fermentation process, the hardware will also need
+to incorporate pH sensing, carbon sensing, and ethanol sensing.
+
 \subsection{Android Interface}
 
 \subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
@@ -78,7 +114,7 @@ Neural networks are general function approximators, and have been shown to be ab
 This method will provide the structure for an intelligent, autonomous agent which learns from its environment.
 
 In order to test the performance and robustness of the AI, we are considering creating a simple simulator of a brewing system, based on simple physics principles.
-This system will allow us to create basic, but meaningful test data with which to train the AI on. 
+This system will allow us to create basic, but meaningful test data with which to train the AI on.
 The need for this secondary system is not yet cemented, but I will be proceeding as if it is needed.
 T
 
