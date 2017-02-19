@@ -14,27 +14,44 @@ int main(void) {
 
 	LED_OFF;
 
-    while(1){	// If not command is sent the PCR will enter power saving "idle mode" see ATMEGA32U4 datasheet p.44
-        // standby Mode Control Register default is off 0000 0000
-        //SMCR = 00000110; // turn on power saving
-        LED_ON;
-    	_delay_ms(500);			// Delay for a second
-    	LED_OFF;
-        _delay_ms(500);			// Delay for a second
-    	uart_putchar('c');			// Send confirmation to Android
-    	char x = uart_getchar();	// Receive reply from Android
-        if(x == '?') {
-            count_ms = 0;			// Reset hardware counter
-            uart_putchar('h');		// Send confirmation to Android
-            uart_putchar('\n');		// Endline needed for Android app's parsing
-            pcr_init();				// Receive user settings from Android
-            run_pcr();				// Run PCR using user settings for time and temperature
-        }
+	while(1){	// see ATMEGA32U4 datasheet p.44
+		// standby Mode Control Register default is off 0000 0000
+		//SMCR = 00000110; // turn on power saving
+		LED_ON;
+		_delay_ms(500);						// Delay for a second
+		LED_OFF;
+		_delay_ms(500);						// Delay for a second
+		uart_putchar('c');				// Send confirmation to Android
+		char x = uart_getchar();	// Receive reply from Android
+
+		// t 1 - Set temperature to 1
+		// s 1 - Set stir speed to 1
+		if(uart_getchar() == 't') {
+			uart_putchar('h');
+			run_temperature(1);
+		} else if (uart_getchar() == 's') {
+			uart_putchar('h');
+			run_stir(1);
+		}
+
+		if(x == '?') {
+			count_ms = 0;				// Reset hardware counter
+			uart_putchar('h');	// Send confirmation to Android
+			uart_putchar('\n');	// Endline needed for Android app's parsing
+		}
 	}
 }
 
+void run_temperature(char temp) {
+
+}
+
+void run_stir(char intensity) {
+
+}
+
 void phase(char temp, char time){
-    uint16_t timer = time * 1000;					// Converts user-provided seconds to milliseconds
+	uint16_t timer = time * 1000;					// Converts user-provided seconds to milliseconds
 	uint8_t ch = 0x00;								// Indicates PF0 as read port
 	uint8_t tempin = (uint8_t)adc_read(ch)>>1; 		// Divide by 2
 
@@ -96,7 +113,7 @@ void phase(char temp, char time){
 		} else {
 			OCR1A = 0;
 			OCR1B = 0;
-		 	}
+		}
 		hold = 0;							// find_duty() now knows that we're holding
 	}
 
@@ -107,7 +124,7 @@ void phase(char temp, char time){
 void pcr_init(void){
 	char pcr_set[15];
 	pcr_set[0] = '0';
-    pcr_set[13] = '\n';
+	pcr_set[13] = '\n';
 	pcr_set[14] = '\0';
 	// while loop will check with user to verify that input are correct.
 	while(1){
@@ -119,10 +136,10 @@ void pcr_init(void){
 
 		//Confirming user settings
 		uart_putchar(1);
-        uart_putstring(pcr_set);
-		
+		uart_putstring(pcr_set);
+
 		if(uart_getchar() != '0'){
-    		//********** PCR Steps Time & Temperature
+			//********** PCR Steps Time & Temperature
 
 			// Initialization step:
 			init_step_time = pcr_set[1];
@@ -148,9 +165,9 @@ void pcr_init(void){
 			f_hold_step_time = pcr_set[11];
 			f_hold_step_temp = pcr_set[12];
 
-            uart_putstring("START!\n");
-            
-            break;
+			uart_putstring("START!\n");
+
+			break;
 		}
 	}
 }
@@ -174,31 +191,31 @@ void run_pcr (void){
 /* This function uses an equation to find the duty cycle that the PWM-powered Peltier junction
    should operate at at any given time. */
 void find_duty(char tempin, char temp){
-    /*if (hold == 0) {
-	    if (temp < 72) { // 72 is 40C, describe more in depth
-	        duty = 800+50*abs(temp-tempin);
-	    }
-	    else if (temp < 150 && temp > 72) {
-	    	duty = 200+200*abs(temp-tempin);
-	    }
-	    else if (temp < 224 && temp > 150) {
-	    	duty = 200+300*abs(temp-tempin);
-	    }
+	/*if (hold == 0) {
+	  if (temp < 72) { // 72 is 40C, describe more in depth
+	  duty = 800+50*abs(temp-tempin);
+	  }
+	  else if (temp < 150 && temp > 72) {
+	  duty = 200+200*abs(temp-tempin);
+	  }
+	  else if (temp < 224 && temp > 150) {
+	  duty = 200+300*abs(temp-tempin);
+	  }
 
-	    if (duty > 1023) {
-	    	duty = 1023;
-	    }
-	}
-	if (hold == 1) {
-		if (temp > 60 && temp < 80) {
-			duty = 400;	// hardcode these values as global definitions
-		}
-		if (temp > 130 && temp < 170) {
-			duty = 400;
-		}
-		if (temp > 214 && temp < 230) {
-			duty = 600;
-		}
-	}*/
+	  if (duty > 1023) {
+	  duty = 1023;
+	  }
+	  }
+	  if (hold == 1) {
+	  if (temp > 60 && temp < 80) {
+	  duty = 400;	// hardcode these values as global definitions
+	  }
+	  if (temp > 130 && temp < 170) {
+	  duty = 400;
+	  }
+	  if (temp > 214 && temp < 230) {
+	  duty = 600;
+	  }
+	  }*/
 	duty = 1023;
 }
