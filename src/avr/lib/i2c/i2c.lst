@@ -1,0 +1,223 @@
+   1               		.file	"i2c.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.ERROR1,"ax",@progbits
+  17               	.global	ERROR1
+  19               	ERROR1:
+  20               	.LFB6:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.L2:
+  25 0000 00C0      		rjmp .L2
+  26               	.LFE6:
+  28               		.section	.text.ERROR2,"ax",@progbits
+  29               	.global	ERROR2
+  31               	ERROR2:
+  32               	.LFB7:
+  33               	.LSM1:
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36               	/* epilogue start */
+  37               	.LSM2:
+  38 0000 0895      		ret
+  39               	.LFE7:
+  41               		.section	.text.initI2C,"ax",@progbits
+  42               	.global	initI2C
+  44               	initI2C:
+  45               	.LFB8:
+  46               	.LSM3:
+  47               	/* prologue: function */
+  48               	/* frame size = 0 */
+  49               	.LSM4:
+  50 0000 1AB8      		out 42-32,__zero_reg__
+  51               	.LSM5:
+  52 0002 83E0      		ldi r24,lo8(3)
+  53 0004 8BB9      		out 43-32,r24
+  54               	.LSM6:
+  55 0006 8BE0      		ldi r24,lo8(11)
+  56 0008 8093 B800 		sts 184,r24
+  57               	/* epilogue start */
+  58               	.LSM7:
+  59 000c 0895      		ret
+  60               	.LFE8:
+  62               		.section	.text.batteryICI2C,"ax",@progbits
+  63               	.global	batteryICI2C
+  65               	batteryICI2C:
+  66               	.LFB9:
+  67               	.LSM8:
+  68               	.LVL0:
+  69               	/* prologue: function */
+  70               	/* frame size = 0 */
+  71 0000 982F      		mov r25,r24
+  72               	.LSM9:
+  73 0002 84EA      		ldi r24,lo8(-92)
+  74               	.LVL1:
+  75 0004 8093 BC00 		sts 188,r24
+  76               	.L9:
+  77               	.LSM10:
+  78 0008 8091 BC00 		lds r24,188
+  79 000c 87FF      		sbrs r24,7
+  80 000e 00C0      		rjmp .L9
+  81               	.LSM11:
+  82 0010 8091 B900 		lds r24,185
+  83               	.LSM12:
+  84 0014 84ED      		ldi r24,lo8(-44)
+  85 0016 8093 BB00 		sts 187,r24
+  86               	.LSM13:
+  87 001a 84E8      		ldi r24,lo8(-124)
+  88 001c 8093 BC00 		sts 188,r24
+  89               	.L10:
+  90               	.LSM14:
+  91 0020 8091 BC00 		lds r24,188
+  92 0024 87FF      		sbrs r24,7
+  93 0026 00C0      		rjmp .L10
+  94               	.LSM15:
+  95 0028 8091 B900 		lds r24,185
+  96               	.LSM16:
+  97 002c 9093 BB00 		sts 187,r25
+  98               	.LSM17:
+  99 0030 84E8      		ldi r24,lo8(-124)
+ 100 0032 8093 BC00 		sts 188,r24
+ 101               	.L11:
+ 102               	.LSM18:
+ 103 0036 8091 BC00 		lds r24,188
+ 104 003a 87FF      		sbrs r24,7
+ 105 003c 00C0      		rjmp .L11
+ 106               	.LSM19:
+ 107 003e 8091 B900 		lds r24,185
+ 108               	.LSM20:
+ 109 0042 6093 BB00 		sts 187,r22
+ 110               	.LSM21:
+ 111 0046 84E8      		ldi r24,lo8(-124)
+ 112 0048 8093 BC00 		sts 188,r24
+ 113               	.L12:
+ 114               	.LSM22:
+ 115 004c 8091 BC00 		lds r24,188
+ 116 0050 87FF      		sbrs r24,7
+ 117 0052 00C0      		rjmp .L12
+ 118               	.LSM23:
+ 119 0054 8091 B900 		lds r24,185
+ 120               	.LSM24:
+ 121 0058 84E9      		ldi r24,lo8(-108)
+ 122 005a 8093 BC00 		sts 188,r24
+ 123               	/* epilogue start */
+ 124               	.LSM25:
+ 125 005e 0895      		ret
+ 126               	.LFE9:
+ 128               		.section	.text.I2C_receive_batteryIC,"ax",@progbits
+ 129               	.global	I2C_receive_batteryIC
+ 131               	I2C_receive_batteryIC:
+ 132               	.LFB10:
+ 133               	.LSM26:
+ 134               	.LVL2:
+ 135               	/* prologue: function */
+ 136               	/* frame size = 0 */
+ 137 0000 982F      		mov r25,r24
+ 138               	.LSM27:
+ 139 0002 84EA      		ldi r24,lo8(-92)
+ 140               	.LVL3:
+ 141 0004 8093 BC00 		sts 188,r24
+ 142               	.L19:
+ 143               	.LSM28:
+ 144 0008 8091 BC00 		lds r24,188
+ 145 000c 87FF      		sbrs r24,7
+ 146 000e 00C0      		rjmp .L19
+ 147               	.LSM29:
+ 148 0010 8091 B900 		lds r24,185
+ 149               	.LSM30:
+ 150 0014 84ED      		ldi r24,lo8(-44)
+ 151 0016 8093 BB00 		sts 187,r24
+ 152               	.LSM31:
+ 153 001a 84E8      		ldi r24,lo8(-124)
+ 154 001c 8093 BC00 		sts 188,r24
+ 155               	.L20:
+ 156               	.LSM32:
+ 157 0020 8091 BC00 		lds r24,188
+ 158 0024 87FF      		sbrs r24,7
+ 159 0026 00C0      		rjmp .L20
+ 160               	.LSM33:
+ 161 0028 8091 B900 		lds r24,185
+ 162               	.LSM34:
+ 163 002c 9093 BB00 		sts 187,r25
+ 164               	.LSM35:
+ 165 0030 84E8      		ldi r24,lo8(-124)
+ 166 0032 8093 BC00 		sts 188,r24
+ 167               	.L21:
+ 168               	.LSM36:
+ 169 0036 8091 BC00 		lds r24,188
+ 170 003a 87FF      		sbrs r24,7
+ 171 003c 00C0      		rjmp .L21
+ 172               	.LSM37:
+ 173 003e 8091 B900 		lds r24,185
+ 174               	.LSM38:
+ 175 0042 84EA      		ldi r24,lo8(-92)
+ 176 0044 8093 BC00 		sts 188,r24
+ 177               	.L22:
+ 178               	.LSM39:
+ 179 0048 8091 BC00 		lds r24,188
+ 180 004c 87FF      		sbrs r24,7
+ 181 004e 00C0      		rjmp .L22
+ 182               	.LSM40:
+ 183 0050 8091 B900 		lds r24,185
+ 184               	.LSM41:
+ 185 0054 85ED      		ldi r24,lo8(-43)
+ 186 0056 8093 BB00 		sts 187,r24
+ 187               	.LSM42:
+ 188 005a 84E8      		ldi r24,lo8(-124)
+ 189 005c 8093 BC00 		sts 188,r24
+ 190               	.L23:
+ 191               	.LSM43:
+ 192 0060 8091 BC00 		lds r24,188
+ 193 0064 87FF      		sbrs r24,7
+ 194 0066 00C0      		rjmp .L23
+ 195               	.LSM44:
+ 196 0068 8091 B900 		lds r24,185
+ 197               	.LSM45:
+ 198 006c 84EC      		ldi r24,lo8(-60)
+ 199 006e 8093 BC00 		sts 188,r24
+ 200               	.L24:
+ 201               	.LSM46:
+ 202 0072 8091 BC00 		lds r24,188
+ 203 0076 87FF      		sbrs r24,7
+ 204 0078 00C0      		rjmp .L24
+ 205               	.LSM47:
+ 206 007a 9091 BB00 		lds r25,187
+ 207               	.LVL4:
+ 208               	.LSM48:
+ 209 007e 84E8      		ldi r24,lo8(-124)
+ 210 0080 8093 BC00 		sts 188,r24
+ 211               	.L25:
+ 212               	.LSM49:
+ 213 0084 8091 BC00 		lds r24,188
+ 214 0088 87FF      		sbrs r24,7
+ 215 008a 00C0      		rjmp .L25
+ 216               	.LSM50:
+ 217 008c 84E9      		ldi r24,lo8(-108)
+ 218 008e 8093 BC00 		sts 188,r24
+ 219               	.LSM51:
+ 220 0092 892F      		mov r24,r25
+ 221               	/* epilogue start */
+ 222 0094 0895      		ret
+ 223               	.LFE10:
+ 281               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 i2c.c
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:2      *ABS*:0000003f __SREG__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:5      *ABS*:00000034 __CCP__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:19     .text.ERROR1:00000000 ERROR1
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:31     .text.ERROR2:00000000 ERROR2
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:44     .text.initI2C:00000000 initI2C
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:65     .text.batteryICI2C:00000000 batteryICI2C
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccqtOo8t.s:131    .text.I2C_receive_batteryIC:00000000 I2C_receive_batteryIC
+
+NO UNDEFINED SYMBOLS

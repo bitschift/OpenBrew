@@ -1,0 +1,713 @@
+   1               		.file	"radioctl.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.openPort,"ax",@progbits
+  17               	.global	openPort
+  19               	openPort:
+  20               	.LFB6:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LSM1:
+  25 0000 8C98      		cbi 49-32,4
+  26               	/* epilogue start */
+  27               	.LSM2:
+  28 0002 0895      		ret
+  29               	.LFE6:
+  31               		.section	.text.closePort,"ax",@progbits
+  32               	.global	closePort
+  34               	closePort:
+  35               	.LFB7:
+  36               	.LSM3:
+  37               	/* prologue: function */
+  38               	/* frame size = 0 */
+  39               	.LSM4:
+  40 0000 8C9A      		sbi 49-32,4
+  41               	.L4:
+  42               	.LSM5:
+  43 0002 8FB1      		in r24,47-32
+  44 0004 8071      		andi r24,lo8(16)
+  45 0006 8FB9      		out 47-32,r24
+  46 0008 8FB1      		in r24,47-32
+  47 000a 8823      		tst r24
+  48 000c 01F0      		breq .L4
+  49               	/* epilogue start */
+  50               	.LSM6:
+  51 000e 0895      		ret
+  52               	.LFE7:
+  54               		.section	.text.clearRX_DR,"ax",@progbits
+  55               	.global	clearRX_DR
+  57               	clearRX_DR:
+  58               	.LFB25:
+  59               	.LSM7:
+  60               	/* prologue: function */
+  61               	/* frame size = 0 */
+  62               	.LBB32:
+  63               	.LBB33:
+  64               	.LSM8:
+  65 0000 8C98      		cbi 49-32,4
+  66               	.LBE33:
+  67               	.LBE32:
+  68               	.LSM9:
+  69 0002 87E2      		ldi r24,lo8(39)
+  70 0004 0E94 0000 		call SPI_masterTransmit
+  71               	.LSM10:
+  72 0008 8064      		ori r24,lo8(64)
+  73 000a 0E94 0000 		call SPI_masterTransmit
+  74               	.LSM11:
+  75 000e 0E94 0000 		call closePort
+  76               	/* epilogue start */
+  77               	.LSM12:
+  78 0012 0895      		ret
+  79               	.LFE25:
+  81               		.section	.text.clearTX_DS,"ax",@progbits
+  82               	.global	clearTX_DS
+  84               	clearTX_DS:
+  85               	.LFB24:
+  86               	.LSM13:
+  87               	/* prologue: function */
+  88               	/* frame size = 0 */
+  89               	.LBB34:
+  90               	.LBB35:
+  91               	.LSM14:
+  92 0000 8C98      		cbi 49-32,4
+  93               	.LBE35:
+  94               	.LBE34:
+  95               	.LSM15:
+  96 0002 87E2      		ldi r24,lo8(39)
+  97 0004 0E94 0000 		call SPI_masterTransmit
+  98               	.LSM16:
+  99 0008 8062      		ori r24,lo8(32)
+ 100 000a 0E94 0000 		call SPI_masterTransmit
+ 101               	.LSM17:
+ 102 000e 0E94 0000 		call closePort
+ 103               	/* epilogue start */
+ 104               	.LSM18:
+ 105 0012 0895      		ret
+ 106               	.LFE24:
+ 108               		.section	.text.clearMAX_RT,"ax",@progbits
+ 109               	.global	clearMAX_RT
+ 111               	clearMAX_RT:
+ 112               	.LFB23:
+ 113               	.LSM19:
+ 114               	/* prologue: function */
+ 115               	/* frame size = 0 */
+ 116               	.LBB36:
+ 117               	.LBB37:
+ 118               	.LSM20:
+ 119 0000 8C98      		cbi 49-32,4
+ 120               	.LBE37:
+ 121               	.LBE36:
+ 122               	.LSM21:
+ 123 0002 87E2      		ldi r24,lo8(39)
+ 124 0004 0E94 0000 		call SPI_masterTransmit
+ 125               	.LSM22:
+ 126 0008 8061      		ori r24,lo8(16)
+ 127 000a 0E94 0000 		call SPI_masterTransmit
+ 128               	.LSM23:
+ 129 000e 0E94 0000 		call closePort
+ 130               	/* epilogue start */
+ 131               	.LSM24:
+ 132 0012 0895      		ret
+ 133               	.LFE23:
+ 135               		.section	.text.getRadioStatus,"ax",@progbits
+ 136               	.global	getRadioStatus
+ 138               	getRadioStatus:
+ 139               	.LFB18:
+ 140               	.LSM25:
+ 141               	.LVL0:
+ 142 0000 0F93      		push r16
+ 143 0002 1F93      		push r17
+ 144               	/* prologue: function */
+ 145               	/* frame size = 0 */
+ 146 0004 8C01      		movw r16,r24
+ 147               	.LBB38:
+ 148               	.LBB39:
+ 149               	.LSM26:
+ 150 0006 8C98      		cbi 49-32,4
+ 151               	.LBE39:
+ 152               	.LBE38:
+ 153               	.LSM27:
+ 154 0008 87E0      		ldi r24,lo8(7)
+ 155               	.LVL1:
+ 156 000a 0E94 0000 		call SPI_masterTransmit
+ 157 000e F801      		movw r30,r16
+ 158 0010 8083      		st Z,r24
+ 159               	.LSM28:
+ 160 0012 0E94 0000 		call closePort
+ 161               	/* epilogue start */
+ 162               	.LSM29:
+ 163 0016 1F91      		pop r17
+ 164 0018 0F91      		pop r16
+ 165               	.LVL2:
+ 166 001a 0895      		ret
+ 167               	.LFE18:
+ 169               		.section	.text.getTX_FULL,"ax",@progbits
+ 170               	.global	getTX_FULL
+ 172               	getTX_FULL:
+ 173               	.LFB22:
+ 174               	.LSM30:
+ 175 0000 DF93      		push r29
+ 176 0002 CF93      		push r28
+ 177 0004 0F92      		push __tmp_reg__
+ 178 0006 CDB7      		in r28,__SP_L__
+ 179 0008 DEB7      		in r29,__SP_H__
+ 180               	/* prologue: function */
+ 181               	/* frame size = 1 */
+ 182               	.LSM31:
+ 183 000a CE01      		movw r24,r28
+ 184 000c 0196      		adiw r24,1
+ 185 000e 0E94 0000 		call getRadioStatus
+ 186 0012 8981      		ldd r24,Y+1
+ 187               	.LVL3:
+ 188               	.LSM32:
+ 189 0014 8170      		andi r24,lo8(1)
+ 190               	/* epilogue start */
+ 191 0016 0F90      		pop __tmp_reg__
+ 192 0018 CF91      		pop r28
+ 193 001a DF91      		pop r29
+ 194 001c 0895      		ret
+ 195               	.LFE22:
+ 197               		.section	.text.getMAX_RT,"ax",@progbits
+ 198               	.global	getMAX_RT
+ 200               	getMAX_RT:
+ 201               	.LFB21:
+ 202               	.LSM33:
+ 203 0000 DF93      		push r29
+ 204 0002 CF93      		push r28
+ 205 0004 0F92      		push __tmp_reg__
+ 206 0006 CDB7      		in r28,__SP_L__
+ 207 0008 DEB7      		in r29,__SP_H__
+ 208               	/* prologue: function */
+ 209               	/* frame size = 1 */
+ 210               	.LSM34:
+ 211 000a CE01      		movw r24,r28
+ 212 000c 0196      		adiw r24,1
+ 213 000e 0E94 0000 		call getRadioStatus
+ 214 0012 8981      		ldd r24,Y+1
+ 215               	.LVL4:
+ 216 0014 90E0      		ldi r25,lo8(0)
+ 217               	.LVL5:
+ 218 0016 24E0      		ldi r18,4
+ 219 0018 9695      	1:	lsr r25
+ 220 001a 8795      		ror r24
+ 221 001c 2A95      		dec r18
+ 222 001e 01F4      		brne 1b
+ 223               	.LVL6:
+ 224               	.LSM35:
+ 225 0020 8170      		andi r24,lo8(1)
+ 226               	.LVL7:
+ 227               	/* epilogue start */
+ 228 0022 0F90      		pop __tmp_reg__
+ 229 0024 CF91      		pop r28
+ 230 0026 DF91      		pop r29
+ 231 0028 0895      		ret
+ 232               	.LFE21:
+ 234               		.section	.text.getTX_DS,"ax",@progbits
+ 235               	.global	getTX_DS
+ 237               	getTX_DS:
+ 238               	.LFB20:
+ 239               	.LSM36:
+ 240 0000 DF93      		push r29
+ 241 0002 CF93      		push r28
+ 242 0004 0F92      		push __tmp_reg__
+ 243 0006 CDB7      		in r28,__SP_L__
+ 244 0008 DEB7      		in r29,__SP_H__
+ 245               	/* prologue: function */
+ 246               	/* frame size = 1 */
+ 247               	.LSM37:
+ 248 000a CE01      		movw r24,r28
+ 249 000c 0196      		adiw r24,1
+ 250 000e 0E94 0000 		call getRadioStatus
+ 251 0012 8981      		ldd r24,Y+1
+ 252               	.LVL8:
+ 253 0014 90E0      		ldi r25,lo8(0)
+ 254               	.LVL9:
+ 255 0016 35E0      		ldi r19,5
+ 256 0018 9695      	1:	lsr r25
+ 257 001a 8795      		ror r24
+ 258 001c 3A95      		dec r19
+ 259 001e 01F4      		brne 1b
+ 260               	.LVL10:
+ 261               	.LSM38:
+ 262 0020 8170      		andi r24,lo8(1)
+ 263               	.LVL11:
+ 264               	/* epilogue start */
+ 265 0022 0F90      		pop __tmp_reg__
+ 266 0024 CF91      		pop r28
+ 267 0026 DF91      		pop r29
+ 268 0028 0895      		ret
+ 269               	.LFE20:
+ 271               		.section	.text.getRX_DR,"ax",@progbits
+ 272               	.global	getRX_DR
+ 274               	getRX_DR:
+ 275               	.LFB19:
+ 276               	.LSM39:
+ 277 0000 DF93      		push r29
+ 278 0002 CF93      		push r28
+ 279 0004 0F92      		push __tmp_reg__
+ 280 0006 CDB7      		in r28,__SP_L__
+ 281 0008 DEB7      		in r29,__SP_H__
+ 282               	/* prologue: function */
+ 283               	/* frame size = 1 */
+ 284               	.LSM40:
+ 285 000a CE01      		movw r24,r28
+ 286 000c 0196      		adiw r24,1
+ 287 000e 0E94 0000 		call getRadioStatus
+ 288 0012 8981      		ldd r24,Y+1
+ 289               	.LVL12:
+ 290 0014 90E0      		ldi r25,lo8(0)
+ 291               	.LVL13:
+ 292 0016 46E0      		ldi r20,6
+ 293 0018 9695      	1:	lsr r25
+ 294 001a 8795      		ror r24
+ 295 001c 4A95      		dec r20
+ 296 001e 01F4      		brne 1b
+ 297               	.LVL14:
+ 298               	.LSM41:
+ 299 0020 8170      		andi r24,lo8(1)
+ 300               	.LVL15:
+ 301               	/* epilogue start */
+ 302 0022 0F90      		pop __tmp_reg__
+ 303 0024 CF91      		pop r28
+ 304 0026 DF91      		pop r29
+ 305 0028 0895      		ret
+ 306               	.LFE19:
+ 308               		.section	.text.setRadioTXPayload,"ax",@progbits
+ 309               	.global	setRadioTXPayload
+ 311               	setRadioTXPayload:
+ 312               	.LFB16:
+ 313               	.LSM42:
+ 314               	.LVL16:
+ 315 0000 EF92      		push r14
+ 316 0002 FF92      		push r15
+ 317 0004 0F93      		push r16
+ 318 0006 1F93      		push r17
+ 319 0008 CF93      		push r28
+ 320 000a DF93      		push r29
+ 321               	/* prologue: function */
+ 322               	/* frame size = 0 */
+ 323 000c 7C01      		movw r14,r24
+ 324 000e 162F      		mov r17,r22
+ 325               	.LBB40:
+ 326               	.LBB41:
+ 327               	.LSM43:
+ 328 0010 8C98      		cbi 49-32,4
+ 329               	.LBE41:
+ 330               	.LBE40:
+ 331               	.LSM44:
+ 332 0012 80EA      		ldi r24,lo8(-96)
+ 333               	.LVL17:
+ 334 0014 0E94 0000 		call SPI_masterTransmit
+ 335               	.LVL18:
+ 336 0018 C0E0      		ldi r28,lo8(0)
+ 337 001a D0E0      		ldi r29,hi8(0)
+ 338               	.LVL19:
+ 339               	.LBB42:
+ 340               	.LSM45:
+ 341 001c 012F      		mov r16,r17
+ 342 001e 1127      		clr r17
+ 343 0020 07FD      		sbrc r16,7
+ 344 0022 1095      		com r17
+ 345               	.LVL20:
+ 346 0024 00C0      		rjmp .L24
+ 347               	.L25:
+ 348               	.LSM46:
+ 349 0026 F701      		movw r30,r14
+ 350 0028 EC0F      		add r30,r28
+ 351 002a FD1F      		adc r31,r29
+ 352 002c 8081      		ld r24,Z
+ 353 002e 0E94 0000 		call SPI_masterTransmit
+ 354               	.LSM47:
+ 355 0032 2196      		adiw r28,1
+ 356               	.L24:
+ 357 0034 C017      		cp r28,r16
+ 358 0036 D107      		cpc r29,r17
+ 359 0038 04F0      		brlt .L25
+ 360               	.LBE42:
+ 361               	.LSM48:
+ 362 003a 0E94 0000 		call closePort
+ 363               	/* epilogue start */
+ 364               	.LSM49:
+ 365 003e DF91      		pop r29
+ 366 0040 CF91      		pop r28
+ 367               	.LVL21:
+ 368 0042 1F91      		pop r17
+ 369 0044 0F91      		pop r16
+ 370               	.LVL22:
+ 371 0046 FF90      		pop r15
+ 372 0048 EF90      		pop r14
+ 373               	.LVL23:
+ 374 004a 0895      		ret
+ 375               	.LFE16:
+ 377               		.section	.text.setRadioRXPayloadSize,"ax",@progbits
+ 378               	.global	setRadioRXPayloadSize
+ 380               	setRadioRXPayloadSize:
+ 381               	.LFB15:
+ 382               	.LSM50:
+ 383               	.LVL24:
+ 384 0000 1F93      		push r17
+ 385               	/* prologue: function */
+ 386               	/* frame size = 0 */
+ 387 0002 162F      		mov r17,r22
+ 388               	.LBB43:
+ 389               	.LBB44:
+ 390               	.LSM51:
+ 391 0004 8C98      		cbi 49-32,4
+ 392               	.LBE44:
+ 393               	.LBE43:
+ 394               	.LSM52:
+ 395 0006 8062      		ori r24,lo8(32)
+ 396               	.LVL25:
+ 397 0008 0E94 0000 		call SPI_masterTransmit
+ 398               	.LVL26:
+ 399               	.LSM53:
+ 400 000c 812F      		mov r24,r17
+ 401 000e 0E94 0000 		call SPI_masterTransmit
+ 402               	.LSM54:
+ 403 0012 0E94 0000 		call closePort
+ 404               	/* epilogue start */
+ 405               	.LSM55:
+ 406 0016 1F91      		pop r17
+ 407               	.LVL27:
+ 408 0018 0895      		ret
+ 409               	.LFE15:
+ 411               		.section	.text.setRadioRXAddress,"ax",@progbits
+ 412               	.global	setRadioRXAddress
+ 414               	setRadioRXAddress:
+ 415               	.LFB14:
+ 416               	.LSM56:
+ 417               	.LVL28:
+ 418 0000 EF92      		push r14
+ 419 0002 FF92      		push r15
+ 420 0004 0F93      		push r16
+ 421 0006 1F93      		push r17
+ 422               	/* prologue: function */
+ 423               	/* frame size = 0 */
+ 424 0008 7B01      		movw r14,r22
+ 425 000a 8C01      		movw r16,r24
+ 426               	.LBB45:
+ 427               	.LBB46:
+ 428               	.LSM57:
+ 429 000c 8C98      		cbi 49-32,4
+ 430               	.LBE46:
+ 431               	.LBE45:
+ 432               	.LSM58:
+ 433 000e 8AE2      		ldi r24,lo8(42)
+ 434 0010 0E94 0000 		call SPI_masterTransmit
+ 435               	.LVL29:
+ 436               	.LSM59:
+ 437 0014 8E2D      		mov r24,r14
+ 438 0016 0E94 0000 		call SPI_masterTransmit
+ 439               	.LSM60:
+ 440 001a EF2C      		mov r14,r15
+ 441 001c F02E      		mov r15,r16
+ 442 001e 012F      		mov r16,r17
+ 443 0020 1127      		clr r17
+ 444 0022 07FD      		sbrc r16,7
+ 445 0024 1A95      		dec r17
+ 446               	.LVL30:
+ 447 0026 8E2D      		mov r24,r14
+ 448 0028 0E94 0000 		call SPI_masterTransmit
+ 449               	.LSM61:
+ 450 002c 80E0      		ldi r24,lo8(0)
+ 451 002e 0E94 0000 		call SPI_masterTransmit
+ 452               	.LSM62:
+ 453 0032 0E94 0000 		call closePort
+ 454               	/* epilogue start */
+ 455               	.LSM63:
+ 456 0036 1F91      		pop r17
+ 457 0038 0F91      		pop r16
+ 458 003a FF90      		pop r15
+ 459 003c EF90      		pop r14
+ 460 003e 0895      		ret
+ 461               	.LFE14:
+ 463               		.section	.text.setRadioTXAddress,"ax",@progbits
+ 464               	.global	setRadioTXAddress
+ 466               	setRadioTXAddress:
+ 467               	.LFB13:
+ 468               	.LSM64:
+ 469               	.LVL31:
+ 470 0000 EF92      		push r14
+ 471 0002 FF92      		push r15
+ 472 0004 0F93      		push r16
+ 473 0006 1F93      		push r17
+ 474               	/* prologue: function */
+ 475               	/* frame size = 0 */
+ 476 0008 7B01      		movw r14,r22
+ 477 000a 8C01      		movw r16,r24
+ 478               	.LBB47:
+ 479               	.LBB48:
+ 480               	.LSM65:
+ 481 000c 8C98      		cbi 49-32,4
+ 482               	.LBE48:
+ 483               	.LBE47:
+ 484               	.LSM66:
+ 485 000e 80E3      		ldi r24,lo8(48)
+ 486 0010 0E94 0000 		call SPI_masterTransmit
+ 487               	.LVL32:
+ 488               	.LSM67:
+ 489 0014 8E2D      		mov r24,r14
+ 490 0016 0E94 0000 		call SPI_masterTransmit
+ 491               	.LSM68:
+ 492 001a EF2C      		mov r14,r15
+ 493 001c F02E      		mov r15,r16
+ 494 001e 012F      		mov r16,r17
+ 495 0020 1127      		clr r17
+ 496               	.LVL33:
+ 497 0022 8E2D      		mov r24,r14
+ 498 0024 0E94 0000 		call SPI_masterTransmit
+ 499               	.LSM69:
+ 500 0028 80E0      		ldi r24,lo8(0)
+ 501 002a 0E94 0000 		call SPI_masterTransmit
+ 502               	.LSM70:
+ 503 002e 0E94 0000 		call closePort
+ 504               	/* epilogue start */
+ 505               	.LSM71:
+ 506 0032 1F91      		pop r17
+ 507 0034 0F91      		pop r16
+ 508 0036 FF90      		pop r15
+ 509 0038 EF90      		pop r14
+ 510 003a 0895      		ret
+ 511               	.LFE13:
+ 513               		.section	.text.setRadioFrequency,"ax",@progbits
+ 514               	.global	setRadioFrequency
+ 516               	setRadioFrequency:
+ 517               	.LFB12:
+ 518               	.LSM72:
+ 519               	.LVL34:
+ 520 0000 1F93      		push r17
+ 521               	/* prologue: function */
+ 522               	/* frame size = 0 */
+ 523 0002 182F      		mov r17,r24
+ 524               	.LBB49:
+ 525               	.LBB50:
+ 526               	.LSM73:
+ 527 0004 8C98      		cbi 49-32,4
+ 528               	.LBE50:
+ 529               	.LBE49:
+ 530               	.LSM74:
+ 531 0006 85E2      		ldi r24,lo8(37)
+ 532               	.LVL35:
+ 533 0008 0E94 0000 		call SPI_masterTransmit
+ 534               	.LSM75:
+ 535 000c 812F      		mov r24,r17
+ 536 000e 0E94 0000 		call SPI_masterTransmit
+ 537               	.LSM76:
+ 538 0012 0E94 0000 		call closePort
+ 539               	/* epilogue start */
+ 540               	.LSM77:
+ 541 0016 1F91      		pop r17
+ 542               	.LVL36:
+ 543 0018 0895      		ret
+ 544               	.LFE12:
+ 546               		.section	.text.setRadioAddressWidth,"ax",@progbits
+ 547               	.global	setRadioAddressWidth
+ 549               	setRadioAddressWidth:
+ 550               	.LFB11:
+ 551               	.LSM78:
+ 552               	.LVL37:
+ 553 0000 1F93      		push r17
+ 554               	/* prologue: function */
+ 555               	/* frame size = 0 */
+ 556 0002 182F      		mov r17,r24
+ 557               	.LBB51:
+ 558               	.LBB52:
+ 559               	.LSM79:
+ 560 0004 8C98      		cbi 49-32,4
+ 561               	.LBE52:
+ 562               	.LBE51:
+ 563               	.LSM80:
+ 564 0006 83E2      		ldi r24,lo8(35)
+ 565               	.LVL38:
+ 566 0008 0E94 0000 		call SPI_masterTransmit
+ 567               	.LSM81:
+ 568 000c 812F      		mov r24,r17
+ 569 000e 0E94 0000 		call SPI_masterTransmit
+ 570               	.LSM82:
+ 571 0012 0E94 0000 		call closePort
+ 572               	/* epilogue start */
+ 573               	.LSM83:
+ 574 0016 1F91      		pop r17
+ 575               	.LVL39:
+ 576 0018 0895      		ret
+ 577               	.LFE11:
+ 579               		.section	.text.activateFeatures,"ax",@progbits
+ 580               	.global	activateFeatures
+ 582               	activateFeatures:
+ 583               	.LFB10:
+ 584               	.LSM84:
+ 585               	/* prologue: function */
+ 586               	/* frame size = 0 */
+ 587               	.LBB53:
+ 588               	.LBB54:
+ 589               	.LSM85:
+ 590 0000 8C98      		cbi 49-32,4
+ 591               	.LBE54:
+ 592               	.LBE53:
+ 593               	.LSM86:
+ 594 0002 80E5      		ldi r24,lo8(80)
+ 595 0004 0E94 0000 		call SPI_masterTransmit
+ 596               	.LSM87:
+ 597 0008 83E7      		ldi r24,lo8(115)
+ 598 000a 0E94 0000 		call SPI_masterTransmit
+ 599               	.LSM88:
+ 600 000e 0E94 0000 		call closePort
+ 601               	/* epilogue start */
+ 602               	.LSM89:
+ 603 0012 0895      		ret
+ 604               	.LFE10:
+ 606               		.section	.text.initRadioRX,"ax",@progbits
+ 607               	.global	initRadioRX
+ 609               	initRadioRX:
+ 610               	.LFB9:
+ 611               	.LSM90:
+ 612               	/* prologue: function */
+ 613               	/* frame size = 0 */
+ 614               	.LBB55:
+ 615               	.LBB56:
+ 616               	.LSM91:
+ 617 0000 8C98      		cbi 49-32,4
+ 618               	.LBE56:
+ 619               	.LBE55:
+ 620               	.LSM92:
+ 621 0002 80E2      		ldi r24,lo8(32)
+ 622 0004 0E94 0000 		call SPI_masterTransmit
+ 623               	.LSM93:
+ 624 0008 8BE0      		ldi r24,lo8(11)
+ 625 000a 0E94 0000 		call SPI_masterTransmit
+ 626               	.LSM94:
+ 627 000e 0E94 0000 		call closePort
+ 628               	/* epilogue start */
+ 629               	.LSM95:
+ 630 0012 0895      		ret
+ 631               	.LFE9:
+ 633               		.section	.text.initRadioTX,"ax",@progbits
+ 634               	.global	initRadioTX
+ 636               	initRadioTX:
+ 637               	.LFB8:
+ 638               	.LSM96:
+ 639               	/* prologue: function */
+ 640               	/* frame size = 0 */
+ 641               	.LBB57:
+ 642               	.LBB58:
+ 643               	.LSM97:
+ 644 0000 8C98      		cbi 49-32,4
+ 645               	.LBE58:
+ 646               	.LBE57:
+ 647               	.LSM98:
+ 648 0002 80E2      		ldi r24,lo8(32)
+ 649 0004 0E94 0000 		call SPI_masterTransmit
+ 650               	.LSM99:
+ 651 0008 8AE0      		ldi r24,lo8(10)
+ 652 000a 0E94 0000 		call SPI_masterTransmit
+ 653               	.LSM100:
+ 654 000e 0E94 0000 		call closePort
+ 655               	/* epilogue start */
+ 656               	.LSM101:
+ 657 0012 0895      		ret
+ 658               	.LFE8:
+ 660               		.section	.text.getRadioRXPayload,"ax",@progbits
+ 661               	.global	getRadioRXPayload
+ 663               	getRadioRXPayload:
+ 664               	.LFB17:
+ 665               	.LSM102:
+ 666               	.LVL40:
+ 667 0000 EF92      		push r14
+ 668 0002 FF92      		push r15
+ 669 0004 0F93      		push r16
+ 670 0006 1F93      		push r17
+ 671 0008 CF93      		push r28
+ 672 000a DF93      		push r29
+ 673               	/* prologue: function */
+ 674               	/* frame size = 0 */
+ 675 000c 7C01      		movw r14,r24
+ 676 000e 162F      		mov r17,r22
+ 677               	.LBB59:
+ 678               	.LBB60:
+ 679               	.LSM103:
+ 680 0010 8C98      		cbi 49-32,4
+ 681               	.LBE60:
+ 682               	.LBE59:
+ 683               	.LSM104:
+ 684 0012 81E6      		ldi r24,lo8(97)
+ 685               	.LVL41:
+ 686 0014 0E94 0000 		call SPI_masterTransmit
+ 687               	.LVL42:
+ 688 0018 C0E0      		ldi r28,lo8(0)
+ 689 001a D0E0      		ldi r29,hi8(0)
+ 690               	.LVL43:
+ 691               	.LBB61:
+ 692               	.LSM105:
+ 693 001c 012F      		mov r16,r17
+ 694 001e 10E0      		ldi r17,lo8(0)
+ 695               	.LVL44:
+ 696 0020 00C0      		rjmp .L44
+ 697               	.L45:
+ 698               	.LSM106:
+ 699 0022 0E94 0000 		call SPI_masterReceive
+ 700 0026 F701      		movw r30,r14
+ 701 0028 EC0F      		add r30,r28
+ 702 002a FD1F      		adc r31,r29
+ 703 002c 8083      		st Z,r24
+ 704               	.LSM107:
+ 705 002e 2196      		adiw r28,1
+ 706               	.L44:
+ 707 0030 C017      		cp r28,r16
+ 708 0032 D107      		cpc r29,r17
+ 709 0034 04F0      		brlt .L45
+ 710               	.LBE61:
+ 711               	.LSM108:
+ 712 0036 0E94 0000 		call closePort
+ 713               	/* epilogue start */
+ 714               	.LSM109:
+ 715 003a DF91      		pop r29
+ 716 003c CF91      		pop r28
+ 717               	.LVL45:
+ 718 003e 1F91      		pop r17
+ 719               	.LVL46:
+ 720 0040 0F91      		pop r16
+ 721               	.LVL47:
+ 722 0042 FF90      		pop r15
+ 723 0044 EF90      		pop r14
+ 724               	.LVL48:
+ 725 0046 0895      		ret
+ 726               	.LFE17:
+ 904               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 radioctl.c
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:2      *ABS*:0000003f __SREG__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:5      *ABS*:00000034 __CCP__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:19     .text.openPort:00000000 openPort
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:34     .text.closePort:00000000 closePort
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:57     .text.clearRX_DR:00000000 clearRX_DR
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:84     .text.clearTX_DS:00000000 clearTX_DS
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:111    .text.clearMAX_RT:00000000 clearMAX_RT
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:138    .text.getRadioStatus:00000000 getRadioStatus
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:172    .text.getTX_FULL:00000000 getTX_FULL
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:200    .text.getMAX_RT:00000000 getMAX_RT
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:237    .text.getTX_DS:00000000 getTX_DS
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:274    .text.getRX_DR:00000000 getRX_DR
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:311    .text.setRadioTXPayload:00000000 setRadioTXPayload
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:380    .text.setRadioRXPayloadSize:00000000 setRadioRXPayloadSize
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:414    .text.setRadioRXAddress:00000000 setRadioRXAddress
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:466    .text.setRadioTXAddress:00000000 setRadioTXAddress
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:516    .text.setRadioFrequency:00000000 setRadioFrequency
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:549    .text.setRadioAddressWidth:00000000 setRadioAddressWidth
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:582    .text.activateFeatures:00000000 activateFeatures
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:609    .text.initRadioRX:00000000 initRadioRX
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:636    .text.initRadioTX:00000000 initRadioTX
+C:\Users\ARAVIN~1\AppData\Local\Temp/cckGP5qj.s:663    .text.getRadioRXPayload:00000000 getRadioRXPayload
+
+UNDEFINED SYMBOLS
+SPI_masterTransmit
+SPI_masterReceive
