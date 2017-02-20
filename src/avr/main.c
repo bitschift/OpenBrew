@@ -28,10 +28,10 @@ int main(void) {
 		// s 1 - Set stir speed to 1
 		if(uart_getchar() == 't') {
 			uart_putchar('h');
-			run_temperature(1);
+			run_temperature(uart_getchar());
 		} else if (uart_getchar() == 's') {
 			uart_putchar('h');
-			run_stir(1);
+			run_stir(uart_getchar());
 		}
 
 		if(x == '?') {
