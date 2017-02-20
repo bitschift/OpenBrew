@@ -21,8 +21,8 @@ int main(void) {
 		_delay_ms(500);						// Delay for a second
 		LED_OFF;
 		_delay_ms(500);						// Delay for a second
-		uart_putchar('c');				// Send confirmation to Android
-		char x = uart_getchar();	// Receive reply from Android
+		uart_putchar('c');				// Send confirmation to RaspPi
+		char x = uart_getchar();	// Receive reply from RaspPi
 
 		// t 1 - Set temperature to 1
 		// s 1 - Set stir speed to 1
@@ -36,8 +36,8 @@ int main(void) {
 
 		if(x == '?') {
 			count_ms = 0;				// Reset hardware counter
-			uart_putchar('h');	// Send confirmation to Android
-			uart_putchar('\n');	// Endline needed for Android app's parsing
+			uart_putchar('h');	// Send confirmation to RaspPi
+			uart_putchar('\n');	// Endline needed for RaspPi app's parsing
 		}
 	}
 }
@@ -46,25 +46,25 @@ void run_temperature(char temp, int holdtime) {
 	uint8_t ch = 0x00;								// Indicates PF0 as read port
 	uint8_t tempin = (uint8_t)adc_read(ch)>>1; 		// Divide by 2
 
-	uart_putchar('t');								// sends temperature data to Android for realtime data monitoring
+	uart_putchar('t');								// sends temperature data to RaspPi for realtime data monitoring
 	uart_putchar(tempin);
 	uart_putchar('\n');
 
 	uint8_t temps = temp;							// Temperature currently for calculating deltas
 	//changing to temp
 	while(tempin < temp - 3 || tempin > temp + 3){	// While temperature is within 3mV of target
-		uart_putstring("sc\n");						// Send changing flag to Android
+		uart_putstring("sc\n");						// Send changing flag to RaspPi
 		hold = 0;									// find_duty() now knows we're not holding
 
 		tempin = (uint8_t)adc_read(ch)>>1;			// Read temperature data for comparisons
 
-		uart_putchar('t');							// Let Android know the current temperature
+		uart_putchar('t');							// Let RaspPi know the current temperature
 		uart_putchar(tempin);
 		uart_putchar('\n');
 
 		find_duty(tempin, temp);
 		else if(tempin < temps) {
-			uart_putstring("dh\n");					// Send heating flag to Android
+			uart_putstring("dh\n");					// Send heating flag to RaspPi
 			OCR1A = 0;
 			OCR1B = duty;							// Set duty cycle to heating direction
 		}
@@ -73,12 +73,12 @@ void run_temperature(char temp, int holdtime) {
 	//holding temp, similar loop to above, but will hold a temperature for a set time
 	count_ms = 0;
 	while(count_ms < holdtime){
-		uart_putstring("sh\n");				// Send hold flag to Android
+		uart_putstring("sh\n");				// Send hold flag to RaspPi
 		hold = 1;							// find_duty() now knows that we're holding
 
 		tempin = (uint8_t)adc_read(ch)>>1;			// Read temperature data for comparisons
 
-		uart_putchar('t');					// Let Android know the current temperature
+		uart_putchar('t');					// Let RaspPi know the current temperature
 		uart_putchar(tempin);
 		uart_putchar('\n');
 
