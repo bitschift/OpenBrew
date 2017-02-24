@@ -44,9 +44,9 @@
 Dale McCauley, College of Business, Oregon State University
 
 \vspace{0.5cm}
-	\textbf{Approved:} 2016-12-02
+	\textbf{Approved:} 2017-02-17
 
-	\textbf{Version:} 1.0
+	\textbf{Version:} 1.1
 
 
 \newpage
@@ -216,6 +216,11 @@ These actuators are a submersible heating element, and a motor controlled stirri
 The agent can control the power state of the heating element, and the power state of the electric stirrer.
 Additionally, the agent can take an action to signal that the brewing process has completed, bringing the process to an end.
 
+During the learning phase, experience replay will be used in conjunction with the standard Q-learning algorithm to increase learning speeds.
+Experience replay is an additional technique which stores this history of state action pairs, and (at its most simple) selects a random state action pair for the Q-learning update~\cite{Pieters2016}.
+As experiences are stored, they are used multiple times in the learning process.
+This increases the knowledge available during learning, and sees faster learning convergence~\cite{Pieters2016}.
+
 \subsubsection{Decision Making Structures}
 An important aspect of intelligent decision making is the computational structure which allows for decisions to be made.
 Neural networks are a classic method of non-linear function approximation~\cite{RussellNorvig},  which we will use to approximate the Q-table.
@@ -256,6 +261,18 @@ The agent will take actions by taking the action associated with the maximum Q-v
 These actions will be sent to the microcontroller, where they will be used to control the state of the brewing process.
 It will learn by using the Q-learning iterative update function (Equation~\ref{eq:Q(s,a)}), and receiving its reward from the user.
 
+\subsubsection{Python Class Structure}
+To implement the design in Figure~\ref{fig:AgentStructure}, the learning agent will be created in a Python Class object with the structure shown in Figure \ref{fig:AgentClassStructure}.
+
+\begin{figure}[h]
+\begin{center}
+	\caption{Learning agent class structure \label{fig:AgentClassStructure}}
+	\includegraphics[width=\linewidth]{AgentClass.eps}
+\end{center}
+\end{figure}
+
+The agent class is relatively simple, requiring only a memory module and the Keras neural network model.
+In this case, the memory module is implemented as a Python list.
 
 \subsection{Android-Based User Interface Design \\ -- \textbf{\textit{Cody Holliday}}}\label{sec:android}
 \subsubsection{Interface Device}
@@ -361,22 +378,19 @@ Testing will be incorporated into the each of the prototype iteration stages as 
   \gantttitlecalendar{year} \\
   \gantttitlecalendar{month} \\
   \ganttbar{Requirements Document}{2016-10-28}{2016-11-04} \\
-  \ganttlinkedbar{Survey Potential Users and Customers}{2016-11-04}{2016-11-19} \\
-  \ganttlinkedbar{Develop Lean Canvas Model}{2016-11-20}{2016-11-27} \\
+  \ganttlinkedbar{Technology Review}{2016-11-04}{2016-11-14} \\
+  \ganttlinkedbar{Design Document}{2016-11-15}{2016-12-02} \\
   \ganttlinkedbar{Research AI, ML, RL structures}{2016-11-04}{2016-11-24} \\
-  \ganttgroup{Construct Prototype}{2016-11-04}{2016-12-19} \\
-    \ganttbar{Hardware}{2016-11-04}{2016-11-05} \\
-    \ganttbar{Electronics}{2016-11-05}{2016-11-10} \\
-    \ganttlinkedbar{Gather Data}{2016-11-10}{2016-12-05} \\
-    \ganttbar{Construct Control Policy}{2016-12-05}{2016-12-19} \\
-    \ganttbar{Gather More Data}{2016-12-19}{2017-01-19} \\
-    \ganttlinkedbar{Second survey of users}{2017-01-19}{2017-01-26} \\
-    \ganttlinkedbar{Update Lean Canvas Model}{2017-01-26}{2017-01-29} \\
-  \ganttgroup{Second Prototype Iteration}{2017-01-19}{2017-03-04} \\
-    \ganttbar{Assemble Hardware}{2017-01-20}{2017-01-21} \\
-    \ganttlinkedbar{Electronics}{2017-01-21}{2017-01-26} \\
-    \ganttbar{Gather Data}{2017-01-26}{2017-02-19} \\
-    \ganttbar{Rework Control Policy}{2017-02-19}{2017-03-14} \\
+  \ganttgroup{Construct Prototype}{2016-12-02}{2017-02-17} \\
+    \ganttbar{Hardware}{2016-12-02}{2017-02-17} \\
+    \ganttbar{Android}{2016-12-02}{2017-02-17} \\
+    \ganttbar{Artifical Intelligence}{2016-12-02}{2017-02-17} \\
+    \ganttlinkedbar{Survey of Potential Users}{2017-01-09}{2017-02-11} \\
+  \ganttgroup{Second Prototype Iteration}{2017-02-19}{2017-04-10} \\
+    \ganttbar{Refine Hardware}{2017-02-19}{2017-04-10} \\
+		\ganttbar{Refine Android experience}{2017-02-19}{2017-04-10} \\
+    \ganttbar{Gather Data}{2017-02-17}{2017-03-19} \\
+    \ganttbar{Rework Control Policy}{2017-02-19}{2017-04-10} \\
     \ganttbar{Prepare For Expo}{2017-03-14}{2017-04-29}
 \end{ganttchart}
 
