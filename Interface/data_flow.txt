@@ -1,0 +1,33 @@
+States:
+	default		pre-brewing		brewing		post-brewing
+Sent data:
+	BrewData Req	SuggestedAction req	End		SendSurveyData
+			SendInstructions
+Recv Data:
+	BrewData	SuggestedIngredients	DataUpdate
+						End
+
+Protocol:
+	Data types:
+		Commands
+		JSON data
+
+	Format:
+		command;modifier;parameter
+
+
+	Commands		Modifiers		Parameter		Sent By			Data Following
+
+	BrewData		Request			Batch_Num		Android			No
+				DataBegin					Pi			Yes
+
+	PreBrew			SuggActReq					Android			No
+				InstructSend					Android			Yes
+				SuggActBegin					Pi			Yes
+
+	Brewing			End						Both			No
+				DataUpdate		JSON Datapoint		Pi			No
+
+	SurveyData		Send						Android			Yes
+
+	

@@ -1,0 +1,6 @@
+Two Way communication DONE
+protocol for communication
+Transporting data
+	JSON object
+GraphView
+
