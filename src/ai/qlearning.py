@@ -2,6 +2,7 @@
 qlearning.py :: A simple implementation of Q-Learning using
 a neural net approximator.
 '''
+from __future__ import print_function
 import json
 import numpy as np
 import random
@@ -154,7 +155,6 @@ if __name__ == "__main__":
     new_actions = []
     for s in states:
         original_actions.append(agent.get_action(s[0],s[1],s[2],s[3]))
-
     reward = 50
     agent.batch_train(states, original_actions, reward)
     for s in states:
