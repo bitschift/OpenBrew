@@ -12,7 +12,7 @@ modules are working:
 Sensor data will be sent in JSON packets to the learning agent, in this format:
 ```javascript
   "packets": {
-    "data": [
+    "packet": [
       {
         "temperature": " ",
         "waterLevel": " "
