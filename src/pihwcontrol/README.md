@@ -1,4 +1,4 @@
-# Interfacing with brew.ai Hardware
+# Interfacing with brew.ai Hardware with just a Raspberry Pi
 
 brew.ai uses data from sensors to decide what the hardware should do. Currently, these
 modules are working:
