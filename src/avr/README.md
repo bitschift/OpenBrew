@@ -1,4 +1,4 @@
-# Interfacing with brew.ai Hardware with a Teensy 2.0 and Raspberry Pi
+# [DEPRECATED] Interfacing with brew.ai Hardware with a Teensy 2.0 and Raspberry Pi
 
 brew.ai uses data from sensors to decide what the hardware should do. Currently, these
 modules are working:
