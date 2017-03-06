@@ -9,24 +9,23 @@ modules are working:
   - Modulated stirring
 
 ### Receiving Data from Sensors
-Sensor data will be sent in JSON packets to the learning agent, in this format:
-```javascript
-  "packets": {
-    "packet": [
-      {
-        "temperature": " ",
-        "waterLevel": " "
-      }
-    ]
-  }
+Sensor data will be stored in an SQLite db on the Pi, in this table:
+```SQL
+  CREATE TABLE data
+( id int NOT NULL,
+  temp int,
+  waterlevel int,
+  time TIMESTAMP CURRENT_TIMESTAMP,
+  CONSTRAINT data_pk PRIMARY KEY (id)
+);
 ```
 Temperature will be sent in units of degrees, Celsius. Water level will be a delta in centimeters
 over the time of brewing.
 
 ### Controlling Stirring and Temperature
-The command listener looks for a command and a value.
-For instance, to set temperature to 60C, send this command:
-` t 60 `
+The command listener in `modulecontrol.py` looks for a command and a value.
+For instance, to set temperature to 60C from the shell, run this command:
+`sudo python modulecontrol.py t 60 `
 
 Here are the various commands:
 
