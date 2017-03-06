@@ -16,7 +16,9 @@ def btlistener(socket):
 		try:
 			data = socket.recv(1024)
 			if data == "dataReq\n":
+				print("Data start.")
 				client_sock.send("data_begin".encode("utf-8"))
+
 				data = gen_input(False)
 				data = data.split("|")
 				for chunk in data:
@@ -100,8 +102,9 @@ def close_sockets(sock1, sock2):
 	print("Connection closed.")
 
 def gen_input(rand):
-	names = ["temp:", "co2:", "grav:", "time:"]
-	tmp = "{"
+	names = ["\"temp\":", "\"co2\":", "\"grav\":", "\"time\":"]
+	#tmp = "{"
+	tmp = ""
 	if rand == True:
 		for i in range(1, 100):
 			tmp += "{"
@@ -109,7 +112,6 @@ def gen_input(rand):
 				tmp += names[j] + "\"" + str(round(random.uniform(0, 30), 5)) + "\","
 			tmp += names[3] + "\"" + str(i) + "\""
 			tmp += "}|"
-		tmp += "}"
 	else:
 		for i in range(1, 100):
 			tmp += "{"
@@ -117,7 +119,7 @@ def gen_input(rand):
 				tmp += names[j] + "\"" + str(j) + "\","
 			tmp += names[3] + "\"" + str(i) + "\""
 			tmp += "}|"
-		tmp += "}"
+	#tmp += "}"
 	return tmp
 
 #print gen_input(False)

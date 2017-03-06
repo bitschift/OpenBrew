@@ -27,7 +27,9 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -45,9 +47,11 @@ public class Main extends Activity
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
-    String results;
-
+    ArrayList<String> unrefined_points;
+    batch results;
+    String data = "";
     int state = 0; // 0 is normal, 1 is pre-brew, 2 is brewing, 3 is post brew
+    Integer dataBegin = 0;
 
 
 
@@ -63,6 +67,8 @@ public class Main extends Activity
         myLabel = (TextView)findViewById(R.id.label);
         myTextbox = (EditText)findViewById(R.id.entry);
         Label = (TextView)findViewById(R.id.recv);
+        unrefined_points = new ArrayList<String>();
+        results = new batch();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
@@ -130,6 +136,15 @@ public class Main extends Activity
     }
 
     void advertise(View v){
+
+        try {
+            sendData("dataReq");
+        }
+        catch(IOException e){}
+    }
+
+    void findBT()
+    {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
         {
@@ -143,14 +158,6 @@ public class Main extends Activity
         }
 
         mBluetoothAdapter.setName("BrewAIUI");
-
-        //Intent discoverableIntent =new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        //discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-        //startActivity(discoverableIntent);
-    }
-
-    void findBT()
-    {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0)
         {
@@ -195,8 +202,6 @@ public class Main extends Activity
 
                 while(!Thread.currentThread().isInterrupted() && !stopWorker)
                 {
-                    int dataBegin = 0;
-                    String data = "";
                     try
                     {
                         final int bytesAvailable = mmInputStream.available();
@@ -213,21 +218,46 @@ public class Main extends Activity
 
                             final String recvdata = new String(Arrays.copyOfRange(packetBytes, 0, i), "US-ASCII");
 
-                            if(recvdata == "data_begin"){
+                            if(recvdata.equals("data_begin")){
                                 dataBegin = 1;
+                                handler.post(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        Toast.makeText(getApplication().getBaseContext(), "DATA BEGIN", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                            else if(recvdata == "data_end"){
+                            else if(recvdata.equals("data_end")){
                                 dataBegin = 0;
-                                results = data;
+                                for(String s: unrefined_points){
+                                    results.points.add(point.parseJSON(s));
+                                }
+                                handler.post(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        Label.setText(Integer.toString(results.points.size()));
+                                        //Label.setText("RealData");
+                                        //for(String s: unrefined_points){
+                                        //    Label.append(s);
+                                        //}
+                                        for(int i = 0; i < results.points.size(); i++){
+                                            Label.append(results.points.get(i)+" ");
+                                        }
+                                        Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                            else if(dataBegin == 1) {
+                            else if(dataBegin.compareTo(1) == 0) {
                                 data += recvdata;
+                                unrefined_points.add(recvdata);
                             }
                             handler.post(new Runnable()
                             {
                                 public void run()
                                 {
-                                    Label.append(recvdata);
+                                    //Label.setText(data);
                                     try{
                                         sendData("ACK");
                                     }
