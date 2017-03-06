@@ -19,6 +19,7 @@ def read_waterLevel():
     GPIO.output(TRIG, True)
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
+    pulse_start = time.time()
     while GPIO.input(ECHO) == 1:
         pulse_end = time.time()
     pulse_duration = pulse_end - pulse_start
