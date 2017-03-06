@@ -15,7 +15,17 @@ def btlistener(socket):
 	while 1:
 		try:
 			data = socket.recv(1024)
-			print("received: %s" % data)
+			if data == "dataReq\n":
+				client_sock.send("data_begin".encode("utf-8"))
+				data = gen_input(False)
+				data = data.split("|")
+				for chunk in data:
+					client_sock.send((chunk+"\n").encode("utf-8"))
+					client_sock.recv(1024)
+				client_sock.send("data_end".encode("utf-8"))
+				print( "Data sent!")
+			else:
+				print("Recieved: %s" % data)
 		except:
 			return
 
@@ -30,17 +40,52 @@ def get_sockets():
 	uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 	
 	#Advertise bluetooth service from controller
-	advertise_service( server_sock, "SampleServer",
+	advertise_service(
+			   server_sock, "cody-Lenovo-B590",
 	                   service_id = uuid,
 	                   service_classes = [ uuid, SERIAL_PORT_CLASS ],
 	                   profiles = [ SERIAL_PORT_PROFILE ], 
-	                    )
+	                 )
                    
 	#Wait for connections
 	print("Waiting for connection on RFCOMM channel %d" % port)
 	client_sock, client_info = server_sock.accept()
 	print("Accepted connection from ", client_info)
 	return (client_sock, server_sock)
+'''
+def find_device():
+	device = None
+	n = None
+	server_sock=BluetoothSocket( RFCOMM )
+	server_sock.bind(("",PORT_ANY))
+	server_sock.listen(1)
+	uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
+	advertise_service(
+			   server_sock, "cody-Lenovo-B590",
+	                   service_id = uuid,
+	                   service_classes = [ uuid, SERIAL_PORT_CLASS ],
+	                   profiles = [ SERIAL_PORT_PROFILE ], 
+	                 )
+	near_devices = discover_devices(lookup_names = True)
+	for addr,name in near_devices:
+		print "Name: " + name + " Address: " + addr
+		if name == "BrewAIUI":
+			device = addr
+			n = name
+	near_devices = find_service(address = addr)
+	for services in near_devices:
+		print " Name: %s" % (services["name"])
+		print " Description: %s" % (services["description"])
+		print " Protocol: %s" % (services["protocol"])
+		print " Provider: %s" % (services["provider"])
+		print " Port: %s" % (services["port"])
+		print " Service id: %s" % (services["service-id"])
+	
+	client_sock=BluetoothSocket( RFCOMM )
+	client_sock.bind(("",PORT_ANY))
+	client_sock.connect((device, near_devices[0]["port"]))
+	return client_sock
+'''
 
 #Start the listener thread
 def start_listener_thread(socket):
@@ -50,22 +95,33 @@ def start_listener_thread(socket):
 
 #please close the sockets after you're done
 def close_sockets(sock1, sock2):
-	sock1.close()
 	sock2.close()
+	sock1.close()
 	print("Connection closed.")
 
-def gen_input():
+def gen_input(rand):
+	names = ["temp:", "co2:", "grav:", "time:"]
 	tmp = "{"
-	for i in range(1, 100):
-		tmp += "{"
-		for j in  range(0, 3):
-			tmp += "\"" + str(random.uniform(0, 30)) + "\","
-		tmp += "\"" + str(i) + "\""
-		tmp += "}|"
-	tmp += "}"
+	if rand == True:
+		for i in range(1, 100):
+			tmp += "{"
+			for j in  range(0, 3):
+				tmp += names[j] + "\"" + str(round(random.uniform(0, 30), 5)) + "\","
+			tmp += names[3] + "\"" + str(i) + "\""
+			tmp += "}|"
+		tmp += "}"
+	else:
+		for i in range(1, 100):
+			tmp += "{"
+			for j in  range(0, 3):
+				tmp += names[j] + "\"" + str(j) + "\","
+			tmp += names[3] + "\"" + str(i) + "\""
+			tmp += "}|"
+		tmp += "}"
 	return tmp
 
-#print gen_input()
+#print gen_input(False)
+
 
 
 client_sock, server_sock = get_sockets()
@@ -77,22 +133,31 @@ try:
 	#input loop
         data = raw_input(">")
         if len(data) == 0: break
-	if data == "doit":
-		client_sock.send("data_begin".encode("utf-8"))
-		data = client_sock.recv(1024).decode("utf-8")
-		print data
-		if data == "ACK":
-			data = gen_input()
-			data.split("|")
-			for chunk in data:
-				chunk += "\n"
-				client_sock.send(chunk.encode("utf-8"))
-				client_sock.recv(1024)
-		
-	else:
-		data += '\n' #concatenate a delimiter
-	        client_sock.send(data.encode('utf-8'))
+	data += '\n' #concatenate a delimiter
+        client_sock.send(data.encode('utf-8'))
 except IOError:
     pass
 
 close_sockets(client_sock, server_sock)
+
+'''
+
+	listener
+		forever
+			data = recv
+			split data by semicolon
+			if data[0] == Brewing
+				Tell program to stop
+			elseif data[0] == BrewData
+				Send batch data[1]
+			elseif data[0] == SurveyData
+				Give data to AI
+			elseif data[0] == PreBrew
+				if SuggActReq
+					Send AI's suggestion
+				elseif Instruct Send
+					Prepare to receive data
+					Give data to AI and microcontroller
+				
+				
+'''

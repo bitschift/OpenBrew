@@ -25,6 +25,7 @@ Protocol:
 				InstructSend					Android			Yes
 				SuggActBegin					Pi			Yes
 
+
 	Brewing			End						Both			No
 				DataUpdate		JSON Datapoint		Pi			No
 
