@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+from datacollect import read_temp
+
 import os
 from time import sleep
 import signal
@@ -16,8 +18,15 @@ IO.setup(18, IO.OUT)
 t = IO.PWM(18, 100)
 
 if (sys.argv[1] == 't'):
-    duty = sys.argv[2]
-    t.start(float(duty))
+    target = sys.argv[2]
+    while (read_temp() != target) {
+        if (abs(read_temp() - target) > 40) {
+            t.start(100)
+        } else {
+            t.start(50)
+        }
+    }
+    t.start(0)
 
 if (sys.argv[1] == 's'):
     duty = sys.argv[2]
