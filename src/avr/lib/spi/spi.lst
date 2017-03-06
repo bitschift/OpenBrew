@@ -1,0 +1,303 @@
+   1               		.file	"spi.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.SPI_masterInit,"ax",@progbits
+  17               	.global	SPI_masterInit
+  19               	SPI_masterInit:
+  20               	.LFB6:
+  21               	.LSM0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	.LSM1:
+  25 0000 87E0      		ldi r24,lo8(7)
+  26 0002 84B9      		out 36-32,r24
+  27               	.LSM2:
+  28 0004 80E5      		ldi r24,lo8(80)
+  29 0006 8CBD      		out 76-32,r24
+  30               	/* epilogue start */
+  31               	.LSM3:
+  32 0008 0895      		ret
+  33               	.LFE6:
+  35               		.section	.text.SPI_masterReceive,"ax",@progbits
+  36               	.global	SPI_masterReceive
+  38               	SPI_masterReceive:
+  39               	.LFB7:
+  40               	.LSM4:
+  41               	/* prologue: function */
+  42               	/* frame size = 0 */
+  43               	.LSM5:
+  44 0000 8FEF      		ldi r24,lo8(-1)
+  45 0002 8EBD      		out 78-32,r24
+  46               	.L4:
+  47               	.LSM6:
+  48 0004 0DB4      		in __tmp_reg__,77-32
+  49 0006 07FE      		sbrs __tmp_reg__,7
+  50 0008 00C0      		rjmp .L4
+  51               	.LSM7:
+  52 000a 8EB5      		in r24,78-32
+  53               	/* epilogue start */
+  54               	.LSM8:
+  55 000c 0895      		ret
+  56               	.LFE7:
+  58               		.section	.text.SPI_masterTransmit,"ax",@progbits
+  59               	.global	SPI_masterTransmit
+  61               	SPI_masterTransmit:
+  62               	.LFB8:
+  63               	.LSM9:
+  64               	.LVL0:
+  65               	/* prologue: function */
+  66               	/* frame size = 0 */
+  67               	.LSM10:
+  68 0000 8EBD      		out 78-32,r24
+  69               	.L8:
+  70               	.LSM11:
+  71 0002 0DB4      		in __tmp_reg__,77-32
+  72 0004 07FE      		sbrs __tmp_reg__,7
+  73 0006 00C0      		rjmp .L8
+  74               	.LSM12:
+  75 0008 8EB5      		in r24,78-32
+  76               	.LVL1:
+  77               	/* epilogue start */
+  78               	.LSM13:
+  79 000a 0895      		ret
+  80               	.LFE8:
+  82               		.section	.text.digiPotInitWiper,"ax",@progbits
+  83               	.global	digiPotInitWiper
+  85               	digiPotInitWiper:
+  86               	.LFB9:
+  87               	.LSM14:
+  88               	.LVL2:
+  89               	/* prologue: function */
+  90               	/* frame size = 0 */
+  91               	.LSM15:
+  92 0000 5E98      		cbi 43-32,6
+  93               	.LBB24:
+  94               	.LBB25:
+  95               	.LSM16:
+  96 0002 1EBC      		out 78-32,__zero_reg__
+  97               	.L12:
+  98               	.LSM17:
+  99 0004 0DB4      		in __tmp_reg__,77-32
+ 100 0006 07FE      		sbrs __tmp_reg__,7
+ 101 0008 00C0      		rjmp .L12
+ 102               	.LSM18:
+ 103 000a 9EB5      		in r25,78-32
+ 104               	.LBE25:
+ 105               	.LBE24:
+ 106               	.LBB26:
+ 107               	.LBB27:
+ 108               	.LSM19:
+ 109 000c 8EBD      		out 78-32,r24
+ 110               	.L13:
+ 111               	.LSM20:
+ 112 000e 0DB4      		in __tmp_reg__,77-32
+ 113 0010 07FE      		sbrs __tmp_reg__,7
+ 114 0012 00C0      		rjmp .L13
+ 115               	.LSM21:
+ 116 0014 8EB5      		in r24,78-32
+ 117               	.LVL3:
+ 118               	.LBE27:
+ 119               	.LBE26:
+ 120               	.LSM22:
+ 121 0016 5E9A      		sbi 43-32,6
+ 122               	/* epilogue start */
+ 123               	.LSM23:
+ 124 0018 0895      		ret
+ 125               	.LFE9:
+ 127               		.section	.text.accelerometerReceive,"ax",@progbits
+ 128               	.global	accelerometerReceive
+ 130               	accelerometerReceive:
+ 131               	.LFB10:
+ 132               	.LSM24:
+ 133               	.LVL4:
+ 134               	/* prologue: function */
+ 135               	/* frame size = 0 */
+ 136 0000 FC01      		movw r30,r24
+ 137               	.LSM25:
+ 138 0002 5F98      		cbi 43-32,7
+ 139               	.LBB28:
+ 140               	.LBB29:
+ 141               	.LSM26:
+ 142 0004 82EF      		ldi r24,lo8(-14)
+ 143               	.LVL5:
+ 144 0006 8EBD      		out 78-32,r24
+ 145               	.L18:
+ 146               	.LSM27:
+ 147 0008 0DB4      		in __tmp_reg__,77-32
+ 148 000a 07FE      		sbrs __tmp_reg__,7
+ 149 000c 00C0      		rjmp .L18
+ 150               	.LSM28:
+ 151 000e 8EB5      		in r24,78-32
+ 152               	.LBE29:
+ 153               	.LBE28:
+ 154               	.LBB30:
+ 155               	.LBB31:
+ 156               	.LSM29:
+ 157 0010 82E7      		ldi r24,lo8(114)
+ 158 0012 8EBD      		out 78-32,r24
+ 159               	.L19:
+ 160               	.LSM30:
+ 161 0014 0DB4      		in __tmp_reg__,77-32
+ 162 0016 07FE      		sbrs __tmp_reg__,7
+ 163 0018 00C0      		rjmp .L19
+ 164               	.LSM31:
+ 165 001a 8EB5      		in r24,78-32
+ 166               	.LBE31:
+ 167               	.LBE30:
+ 168               	.LSM32:
+ 169 001c 8183      		std Z+1,r24
+ 170               	.LBB32:
+ 171               	.LBB33:
+ 172               	.LSM33:
+ 173 001e 82E7      		ldi r24,lo8(114)
+ 174 0020 8EBD      		out 78-32,r24
+ 175               	.L20:
+ 176               	.LSM34:
+ 177 0022 0DB4      		in __tmp_reg__,77-32
+ 178 0024 07FE      		sbrs __tmp_reg__,7
+ 179 0026 00C0      		rjmp .L20
+ 180               	.LSM35:
+ 181 0028 8EB5      		in r24,78-32
+ 182               	.LBE33:
+ 183               	.LBE32:
+ 184               	.LSM36:
+ 185 002a 8083      		st Z,r24
+ 186               	.LBB34:
+ 187               	.LBB35:
+ 188               	.LSM37:
+ 189 002c 82E7      		ldi r24,lo8(114)
+ 190 002e 8EBD      		out 78-32,r24
+ 191               	.L21:
+ 192               	.LSM38:
+ 193 0030 0DB4      		in __tmp_reg__,77-32
+ 194 0032 07FE      		sbrs __tmp_reg__,7
+ 195 0034 00C0      		rjmp .L21
+ 196               	.LSM39:
+ 197 0036 8EB5      		in r24,78-32
+ 198               	.LBE35:
+ 199               	.LBE34:
+ 200               	.LSM40:
+ 201 0038 8383      		std Z+3,r24
+ 202               	.LBB36:
+ 203               	.LBB37:
+ 204               	.LSM41:
+ 205 003a 82E7      		ldi r24,lo8(114)
+ 206 003c 8EBD      		out 78-32,r24
+ 207               	.L22:
+ 208               	.LSM42:
+ 209 003e 0DB4      		in __tmp_reg__,77-32
+ 210 0040 07FE      		sbrs __tmp_reg__,7
+ 211 0042 00C0      		rjmp .L22
+ 212               	.LSM43:
+ 213 0044 8EB5      		in r24,78-32
+ 214               	.LBE37:
+ 215               	.LBE36:
+ 216               	.LSM44:
+ 217 0046 8283      		std Z+2,r24
+ 218               	.LBB38:
+ 219               	.LBB39:
+ 220               	.LSM45:
+ 221 0048 82E7      		ldi r24,lo8(114)
+ 222 004a 8EBD      		out 78-32,r24
+ 223               	.L23:
+ 224               	.LSM46:
+ 225 004c 0DB4      		in __tmp_reg__,77-32
+ 226 004e 07FE      		sbrs __tmp_reg__,7
+ 227 0050 00C0      		rjmp .L23
+ 228               	.LSM47:
+ 229 0052 8EB5      		in r24,78-32
+ 230               	.LBE39:
+ 231               	.LBE38:
+ 232               	.LSM48:
+ 233 0054 8583      		std Z+5,r24
+ 234               	.LBB40:
+ 235               	.LBB41:
+ 236               	.LSM49:
+ 237 0056 82E7      		ldi r24,lo8(114)
+ 238 0058 8EBD      		out 78-32,r24
+ 239               	.L24:
+ 240               	.LSM50:
+ 241 005a 0DB4      		in __tmp_reg__,77-32
+ 242 005c 07FE      		sbrs __tmp_reg__,7
+ 243 005e 00C0      		rjmp .L24
+ 244               	.LSM51:
+ 245 0060 8EB5      		in r24,78-32
+ 246               	.LBE41:
+ 247               	.LBE40:
+ 248               	.LSM52:
+ 249 0062 8483      		std Z+4,r24
+ 250               	.LSM53:
+ 251 0064 5F9A      		sbi 43-32,7
+ 252               	/* epilogue start */
+ 253               	.LSM54:
+ 254 0066 0895      		ret
+ 255               	.LFE10:
+ 257               		.section	.text.init_accel,"ax",@progbits
+ 258               	.global	init_accel
+ 260               	init_accel:
+ 261               	.LFB11:
+ 262               	.LSM55:
+ 263               	/* prologue: function */
+ 264               	/* frame size = 0 */
+ 265               	.LSM56:
+ 266 0000 8CB5      		in r24,76-32
+ 267 0002 8C60      		ori r24,lo8(12)
+ 268 0004 8CBD      		out 76-32,r24
+ 269               	.LSM57:
+ 270 0006 5F98      		cbi 43-32,7
+ 271               	.LBB42:
+ 272               	.LBB43:
+ 273               	.LSM58:
+ 274 0008 8DE2      		ldi r24,lo8(45)
+ 275 000a 8EBD      		out 78-32,r24
+ 276               	.L34:
+ 277               	.LSM59:
+ 278 000c 0DB4      		in __tmp_reg__,77-32
+ 279 000e 07FE      		sbrs __tmp_reg__,7
+ 280 0010 00C0      		rjmp .L34
+ 281               	.LSM60:
+ 282 0012 8EB5      		in r24,78-32
+ 283               	.LBE43:
+ 284               	.LBE42:
+ 285               	.LBB44:
+ 286               	.LBB45:
+ 287               	.LSM61:
+ 288 0014 88E0      		ldi r24,lo8(8)
+ 289 0016 8EBD      		out 78-32,r24
+ 290               	.L35:
+ 291               	.LSM62:
+ 292 0018 0DB4      		in __tmp_reg__,77-32
+ 293 001a 07FE      		sbrs __tmp_reg__,7
+ 294 001c 00C0      		rjmp .L35
+ 295               	.LSM63:
+ 296 001e 8EB5      		in r24,78-32
+ 297               	.LBE45:
+ 298               	.LBE44:
+ 299               	.LSM64:
+ 300 0020 5F9A      		sbi 43-32,7
+ 301               	/* epilogue start */
+ 302               	.LSM65:
+ 303 0022 0895      		ret
+ 304               	.LFE11:
+ 370               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:2      *ABS*:0000003f __SREG__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:3      *ABS*:0000003e __SP_H__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:4      *ABS*:0000003d __SP_L__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:5      *ABS*:00000034 __CCP__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:19     .text.SPI_masterInit:00000000 SPI_masterInit
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:38     .text.SPI_masterReceive:00000000 SPI_masterReceive
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:61     .text.SPI_masterTransmit:00000000 SPI_masterTransmit
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:85     .text.digiPotInitWiper:00000000 digiPotInitWiper
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:130    .text.accelerometerReceive:00000000 accelerometerReceive
+C:\Users\ARAVIN~1\AppData\Local\Temp/ccFNnjvk.s:260    .text.init_accel:00000000 init_accel
+
+NO UNDEFINED SYMBOLS
