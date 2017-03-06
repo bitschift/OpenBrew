@@ -33,4 +33,4 @@ Here are the various commands:
 | Implement     | Command  | Value                                  |
 | ------------- | -------- | -------------------------------------- |
 | Stirring      | `s`      | Speed from 0 (stopped) to 10 (full)    |
-| Temperature   | `t`      | °C                                     |
+| Temperature   | `t`      | Desired temperature in °C              |
