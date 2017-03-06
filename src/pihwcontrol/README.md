@@ -19,8 +19,11 @@ Sensor data will be stored in an SQLite db on the Pi, in this table:
   CONSTRAINT data_pk PRIMARY KEY (id)
 );
 ```
-Temperature will be sent in units of degrees, Celsius. Water level will be a delta in centimeters
+Temperature will be stored in units of degrees, Celsius. Water level will be a delta in centimeters
 over the time of brewing.
+
+To collect data, the datacollect.py service must be instantiated in the background, and will store sensor
+readings in the db every 10 minutes.
 
 ### Controlling Stirring and Temperature
 The command listener in `modulecontrol.py` looks for a command and a value.
