@@ -20,8 +20,10 @@ t = IO.PWM(18, 100)
 if (sys.argv[1] == 't'):
     target = sys.argv[2]
     while (read_temp() != target) {
-        if (abs(read_temp() - target) > 40) {
+        if ((target - read_temp()) > 40) {
             t.start(100)
+        } else if (target - read_temp() < 0) {
+            t.start(0)  
         } else {
             t.start(50)
         }
