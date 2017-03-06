@@ -29,6 +29,7 @@ For instance, to set temperature to 60C, send this command:
 ` t 60 `
 
 Here are the various commands:
+
 | Implement     | Command  | Value                                  |
 | ------------- | -------- | -------------------------------------- |
 | Stirring      | `s`      | Speed from 0 (stopped) to 10 (full)    |
