@@ -6,21 +6,19 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.content.pm.PackageManager;
-
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -29,7 +27,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,6 +49,7 @@ public class Main extends Activity
     String data = "";
     int state = 0; // 0 is normal, 1 is pre-brew, 2 is brewing, 3 is post brew
     Integer dataBegin = 0;
+    GraphView graph;
 
 
 
@@ -66,23 +64,10 @@ public class Main extends Activity
         Button closeButton = (Button)findViewById(R.id.close);
         myLabel = (TextView)findViewById(R.id.label);
         myTextbox = (EditText)findViewById(R.id.entry);
-        Label = (TextView)findViewById(R.id.recv);
+        Label = (TextView)findViewById(R.id.recv);;
+        graph = (GraphView) findViewById(R.id.graph1);
         unrefined_points = new ArrayList<String>();
         results = new batch();
-
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
-
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
-
 
         //Send Button
         sendButton.setOnClickListener(new View.OnClickListener()
@@ -112,20 +97,6 @@ public class Main extends Activity
         });
     }
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Discovery has found a device. Get the BluetoothDevice
-                // object and its info from the Intent.
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-                Label.setText(device + " " + deviceHardwareAddress);
-            }
-        }
-    };
-
     void openButt(View v){
         try
         {
@@ -135,10 +106,16 @@ public class Main extends Activity
         catch (IOException ex) { }
     }
 
-    void advertise(View v){
-
+    void dataReq(View v){
         try {
             sendData("dataReq");
+        }
+        catch(IOException e){}
+    }
+    void start(View v){
+
+        try {
+            sendData("start");
         }
         catch(IOException e){}
     }
@@ -149,6 +126,7 @@ public class Main extends Activity
         if(mBluetoothAdapter == null)
         {
             myLabel.setText("No bluetooth adapter available");
+            return;
         }
 
         if(!mBluetoothAdapter.isEnabled())
@@ -189,10 +167,78 @@ public class Main extends Activity
         }
     }
 
+    String parseBytes(InputStream mmInputStream){
+        String recvdata = "";
+        try {
+            int bytesAvailable = mmInputStream.available();
+            byte[] bytes = new byte[bytesAvailable];
+            mmInputStream.read(bytes);
+            int i;
+            for (i = 0; i < bytesAvailable; i++) {
+                if (bytes[i] == (byte) 10) //10 is a newline
+                    break;
+            }
+
+            recvdata = new String(Arrays.copyOfRange(bytes, 0, i), "US-ASCII");
+        }
+        catch(IOException e){}
+        return recvdata;
+    }
+
+    String getName(String str){
+        if(str.equals("grav")){
+            return getResources().getString(R.string.grav);
+        }
+        else if(str.equals("co2")){
+            return getResources().getString(R.string.co2);
+        }
+        else if(str.equals("temp")){
+            return getResources().getString(R.string.temp);
+        }
+        return "";
+    }
+
+    LineGraphSeries<DataPoint> getDataPoints(batch b, String str){
+        DataPoint[] data = new DataPoint[b.points.size()];
+
+        for(int j = 0; j < b.points.size(); j++){
+            if(str.equals(getResources().getString(R.string.grav))){
+                data[j] = new DataPoint(b.points.get(j).time, b.points.get(j).grav);
+            }
+            else if(str.equals(getResources().getString(R.string.co2))){
+                data[j] = new DataPoint(b.points.get(j).time, b.points.get(j).co2);
+            }
+            else if(str.equals(getResources().getString(R.string.temp))){
+                data[j] = new DataPoint(b.points.get(j).time, b.points.get(j).temp);
+            }
+        }
+
+        return new LineGraphSeries<>(data);
+    }
+    void graph(GraphView g, batch b, String var){
+
+        g.getViewport().setMinX(0);
+        g.getViewport().setMaxX(b.points.get(b.points.size()-1).time);
+        g.getViewport().setMinY(0);
+        g.getViewport().setMaxY(60);
+        g.getViewport().setYAxisBoundsManual(true);
+        g.getViewport().setXAxisBoundsManual(true);
+
+        LineGraphSeries<DataPoint> data = getDataPoints(b, var);
+
+        data.setTitle(var);
+        /*g.getLegendRenderer().setVisible(true);
+        g.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        g.getLegendRenderer().setBackgroundColor(Color.alpha(0));*/
+
+
+        g.setTitle(var);
+        g.addSeries(data);
+    }
+
     void beginListenForData()
     {
         final Handler handler = new Handler();
-        final byte delimiter = 10; //This is the ASCII code for a newline character
 
         stopWorker = false;
         workerThread = new Thread(new Runnable()
@@ -204,60 +250,48 @@ public class Main extends Activity
                 {
                     try
                     {
-                        final int bytesAvailable = mmInputStream.available();
-                        if(bytesAvailable > 0)
+                        if(mmInputStream.available() > 0)
                         {
-                            byte[] packetBytes = new byte[bytesAvailable];
-                            mmInputStream.read(packetBytes);
-                            int i;
-                            for(i=0;i<bytesAvailable;i++)
-                            {
-                                if(packetBytes[i] == delimiter)
-                                    break;
-                            }
-
-                            final String recvdata = new String(Arrays.copyOfRange(packetBytes, 0, i), "US-ASCII");
+                            final String recvdata = parseBytes(mmInputStream);
 
                             if(recvdata.equals("data_begin")){
                                 dataBegin = 1;
-                                handler.post(new Runnable()
+                                /*handler.post(new Runnable()
                                 {
                                     public void run()
                                     {
                                         Toast.makeText(getApplication().getBaseContext(), "DATA BEGIN", Toast.LENGTH_LONG).show();
                                     }
-                                });
+                                });*/
                             }
                             else if(recvdata.equals("data_end")){
                                 dataBegin = 0;
-                                for(String s: unrefined_points){
-                                    results.points.add(point.parseJSON(s));
-                                }
                                 handler.post(new Runnable()
                                 {
                                     public void run()
                                     {
-                                        Label.setText(Integer.toString(results.points.size()));
                                         //Label.setText("RealData");
                                         //for(String s: unrefined_points){
                                         //    Label.append(s);
                                         //}
-                                        for(int i = 0; i < results.points.size(); i++){
-                                            Label.append(results.points.get(i)+" ");
-                                        }
-                                        Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
+                                        graph((GraphView) findViewById(R.id.graph1), results, getName("grav"));
+                                        //Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
                             else if(dataBegin.compareTo(1) == 0) {
-                                data += recvdata;
-                                unrefined_points.add(recvdata);
+                                handler.post(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        results.points.add(point.parseJSON(recvdata));
+                                    }});
+
                             }
                             handler.post(new Runnable()
                             {
                                 public void run()
                                 {
-                                    //Label.setText(data);
                                     try{
                                         sendData("ACK");
                                     }
@@ -296,13 +330,5 @@ public class Main extends Activity
             mmSocket.close();
             myLabel.setText("Bluetooth Closed");
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // Don't forget to unregister the ACTION_FOUND receiver.
-        unregisterReceiver(mReceiver);
     }
 }

@@ -7,7 +7,7 @@
 from bluetooth import *
 import threading
 import random
-
+import json
 
 #This is the function that the thread uses to listen on the bluetooth socket.
 #The parameter is a socket.
@@ -19,7 +19,7 @@ def btlistener(socket):
 				print("Data start.")
 				client_sock.send("data_begin".encode("utf-8"))
 
-				data = gen_input(False)
+				data = gen_input(True)
 				data = data.split("|")
 				for chunk in data:
 					client_sock.send((chunk+"\n").encode("utf-8"))
@@ -102,25 +102,37 @@ def close_sockets(sock1, sock2):
 	print("Connection closed.")
 
 def gen_input(rand):
-	names = ["\"temp\":", "\"co2\":", "\"grav\":", "\"time\":"]
+	names = ["\'temp\':", "\'co2\':", "\'grav\':", "\'time\':"]
 	#tmp = "{"
 	tmp = ""
+
 	if rand == True:
 		for i in range(1, 100):
 			tmp += "{"
 			for j in  range(0, 3):
-				tmp += names[j] + "\"" + str(round(random.uniform(0, 30), 5)) + "\","
-			tmp += names[3] + "\"" + str(i) + "\""
-			tmp += "}|"
+				tmp += names[j] + str(round(random.uniform(0, 30), 5)) +","
+			tmp += names[3] + str(i)
+			tmp += "}"
+			if i != 99:
+				tmp += "|"
 	else:
 		for i in range(1, 100):
 			tmp += "{"
 			for j in  range(0, 3):
-				tmp += names[j] + "\"" + str(j) + "\","
-			tmp += names[3] + "\"" + str(i) + "\""
-			tmp += "}|"
+				tmp += names[j] + str(j) + ","
+			tmp += names[3] + str(i)
+			tmp += "}"
+			if i != 99:
+				tmp += "|"
 	#tmp += "}"
 	return tmp
+'''
+	array = []
+	for i in range(1, 100):
+		array += (round(random.uniform(0, 30), 5), round(random.uniform(0, 30), 5), round(random.uniform(0, 30), 5), i)
+	return json.dumps(array.__dict__)
+'''
+
 
 #print gen_input(False)
 
