@@ -46,7 +46,10 @@ class LearningAgent:
             return
 
         # randomly sample our experience replay memory
-        replay_batch = random.sample(self._memory, self._mem_batch_size)
+        if self._mem_batch_size > len(self._memory):
+            replay_batch = self._memory[:]
+        else:
+            replay_batch = random.sample(self._memory, self._mem_batch_size)
         x_train = []
         y_train = []
 
@@ -106,22 +109,21 @@ class LearningAgent:
         if (len(data_batch)) != len(actions):
             print("ERROR: Mismatch in dimensions of the data and action sets")
             print("       dim(data): ", len(data_batch), " dim(action): ", len(actions))
-            return
+            return "ERROR"
+        if (len(data_batch) < 3):
+            print("ERROR: data batch too small to do training on. Skipping this trial.")
+            return "ERROR"
 
         for i in range(len(data_batch)-2):
             experience = (data_batch[i], actions[i], self._default_reward, data_batch[i+1])
-            print("experience: ", experience)
+            #print("experience: ", experience)
             self._record(experience)
         # build the last experience manually
         experience = (data_batch[-2], actions[-1], reward, data_batch[-1])
         self._record(experience)
         # train
         self._q_update(reward)
-
-
-
-
-
+        return None
 
 if __name__ == "__main__":
     # Make test agent
@@ -161,6 +163,3 @@ if __name__ == "__main__":
         new_actions.append(agent.get_action(s[0],s[1],s[2],s[3]))
     print("old", original_actions)
     print("new", new_actions)
-
-
-
