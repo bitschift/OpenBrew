@@ -62,6 +62,9 @@ public class Main extends Activity
         Button openButton = (Button)findViewById(R.id.open);
         Button sendButton = (Button)findViewById(R.id.send);
         Button closeButton = (Button)findViewById(R.id.close);
+
+        Button brewButton = (Button)findViewById(R.id.brew);
+        Button dataButton = (Button)findViewById(R.id.data);
         myLabel = (TextView)findViewById(R.id.label);
         myTextbox = (EditText)findViewById(R.id.entry);
         Label = (TextView)findViewById(R.id.recv);;
@@ -95,6 +98,21 @@ public class Main extends Activity
                 catch (IOException ex) { }
             }
         });
+    }
+
+    void launch(View v){
+        Intent intent;
+        switch(v.getId()){
+            case R.id.brew:
+                intent = new Intent(this, BrewSetup.class);
+                intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
+                startActivity(intent);
+                break;
+            case R.id.data:
+                intent = new Intent(this, DataActivity.class);
+                intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
+                startActivity(intent);
+        }
     }
 
     void openButt(View v){
@@ -142,7 +160,7 @@ public class Main extends Activity
             //Label.setText("Devices Found");
             for(BluetoothDevice device : pairedDevices)
             {
-                //Label.append(device.getName());
+                Label.append(device.getName());
                 //if(device.getName().equals("cody-Lenovo-B590"))
                 //{
                     mmDevice = device;
@@ -156,7 +174,7 @@ public class Main extends Activity
     void openBT() throws IOException {
         if (mmDevice != null) {
             UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee"); //Standard SerialPortService ID
-            mmSocket = mmDevice.createInsecureRfcommSocketToServiceRecord(uuid);
+            mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
             mmSocket.connect();
             mmOutputStream = mmSocket.getOutputStream();
             mmInputStream = mmSocket.getInputStream();
@@ -185,17 +203,14 @@ public class Main extends Activity
         return recvdata;
     }
 
-    String getName(String str){
-        if(str.equals("grav")){
+    String getName(int i){
+        if(i == 0){
             return getResources().getString(R.string.grav);
         }
-        else if(str.equals("co2")){
+        else if(i == 1){
             return getResources().getString(R.string.co2);
         }
-        else if(str.equals("temp")){
-            return getResources().getString(R.string.temp);
-        }
-        return "";
+        return getResources().getString(R.string.temp);
     }
 
     LineGraphSeries<DataPoint> getDataPoints(batch b, String str){
@@ -274,7 +289,7 @@ public class Main extends Activity
                                         //for(String s: unrefined_points){
                                         //    Label.append(s);
                                         //}
-                                        graph((GraphView) findViewById(R.id.graph1), results, getName("grav"));
+                                        graph((GraphView) findViewById(R.id.graph1), results, getName(0));
                                         //Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
                                     }
                                 });

@@ -8,6 +8,4 @@
     tools:context="brew.ai.DataActivity"
     tools:showIn="@layout/activity_data">
 
-    <
-
 </android.support.v4.widget.NestedScrollView>
