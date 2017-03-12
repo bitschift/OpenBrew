@@ -8,6 +8,23 @@ from bluetooth import *
 import threading
 import random
 import json
+import os
+import sys
+import stat, os
+
+fifo_path = "/tmp/btcomm.fifo"
+state = 0
+
+def fiforw(message):
+    if(message == None):
+        fifo = open(fifo_path, 'r')
+        string = ""
+        for line in fifo:
+            string += line
+        return string
+    fifo = open(fifo_path, 'w')
+    fifo.write(message)
+    fifo.close()
 
 #This is the function that the thread uses to listen on the bluetooth socket.
 #The parameter is a socket.
@@ -26,6 +43,10 @@ def btlistener(socket):
 					client_sock.recv(1024)
 				client_sock.send("data_end".encode("utf-8"))
 				print( "Data sent!")
+			elif data == "start\n":
+				fiforw("start")
+				print("Received start command.")
+				state = 2
 			else:
 				print("Recieved: %s" % data)
 		except:
@@ -91,6 +112,7 @@ def find_device():
 
 #Start the listener thread
 def start_listener_thread(socket):
+    
 	t = threading.Thread(target=btlistener, args = (client_sock,))
 	t.daemon = True
 	t.start()
@@ -141,14 +163,19 @@ def gen_input(rand):
 client_sock, server_sock = get_sockets()
 start_listener_thread(client_sock)
 
+if not stat.S_ISFIFO(os.stat(fifo_path).st_mode):
+    os.mkfifo(fifo_path)
 #Sender Daemon
 try:
     while True:
-	#input loop
-        data = raw_input(">")
-        if len(data) == 0: break
-	data += '\n' #concatenate a delimiter
-        client_sock.send(data.encode('utf-8'))
+	    #input loop
+        #data = raw_input(">")
+        #if len(data) == 0: break
+	    #data += '\n' #concatenate a delimiter
+        if state == 2:
+            time.sleep(2)
+            data = gen_input(True).split('|')[0]
+            client_sock.send(data.encode('utf-8'))
 except IOError:
     pass
 
