@@ -8,37 +8,6 @@ class Simulator():
     def __init__(self):
         self._reward = 0
 
-    def _new_temp(self, state):
-        temp, CO2, grav, time = state
-
-        if time < 10:
-            temp += 1
-        elif time < 20:
-            temp += 2
-        elif time < 50:
-            temp += 5
-        elif time < 70:
-            temp -= 2
-        else:
-            temp -= 1
-        return temp
-
-    def _new_CO2(self, state):
-        temp, CO2, grav, time = state
-        if time < 50:
-            CO2 += 5
-        else:
-            CO2 -= 1
-        return CO2
-
-    def _new_grav(self, state):
-        temp, CO2, grav, time = state
-        if time < 50:
-            grav += 5
-        else:
-            grav += 1
-        return grav
-
     def getReward(self):
         '''
         Returns the reward from the entire run
@@ -71,13 +40,6 @@ class Simulator():
         else:
             self._reward += 1
 
-        if time > 50:
-            self._reward += 3
-        elif time > 20:
-            self._reward += 1
-        elif time > 10:
-            self._reward += 2
-
     def reset(self):
         '''
         resets the simulator
@@ -91,18 +53,15 @@ class Simulator():
         Incremental rewards are recorded internally until reset() is called.
         '''
         temp, CO2, grav, time = state
-        temp = self._new_temp(state)
-        CO2 = self._new_CO2(state)
-        grav = self._new_grav(state)
         time += 1
 
         if action == 0:
             # activate heating element
-            temp += 1
+            temp += 10
         elif action == 1:
             # stir --> increase brewing speed
-            CO2 += 1
-            grav += 1
+            CO2 += 5
+            grav += 5
         elif action == 3:
             # end brewing (handled outside this function)
             pass

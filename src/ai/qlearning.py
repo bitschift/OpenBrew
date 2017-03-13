@@ -9,7 +9,7 @@ import random
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Activation
-from keras.optimizers import sgd
+from keras.optimizers import RMSprop
 
 class LearningAgent:
     '''
@@ -23,9 +23,11 @@ class LearningAgent:
         # incorporating a variable number of sensors is theoretically difficult
         self._model = Sequential()
         self._model.add(Dense(4, input_shape=(4,), activation='relu'))
-        self._model.add(Dense(4, activation='relu'))
-        self._model.add(Dense(3))
-        self._model.compile(sgd(lr=.2), "mse")
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(2))
+        self._model.compile(RMSprop(lr=.01), loss="mse")
         # The history is the series of (state,action) tuples during the running of the epoch
         self._history = []
         self._gamma = 0.975
@@ -59,7 +61,7 @@ class LearningAgent:
             old_qval    = self._model.predict(np.array([old_state]), batch_size=1)
             new_q_value = self._model.predict(np.array([new_state]), batch_size=1)
             max_q_value = np.max(new_q_value)
-            y = np.zeros((1, 3))
+            y = np.zeros((1, 2))
             y[:] = old_qval[:]
 
             # Update difference for non-terminal (if true)
@@ -71,7 +73,7 @@ class LearningAgent:
 
             y[0][action] = update
             x_train.append(old_state)
-            y_train.append(y.reshape(3,))
+            y_train.append(y.reshape(2,))
 
         x_train = np.array(x_train)
         y_train = np.array(y_train)

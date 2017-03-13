@@ -10,8 +10,7 @@ import random
 
 def get_action(alpha, agent, state):
     if random.random() < alpha:
-        # We choose "start with less probability than the other actions
-        action = random.choice([0, 1, 2, 0, 1, 0, 1, 0, 1])
+        action = random.choice([0, 1])
     else:
         action = agent.get_action(state[0], state[1], state[2], state[3])
     return action
@@ -22,9 +21,9 @@ def run_trial(agent, sim):
     Once the batch is done, traing occurs after this trial.
     '''
     state = (30, 20, 10, 0)
-    alpha = 0.9
+    alpha = .5
     brew_over = False
-    max_time = 1000
+    max_time = 30
 
     states = []
     actions = []
@@ -33,13 +32,14 @@ def run_trial(agent, sim):
         states.append(state)
         actions.append(action)
         if alpha != 0:
-            alpha -= 0.01
+            alpha -= 0.05
         if action == 2 or state[3] == max_time:
             brew_over = True
             reward = sim.getReward()
         else:
             state = sim.new_state(state, action)
     print("Reward: ", reward, "\tActions taken: ", len(actions))
+    reward_data.write(str(reward)+',')
     result = agent.batch_train(states, actions, reward)
     if result != None:
         return "ERROR"
@@ -49,8 +49,10 @@ def run_trial(agent, sim):
 if __name__ == '__main__':
     agent_instance = qlearning.LearningAgent()
     sim_instance = simulator.Simulator()
-    num_trials = 10000
+    num_trials = 5000
     i = 0
+
+    reward_data = open("reward.csv", 'w')
 
     while i != num_trials:
         print("===== Trial: ", i, "=====")
