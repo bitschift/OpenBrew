@@ -11,6 +11,7 @@ import json
 import os
 import sys
 import stat, os
+import time
 
 fifo_path = "/tmp/btcomm.fifo"
 state = 0
@@ -36,17 +37,24 @@ def btlistener(socket):
 				print("Data start.")
 				client_sock.send("data_begin".encode("utf-8"))
 
-				data = gen_input(True)
-				data = data.split("|")
+				data = gen_input(True).split("|")
 				for chunk in data:
+					print(chunk)
 					client_sock.send((chunk+"\n").encode("utf-8"))
+					print("After send")
 					client_sock.recv(1024)
+					print("Recv")
+					if state == 2:
+						print("Dingle")
+						time.sleep(1)
+						print("slept")
 				client_sock.send("data_end".encode("utf-8"))
 				print( "Data sent!")
 			elif data == "start\n":
 				fiforw("start")
 				print("Received start command.")
 				state = 2
+				client_sock.send("S_ACK".encode("utf-8"))
 			else:
 				print("Recieved: %s" % data)
 		except:
@@ -163,19 +171,19 @@ def gen_input(rand):
 client_sock, server_sock = get_sockets()
 start_listener_thread(client_sock)
 
-if not stat.S_ISFIFO(os.stat(fifo_path).st_mode):
-    os.mkfifo(fifo_path)
+#if not stat.S_ISFIFO(os.stat(fifo_path).st_mode):
+#    os.mkfifo(fifo_path)
 #Sender Daemon
 try:
     while True:
 	    #input loop
-        #data = raw_input(">")
-        #if len(data) == 0: break
+        data = raw_input(">")
+        if len(data) == 0: break
 	    #data += '\n' #concatenate a delimiter
-        if state == 2:
-            time.sleep(2)
-            data = gen_input(True).split('|')[0]
-            client_sock.send(data.encode('utf-8'))
+#        if state == 2:
+#            time.sleep(2)
+#            data = gen_input(True).split('|')[0]
+#            client_sock.send(data.encode('utf-8'))
 except IOError:
     pass
 

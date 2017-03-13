@@ -134,6 +134,7 @@ public class Main extends Activity
 
         try {
             sendData("start");
+            state = 2;
         }
         catch(IOException e){}
     }
@@ -242,13 +243,20 @@ public class Main extends Activity
         LineGraphSeries<DataPoint> data = getDataPoints(b, var);
 
         data.setTitle(var);
+        data.setDrawDataPoints(true);
         /*g.getLegendRenderer().setVisible(true);
         g.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         g.getLegendRenderer().setBackgroundColor(Color.alpha(0));*/
 
+        String tmp = "";
+        for(point p : b.points){
+            tmp += p.toString() + ",";
+        }
+        Log.d("Points", tmp);
 
         g.setTitle(var);
         g.addSeries(data);
+        Log.d("Points", "Done");
     }
 
     void beginListenForData()
@@ -263,14 +271,32 @@ public class Main extends Activity
 
                 while(!Thread.currentThread().isInterrupted() && !stopWorker)
                 {
+                    final GraphView g = (GraphView) findViewById(R.id.graph1);
                     try
                     {
                         if(mmInputStream.available() > 0)
                         {
                             final String recvdata = parseBytes(mmInputStream);
+                            Log.d("Basic","loop");
 
-                            if(recvdata.equals("data_begin")){
+                            if(recvdata.equals("S_ACK")){
+                                handler.post(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        try{
+                                            sendData("dataReq");
+                                        }
+                                        catch (IOException ex){
+                                        }
+                                    }
+                                });
+                                Log.d("Listener","Start acknowledged");
+                                continue;
+                            }
+                            else if(recvdata.equals("data_begin")){
                                 dataBegin = 1;
+                                Log.d("Listener","Data begin");
                                 /*handler.post(new Runnable()
                                 {
                                     public void run()
@@ -281,6 +307,11 @@ public class Main extends Activity
                             }
                             else if(recvdata.equals("data_end")){
                                 dataBegin = 0;
+                                Log.d("Listener","data end");
+                                if(state == 2){
+                                    Log.d("Listener","Changed state from brewing to normal");
+                                    state = 0;
+                                }
                                 handler.post(new Runnable()
                                 {
                                     public void run()
@@ -289,19 +320,24 @@ public class Main extends Activity
                                         //for(String s: unrefined_points){
                                         //    Label.append(s);
                                         //}
-                                        graph((GraphView) findViewById(R.id.graph1), results, getName(0));
+
+                                        graph(g, results, getName(0));
                                         //Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
                             else if(dataBegin.compareTo(1) == 0) {
+                                Log.d("Listener","Point received");
                                 handler.post(new Runnable()
                                 {
                                     public void run()
                                     {
                                         results.points.add(point.parseJSON(recvdata));
+                                        if(state == 2){
+                                            g.removeAllSeries();
+                                            graph(g, results, getName(0));
+                                        }
                                     }});
-
                             }
                             handler.post(new Runnable()
                             {
