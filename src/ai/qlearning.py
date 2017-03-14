@@ -9,7 +9,7 @@ import random
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Activation
-from keras.optimizers import sgd
+from keras.optimizers import RMSprop
 
 class LearningAgent:
     '''
@@ -23,9 +23,11 @@ class LearningAgent:
         # incorporating a variable number of sensors is theoretically difficult
         self._model = Sequential()
         self._model.add(Dense(4, input_shape=(4,), activation='relu'))
-        self._model.add(Dense(4, activation='relu'))
-        self._model.add(Dense(3))
-        self._model.compile(sgd(lr=.2), "mse")
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(16, activation='relu'))
+        self._model.add(Dense(2))
+        self._model.compile(RMSprop(lr=.01), loss="mse")
         # The history is the series of (state,action) tuples during the running of the epoch
         self._history = []
         self._gamma = 0.975
@@ -46,7 +48,10 @@ class LearningAgent:
             return
 
         # randomly sample our experience replay memory
-        replay_batch = random.sample(self._memory, self._mem_batch_size)
+        if self._mem_batch_size > len(self._memory):
+            replay_batch = self._memory[:]
+        else:
+            replay_batch = random.sample(self._memory, self._mem_batch_size)
         x_train = []
         y_train = []
 
@@ -56,7 +61,7 @@ class LearningAgent:
             old_qval    = self._model.predict(np.array([old_state]), batch_size=1)
             new_q_value = self._model.predict(np.array([new_state]), batch_size=1)
             max_q_value = np.max(new_q_value)
-            y = np.zeros((1, 3))
+            y = np.zeros((1, 2))
             y[:] = old_qval[:]
 
             # Update difference for non-terminal (if true)
@@ -68,7 +73,7 @@ class LearningAgent:
 
             y[0][action] = update
             x_train.append(old_state)
-            y_train.append(y.reshape(3,))
+            y_train.append(y.reshape(2,))
 
         x_train = np.array(x_train)
         y_train = np.array(y_train)
@@ -106,22 +111,21 @@ class LearningAgent:
         if (len(data_batch)) != len(actions):
             print("ERROR: Mismatch in dimensions of the data and action sets")
             print("       dim(data): ", len(data_batch), " dim(action): ", len(actions))
-            return
+            return "ERROR"
+        if (len(data_batch) < 3):
+            print("ERROR: data batch too small to do training on. Skipping this trial.")
+            return "ERROR"
 
         for i in range(len(data_batch)-2):
             experience = (data_batch[i], actions[i], self._default_reward, data_batch[i+1])
-            print("experience: ", experience)
+            #print("experience: ", experience)
             self._record(experience)
         # build the last experience manually
         experience = (data_batch[-2], actions[-1], reward, data_batch[-1])
         self._record(experience)
         # train
         self._q_update(reward)
-
-
-
-
-
+        return None
 
 if __name__ == "__main__":
     # Make test agent
@@ -161,6 +165,3 @@ if __name__ == "__main__":
         new_actions.append(agent.get_action(s[0],s[1],s[2],s[3]))
     print("old", original_actions)
     print("new", new_actions)
-
-
-
