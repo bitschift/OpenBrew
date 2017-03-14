@@ -17,8 +17,8 @@ s = IO.PWM(19, 100)
 IO.setup(18, IO.OUT)
 t = IO.PWM(18, 100)
 
-if (sys.argv[1] == 't'):
-    target = sys.argv[2]
+def set_temp(temp):
+    target = temp
     while (read_temp() != target) {
         if ((target - read_temp()) > 40) {
             t.start(100)
@@ -30,6 +30,6 @@ if (sys.argv[1] == 't'):
     }
     t.start(0)
 
-if (sys.argv[1] == 's'):
-    duty = sys.argv[2]
+def set_stir(speed):
+    duty = speed
     s.start(float(duty))
