@@ -3,51 +3,35 @@ import glob
 import sys
 import time
 
-import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BCM)
-TRIG = 23
-ECHO = 24
-GPIO.setup(TRIG, GPIO.OUT)
-GPIO.setup(ECHO, GPIO.IN)
-GPIO.output(TRIG, False)
+import RPi.GPIO as IO
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
-def read_waterLevel():
-    GPIO.output(TRIG, True)
-    time.sleep(0.00001)
-    GPIO.output(TRIG, False)
-    pulse_start = time.time()
-    while GPIO.input(ECHO) == 1:
-        pulse_end = time.time()
-    pulse_duration = pulse_end - pulse_start
-    distance = pulse_duration * 17150
-    distance = round(distance, 5)
-    return distance
+temp_sensor = '/sys/bus/w1/devices/28-0416935b62ff/w1_slave'
+
+IO.setmode(IO.BCM)
+IO.setup(21, IO.IN)
+
+def read_co2():
+    return IO.input(21)
+
+def temp_raw():
+    f = open(temp_sensor, 'r')
+    lines = f.readlines()
+    f.close()
+    return lines
 
 def read_temp():
-    base_dir = '/sys/bus/w1/devices'
-    device_folder = glob.glob(base_dir + '28*')[0]
-    device_file = device_folder + '/w1_slave'
-    
-    catdata = subprocess.Popen(['cat', device_file], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out,err = catdata.communicate()
-    out_decode = out.decode('utf-8')
-    lines = out_decode.split('\n')
-
+    lines = temp_raw()
     while lines[0].strip()[-3:] != 'YES':
         time.sleep(0.2)
-        lines = read_temp_raw()
-    
-    equals_pos = lines[1].find('t=')
-    
-    if equals_pos != -1:
-        temp_string = lines[1][equals_pos+2:]
-        temp_c = float(temp_string) / 1000.0
-        temp_f = temp_c * 9.0 / 5.0 + 32.0
-        return temp_c, temp_f
+        lines = temp_raw()
+    temp_output = lines[1].find('t=')
+    if temp_output != -1:
+        temp_string = lines[1].strip()[temp_output+2:]
+        temp = float(temp_string) / 1000.0
+        return temp
 
 def log_data(temp, waterLevel):
     conn = sqlite3.connect (dbname)
@@ -58,9 +42,11 @@ def log_data(temp, waterLevel):
     conn.close()
 
 if __name__ == '__main__':
-    current_level = read_waterLevel()
-    while(1):
-        log_data(read_temp(), current_level - read_waterLevel())
-        current_level = read_waterLevel()
-        time.sleep(600)
-        
+  #  current_level = read_co2()
+  #  while(1):
+  #      log_data(read_temp(), current_level - read_co2())
+  #      current_level = read_co2()
+  #      time.sleep(600)
+  
+  while(1):
+    print(read_temp())

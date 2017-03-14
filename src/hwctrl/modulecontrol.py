@@ -15,21 +15,33 @@ IO.setup(19, IO.OUT)
 s = IO.PWM(19, 100)
 
 IO.setup(18, IO.OUT)
-t = IO.PWM(18, 100)
 
 def set_temp(temp):
     target = temp
-    while (read_temp() != target) {
-        if ((target - read_temp()) > 40) {
-            t.start(100)
-        } else if (target - read_temp() < 0) {
-            t.start(0)  
-        } else {
-            t.start(50)
-        }
-    }
-    t.start(0)
+    while (read_temp() != target):
+        if ((target - read_temp()) > 40):
+            IO.output(18, True)
+            sleep(5)
+            IO.output(18, False)
+        elif (target - read_temp() < 0):
+            IO.output(18, False)
+        else:
+            IO.output(18, True)
+            sleep(2)
+            IO.output(18, False)
+    IO.output(18, False)
 
 def set_stir(speed):
     duty = speed
     s.start(float(duty))
+
+if __name__ == "__main__":
+    while(1):
+        op = input('Enter command: ')
+        if (op == 1):
+            temp = input('Enter temp: ')
+            set_temp(temp)
+        if (op == 2):
+            speed = input('Set stir speed: ')
+            set_stir(speed)
+        
