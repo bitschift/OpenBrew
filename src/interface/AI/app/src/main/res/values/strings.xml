@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Brew.AI</string>
+    <string name="grav">Specific Gravity</string>
+    <string name="temp">Tempurature</string>
+    <string name="co2">Carbon Dioxide</string>
+    <string name="title_activity_data">DataActivity</string>
+    <string name="action_settings">Settings</string>
+    <color name="background">#FFB74D</color>
+    <string name="title_activity_brew_setup">BrewSetup</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
