@@ -11,3 +11,5 @@ docs/*/*.toc
 docs/*/*.pdf
 docs/*/*.bbl
 docs/*/*.blg
+
+*.pyc
