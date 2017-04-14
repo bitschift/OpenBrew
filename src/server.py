@@ -4,29 +4,27 @@
 #
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 
-from bluetooth import *
 import threading
-import random
-import json
-import os
-import sys
-import stat, os
 import time
-import hwctrl.datacollect as dc
-import hwctrl.modulecontrol as mc
+import src.hwctrl.datacollect as dc
+import src.hwctrl.modulecontrol as mc
+from bluetooth import *
 
 fifo_path = "/tmp/btcomm.fifo"
 state = 0
-
 zero_time = time.time()
+
 def get_time():
     '''
+    Returns the time since inception
     '''
-    
     return time.time() - zero_time
 
-def fiforw(message):
-    if(message == None):
+def fiforw(message=None):
+    '''
+    DEPRECATED
+    '''
+    if message is None:
         fifo = open(fifo_path, 'r')
         string = ""
         for line in fifo:
@@ -36,76 +34,108 @@ def fiforw(message):
     fifo.write(message)
     fifo.close()
 
-#This is the function that the thread uses to listen on the bluetooth socket.
-#The parameter is a socket.
+def fifo_w(message=None):
+    '''
+    Handles writing to our fifo
+    '''
+    global fifo_path
+    fifo = open(fifo_path, 'w')
+    if message is not None:
+        fifo.write(message)
+    fifo.close()
+
+def fifo_r():
+    '''
+    Handles reading from the fifo
+    '''
+    global fifo_path
+    fifo = open(fifo_path, 'r')
+    message = "".join(fifo.readlines())
+    return message
+
 def btlistener(socket):
+    '''
+    This is the function that the thread uses to listen on the bluetooth socket.
+    The parameter is a socket.
+    '''
+    global state
     while True:
         try:
             data = socket.recv(1024)
             if data == "dataReq\n":
-                print("Data start.")
+                print "Data start."
                 client_sock.send("data_begin".encode("utf-8"))
-                while(True):
+                while True:
                     datapoint = gen_input()
                     print("Generated datapoint: ", datapoint)
                     client_sock.send((datapoint+"\n").encode("utf-8"))
-                    print("After send")
+                    print "After send"
                     client_sock.recv(1024)
                     if state == 2:
                         time.sleep(1)
-                        print("slept")
+                        print "slept"
 
                 client_sock.send("data_end".encode("utf-8"))
-                print( "Data sent!")
+                print "Data sent!"
             elif data == "start\n":
-                fiforw("start")
-                print("Received start command.")
+                fifo_w("start")
+                print "Received start command."
                 state = 2
                 client_sock.send("S_ACK".encode("utf-8"))
             else:
-                print("Recieved: %s" % data)
+                print "Recieved: " + str(data)
         except:
             return
 
-#Setup socket information
-#returns a tuple of sockets
-# client socket, then server socket
 def get_sockets():
-    server_sock=BluetoothSocket( RFCOMM )
-    server_sock.bind(("",PORT_ANY))
+    '''
+    Setup socket information
+    returns a tuple of sockets: (client socket, server socket)
+    '''
+    server_sock = BluetoothSocket(RFCOMM)
+    server_sock.bind(("", PORT_ANY))
     server_sock.listen(1)
     port = server_sock.getsockname()[1]
     uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
     
     #Advertise bluetooth service from controller
     advertise_service(
-               server_sock, "cody-Lenovo-B590",
-                       service_id = uuid,
-                       service_classes = [ uuid, SERIAL_PORT_CLASS ],
-                       profiles = [ SERIAL_PORT_PROFILE ], 
-                     )
-                   
-    #Wait for connections
-    print("Waiting for connection on RFCOMM channel %d" % port)
-    client_sock, client_info = server_sock.accept()
-    print("Accepted connection from ", client_info)
-    return (client_sock, server_sock)
-#Start the listener thread
-def start_listener_thread(socket):
+        server_sock, "cody-Lenovo-B590",
+        service_id=uuid,
+        service_classes=[uuid, SERIAL_PORT_CLASS],
+        profiles=[SERIAL_PORT_PROFILE], 
+        )
     
-    t = threading.Thread(target=btlistener, args = (client_sock,))
-    t.daemon = True
-    t.start()
+    # Wait for connections
+    print "Waiting for connection on RFCOMM channel " + str(port)
+    client_sock, client_info = server_sock.accept()
+    print "Accepted connection from ", client_info
+    return (client_sock, server_sock)
 
-#please close the sockets after you're done
+def start_listener_thread(socket):
+    '''
+    Start the listener thread
+    '''
+    thread = threading.Thread(target=btlistener, args=(socket,))
+    thread.daemon = True
+    thread.start()
+
 def close_sockets(sock1, sock2):
+    '''
+    please close the sockets after you're done
+    '''
+
     sock2.close()
     sock1.close()
-    print("Connection closed.")
+    print "Connection closed."
 
 def gen_input():
+    '''
+    CONSIDER RENAMING THIS FUNCTIOn
+    Generates the input json for pushing data to the phone
+    '''
     names = ["\'temp\':", "\'co2\':", "\'grav\':", "\'time\':"]
-    name_f= [dc.read_temp, dc.read_co2, lambda: 0, get_time]
+    name_f = [dc.read_temp, dc.read_co2, lambda: 0, get_time]
     result = [name + str(name_f[index]()) for index, name in enumerate(names)]
     result = ",".join(result)
     result = "{" + result + "}"
@@ -113,23 +143,18 @@ def gen_input():
     return result
 
 
-client_sock, server_sock = get_sockets()
-start_listener_thread(client_sock)
+if __name__ == '__main__':
+    client_sock, server_sock = get_sockets()
+    start_listener_thread(client_sock)
 
-#if not stat.S_ISFIFO(os.stat(fifo_path).st_mode):
-#    os.mkfifo(fifo_path)
-#Sender Daemon
-try:
-    while True:
-        #input loop
-        data = raw_input(">")
-        if len(data) == 0: break
-        #data += '\n' #concatenate a delimiter
-#        if state == 2:
-#            time.sleep(2)
-#            data = gen_input(True).split('|')[0]
-#            client_sock.send(data.encode('utf-8'))
-except IOError:
-    pass
+    #Sender Daemon
+    try:
+        while True:
+            #input loop
+            data = raw_input(">")
+            if len(data) == 0:
+                break
+    except IOError:
+        pass
 
-close_sockets(client_sock, server_sock)
+    close_sockets(client_sock, server_sock)
