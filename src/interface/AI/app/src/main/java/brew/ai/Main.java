@@ -32,9 +32,9 @@ import java.util.UUID;
 
 public class Main extends Activity
 {
-    TextView myLabel;
-    TextView Label;
-    EditText myTextbox;
+    //TextView myLabel;
+    //TextView Label;
+    //EditText myTextbox;
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
@@ -60,31 +60,16 @@ public class Main extends Activity
         setContentView(R.layout.activity_main);
 
         Button openButton = (Button)findViewById(R.id.open);
-        Button sendButton = (Button)findViewById(R.id.send);
         Button closeButton = (Button)findViewById(R.id.close);
 
-        Button brewButton = (Button)findViewById(R.id.brew);
-        Button dataButton = (Button)findViewById(R.id.data);
-        myLabel = (TextView)findViewById(R.id.label);
-        myTextbox = (EditText)findViewById(R.id.entry);
-        Label = (TextView)findViewById(R.id.recv);;
+        //Button brewButton = (Button)findViewById(R.id.brew);
+        //Button dataButton = (Button)findViewById(R.id.data);
+        //myTextbox = (EditText)findViewById(R.id.entry);
         graph = (GraphView) findViewById(R.id.graph1);
         unrefined_points = new ArrayList<String>();
         results = new batch();
 
-        //Send Button
-        sendButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                try
-                {
-                    String msg = myTextbox.getText().toString();
-                    sendData(msg);
-                }
-                catch (IOException ex) { }
-            }
-        });
+
 
         //Close button
         closeButton.setOnClickListener(new View.OnClickListener()
@@ -100,6 +85,7 @@ public class Main extends Activity
         });
     }
 
+    /*
     void launch(View v){
         Intent intent;
         switch(v.getId()){
@@ -113,7 +99,7 @@ public class Main extends Activity
                 intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
                 startActivity(intent);
         }
-    }
+    }*/
 
     void openButt(View v){
         try
@@ -144,7 +130,7 @@ public class Main extends Activity
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
         {
-            myLabel.setText("No bluetooth adapter available");
+            //myLabel.setText("No bluetooth adapter available");
             return;
         }
 
@@ -161,11 +147,11 @@ public class Main extends Activity
             //Label.setText("Devices Found");
             for(BluetoothDevice device : pairedDevices)
             {
-                Label.append(device.getName());
+                //Label.append(device.getName());
                 //if(device.getName().equals("cody-Lenovo-B590"))
                 //{
                     mmDevice = device;
-                    myLabel.setText("Bluetooth Device Found");
+                    //myLabel.setText("Bluetooth Device Found");
                     break;
                 //}
             }
@@ -182,7 +168,7 @@ public class Main extends Activity
 
             beginListenForData();
 
-            myLabel.setText("Bluetooth Opened");
+            //myLabel.setText("Bluetooth Opened");
         }
     }
 
@@ -233,17 +219,17 @@ public class Main extends Activity
     }
     void graph(GraphView g, batch b, String var){
 
-        g.getViewport().setMinX(0);
-        g.getViewport().setMaxX(b.points.get(b.points.size()-1).time);
+        g.getViewport().setMinX(b.points.get(0).time-1);
+        g.getViewport().setMaxX(b.points.get(b.points.size()-1).time+1);
         g.getViewport().setMinY(0);
-        g.getViewport().setMaxY(60);
+        g.getViewport().setMaxY(30);
         g.getViewport().setYAxisBoundsManual(true);
         g.getViewport().setXAxisBoundsManual(true);
 
         LineGraphSeries<DataPoint> data = getDataPoints(b, var);
 
         data.setTitle(var);
-        data.setDrawDataPoints(true);
+        //data.setDrawDataPoints(true);
         /*g.getLegendRenderer().setVisible(true);
         g.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         g.getLegendRenderer().setBackgroundColor(Color.alpha(0));*/
@@ -335,7 +321,9 @@ public class Main extends Activity
                                         results.points.add(point.parseJSON(recvdata));
                                         if(state == 2){
                                             g.removeAllSeries();
-                                            graph(g, results, getName(0));
+                                            for(int i = 0; i < 3; i++) {
+                                                graph(g, results, getName(i));
+                                            }
                                         }
                                     }});
                             }
@@ -368,7 +356,7 @@ public class Main extends Activity
         if (mmOutputStream != null && str != null) {
             str += "\n";
             mmOutputStream.write(str.getBytes());
-            myLabel.setText("Data Sent");
+            //myLabel.setText("Data Sent");
         }
     }
 
@@ -379,7 +367,7 @@ public class Main extends Activity
             mmOutputStream.close();
             mmInputStream.close();
             mmSocket.close();
-            myLabel.setText("Bluetooth Closed");
+            //myLabel.setText("Bluetooth Closed");
         }
     }
 }

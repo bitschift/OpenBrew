@@ -21,7 +21,7 @@ public class point {
     float grav;
     @SerializedName("time")
     @Expose
-    int time;
+    float time;
 
     public static point parseJSON(String response) {
         Gson gson = new Gson();
@@ -30,7 +30,7 @@ public class point {
     }
     public String toString(){
         String tmp;
-        tmp = Float.toString(temp) + " " + Float.toString(co2) + " " + Float.toString(grav) + " " + Integer.toString(time);
+        tmp = Float.toString(temp) + " " + Float.toString(co2) + " " + Float.toString(grav) + " " + Float.toString(time);
         return tmp;
     }
 }
