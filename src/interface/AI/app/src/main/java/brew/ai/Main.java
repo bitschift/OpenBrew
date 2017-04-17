@@ -85,21 +85,17 @@ public class Main extends Activity
         });
     }
 
-    /*
+
     void launch(View v){
         Intent intent;
         switch(v.getId()){
-            case R.id.brew:
-                intent = new Intent(this, BrewSetup.class);
+            case R.id.button2:
+                intent = new Intent(this, Survey.class);
                 intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
                 startActivity(intent);
                 break;
-            case R.id.data:
-                intent = new Intent(this, DataActivity.class);
-                intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
-                startActivity(intent);
         }
-    }*/
+    }
 
     void openButt(View v){
         try
