@@ -5,7 +5,7 @@
     <string name="co2">Carbon Dioxide</string>
     <string name="title_activity_data">DataActivity</string>
     <string name="action_settings">Settings</string>
-    <color name="background">#FFB74D</color>
+    <color name="text_color">#000000</color>
     <string name="title_activity_brew_setup">BrewSetup</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_survey">Survey</string>

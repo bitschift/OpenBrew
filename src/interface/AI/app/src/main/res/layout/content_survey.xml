@@ -18,24 +18,24 @@
 
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Brew Batch Survey"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold"
-        android:typeface="normal" />
+        android:typeface="normal"
+        android:textColor="@color/text_color"/>
 
     <TextView
-        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="none"
         android:text="Your brew is done! Before you taste it, please look at the appearance and smell the batch. As you are doing these, please fill out this survey. It will help brew.ai learn what you like!"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/text_color"/>
 
     <LinearLayout
         android:id="@+id/Smell"
@@ -44,10 +44,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/text_color"
             android:text="How Does It Taste?"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
@@ -59,12 +59,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Chemical/Unpleasant"
                 android:textAlignment="center"
+                android:textColor="@color/text_color"
                 android:textSize="24sp" />
 
             <RadioGroup
@@ -80,7 +80,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="No" />
+                    android:text="No"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -88,7 +89,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:buttonTint="@color/colorPrimary"/>
 
             </RadioGroup>
         </LinearLayout>
@@ -100,11 +102,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Musty"
+                android:textColor="@color/text_color"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
@@ -121,7 +123,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="No" />
+                    android:text="No"
+                    android:textColor="@color/text_color"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -129,7 +133,9 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:textColor="@color/text_color"
+                    android:buttonTint="@color/colorPrimary"/>
 
             </RadioGroup>
         </LinearLayout>
@@ -152,6 +158,7 @@
                 android:text="Honey"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -182,6 +189,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
+                    android:textColor="@color/text_color"
                     android:text="Weak" />
 
                 <brew.ai.CenterSeekBar
@@ -209,6 +217,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Strong"
+                    android:textColor="@color/text_color"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -232,6 +241,7 @@
                 android:text="Alcohol"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -262,7 +272,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:text="Weak" />
+                    android:text="Weak"
+                    android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
                     android:layout_width="200dp"
@@ -289,7 +300,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Strong"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color" />
             </TableRow>
 
         </LinearLayout>
@@ -303,13 +315,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="How Does It Look?"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/text_color" />
 
         <LinearLayout
             android:id="@+id/clarity"
@@ -329,11 +341,12 @@
                 android:text="Clarity"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -359,7 +372,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:text="Clear" />
+                    android:text="Clear"
+                    android:textColor="@color/text_color"/>
 
                 <brew.ai.CenterSeekBar
                     android:layout_width="200dp"
@@ -386,7 +400,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Opaque"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color"/>
             </TableRow>
 
         </LinearLayout>
@@ -409,6 +424,7 @@
                 android:text="Appetizing"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -439,6 +455,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
+                    android:textColor="@color/text_color"
                     android:text="Gross" />
 
                 <brew.ai.CenterSeekBar
@@ -466,6 +483,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Delicious"
+                    android:textColor="@color/text_color"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -480,12 +498,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="How Does It Taste?"
             android:textAlignment="center"
+            android:textColor="@color/text_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <LinearLayout
@@ -495,13 +513,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Musty"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textColor="@color/text_color"/>
 
             <RadioGroup
                 android:layout_width="181dp"
@@ -516,7 +534,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="No" />
+                    android:text="No"
+                    android:textColor="@color/text_color"
+                    android:buttonTint="@color/colorPrimary" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -524,7 +544,9 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:textColor="@color/text_color"
+                    android:buttonTint="@color/colorPrimary"/>
 
             </RadioGroup>
         </LinearLayout>
@@ -547,6 +569,7 @@
                 android:text="Sweetness"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -577,7 +600,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:text="Dry" />
+                    android:text="Dry"
+                    android:textColor="@color/text_color"/>
 
                 <brew.ai.CenterSeekBar
                     android:layout_width="200dp"
@@ -604,7 +628,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Sweet"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color"/>
             </TableRow>
 
         </LinearLayout>
@@ -627,6 +652,7 @@
                 android:text="Alcohol"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -657,7 +683,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:text="Weak" />
+                    android:text="Weak"
+                    android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
                     android:layout_width="200dp"
@@ -684,7 +711,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Strong"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color"/>
             </TableRow>
 
         </LinearLayout>

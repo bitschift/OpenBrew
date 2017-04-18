@@ -9,14 +9,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
+
 
 public class CenterSeekBar extends android.support.v7.widget.AppCompatSeekBar {
 
     private Rect rect;
     private Paint paint ;
     private int seekbar_height;
+    int color = getResources().getColor(R.color.colorPrimary,null);
 
     public CenterSeekBar(Context context) {
         super(context);
@@ -55,7 +58,7 @@ public class CenterSeekBar extends android.support.v7.widget.AppCompatSeekBar {
                     getWidth() / 2 + (getWidth() / 100) * (getProgress() - 50),
                     getHeight() / 2 + (seekbar_height/2));
 
-            paint.setColor(Color.CYAN);
+            paint.setColor(color);
             canvas.drawRect(rect, paint);
 
         }
@@ -67,7 +70,7 @@ public class CenterSeekBar extends android.support.v7.widget.AppCompatSeekBar {
                     getWidth() / 2,
                     getHeight() / 2 + (seekbar_height/2));
 
-            paint.setColor(Color.CYAN);
+            paint.setColor(color);
             canvas.drawRect(rect, paint);
 
         }

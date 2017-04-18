@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:ignore="TextFields,HardcodedText"
-    android:background="@color/background" >
+    android:background="@color/colorPrimary" >
 
     <Button
         android:id="@+id/close"
