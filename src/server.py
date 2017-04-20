@@ -1,153 +1,149 @@
-# file: rfcomm-server.py
-# auth: Albert Huang <albert@csail.mit.edu>
-# desc: simple demonstration of a server application that uses RFCOMM sockets
-#
-# $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
-
 import threading
 import time
 import src.hwctrl.datacollect as dc
-import src.hwctrl.modulecontrol as mc
-from bluetooth import *
+import bluetooth as bt
 
-fifo_path = "/tmp/btcomm.fifo"
-state = 0
-zero_time = time.time()
+class BTServer:
+    '''
+    BTServer creates our communication server and maintains connections
+    between the Pi and the phone app.
+    It maintains state information about the communication status
+    (ie, are we sending data for graphing, recieving information for learning)
+    and relays messages through the fifo to the brew.py script.
+    '''
+    def __init__(self):
+        self.fifo_path = "/tmp/btcomm.fifo"
+        self.state = 0
+        self.zero_time = time.time()
+        self.client_sock, self.server_sock = self.get_sockets()
 
-def get_time():
-    '''
-    Returns the time since inception
-    '''
-    return time.time() - zero_time
+    def start(self):
+        '''
+        A unified interface to start the necessary server components
+        '''
+        self.start_listener_thread(self.client_sock)
 
-def fiforw(message=None):
-    '''
-    DEPRECATED
-    '''
-    if message is None:
-        fifo = open(fifo_path, 'r')
-        string = ""
-        for line in fifo:
-            string += line
-        return string
-    fifo = open(fifo_path, 'w')
-    fifo.write(message)
-    fifo.close()
+    def shutdown(self):
+        '''
+        A unified interfce to cleanly stop the necessary server componenets
+        '''
+        self.close_sockets(self.client_sock, self.server_sock)
 
-def fifo_w(message=None):
-    '''
-    Handles writing to our fifo
-    '''
-    global fifo_path
-    fifo = open(fifo_path, 'w')
-    if message is not None:
-        fifo.write(message)
-    fifo.close()
 
-def fifo_r():
-    '''
-    Handles reading from the fifo
-    '''
-    global fifo_path
-    fifo = open(fifo_path, 'r')
-    message = "".join(fifo.readlines())
-    return message
+    def get_time(self):
+        '''
+        Returns the time since inception
+        '''
+        return time.time() - self.zero_time
 
-def btlistener(socket):
-    '''
-    This is the function that the thread uses to listen on the bluetooth socket.
-    The parameter is a socket.
-    '''
-    global state
-    while True:
-        try:
-            data = socket.recv(1024)
-            if data == "dataReq\n":
-                print "Data start."
-                client_sock.send("data_begin".encode("utf-8"))
-                while True:
-                    datapoint = gen_input()
-                    print("Generated datapoint: ", datapoint)
-                    client_sock.send((datapoint+"\n").encode("utf-8"))
-                    print "After send"
-                    client_sock.recv(1024)
-                    if state == 2:
-                        time.sleep(1)
-                        print "slept"
+    def fifo_w(self, message=None):
+        '''
+        Handles writing to our fifo
+        '''
+        fifo = open(self.fifo_path, 'w')
+        if message is not None:
+            fifo.write(message)
+        fifo.close()
 
-                client_sock.send("data_end".encode("utf-8"))
-                print "Data sent!"
-            elif data == "start\n":
-                fifo_w("start")
-                print "Received start command."
-                state = 2
-                client_sock.send("S_ACK".encode("utf-8"))
-            else:
-                print "Recieved: " + str(data)
-        except:
-            return
+    def fifo_r(self):
+        '''
+        Handles reading from the fifo
+        '''
+        fifo = open(self.fifo_path, 'r')
+        message = "".join(fifo.readlines())
+        fifo.close()
+        return message
 
-def get_sockets():
-    '''
-    Setup socket information
-    returns a tuple of sockets: (client socket, server socket)
-    '''
-    server_sock = BluetoothSocket(RFCOMM)
-    server_sock.bind(("", PORT_ANY))
-    server_sock.listen(1)
-    port = server_sock.getsockname()[1]
-    uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
-    
-    #Advertise bluetooth service from controller
-    advertise_service(
-        server_sock, "cody-Lenovo-B590",
-        service_id=uuid,
-        service_classes=[uuid, SERIAL_PORT_CLASS],
-        profiles=[SERIAL_PORT_PROFILE], 
-        )
-    
-    # Wait for connections
-    print "Waiting for connection on RFCOMM channel " + str(port)
-    client_sock, client_info = server_sock.accept()
-    print "Accepted connection from ", client_info
-    return (client_sock, server_sock)
+    def btlistener(self, socket):
+        '''
+        This is the function that the thread uses to listen on the bluetooth socket.
+        The parameter is a socket.
+        '''
+        while True:
+            try:
+                received_data = socket.recv(1024)
+                if received_data == "dataReq\n":
+                    print "Data start."
+                    self.client_sock.send("data_begin".encode("utf-8"))
+                    while True:
+                        datapoint = self.gen_data()
+                        print("Generated datapoint: ", datapoint)
+                        self.client_sock.send((datapoint+"\n").encode("utf-8"))
+                        print "After send"
+                        self.client_sock.recv(1024)
+                        if self.state == 2:
+                            time.sleep(1)
+                            print "slept"
 
-def start_listener_thread(socket):
-    '''
-    Start the listener thread
-    '''
-    thread = threading.Thread(target=btlistener, args=(socket,))
-    thread.daemon = True
-    thread.start()
+                    self.client_sock.send("data_end".encode("utf-8"))
+                    print "Data sent!"
+                elif received_data == "start\n":
+                    self.fifo_w("start")
+                    print "Received start command."
+                    self.state = 2
+                    self.client_sock.send("S_ACK".encode("utf-8"))
+                else:
+                    print "Recieved: " + str(received_data)
+            except:
+                return
 
-def close_sockets(sock1, sock2):
-    '''
-    please close the sockets after you're done
-    '''
+    def get_sockets(self):
+        '''
+        Setup socket information
+        returns a tuple of sockets: (client socket, server socket)
+        '''
+        self.server_sock = bt.BluetoothSocket(bt.RFCOMM)
+        self.server_sock.bind(("", bt.PORT_ANY))
+        self.server_sock.listen(1)
+        port = self.server_sock.getsockname()[1]
+        uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
+        #Advertise bluetooth service from controller
+        bt.advertise_service(
+            self.server_sock, "cody-Lenovo-B590",
+            service_id=uuid,
+            service_classes=[uuid, bt.SERIAL_PORT_CLASS],
+            profiles=[bt.SERIAL_PORT_PROFILE],
+            )
+        # Wait for connections
+        print "Waiting for connection on RFCOMM channel " + str(port)
+        self.client_sock, client_info = self.server_sock.accept()
+        print "Accepted connection from ", client_info
+        return (self.client_sock, self.server_sock)
 
-    sock2.close()
-    sock1.close()
-    print "Connection closed."
+    def start_listener_thread(self, socket):
+        '''
+        Start the listener thread
+        '''
+        thread = threading.Thread(target=self.btlistener, args=(socket,))
+        thread.daemon = True
+        thread.start()
 
-def gen_input():
-    '''
-    CONSIDER RENAMING THIS FUNCTIOn
-    Generates the input json for pushing data to the phone
-    '''
-    names = ["\'temp\':", "\'co2\':", "\'grav\':", "\'time\':"]
-    name_f = [dc.read_temp, dc.read_co2, lambda: 0, get_time]
-    result = [name + str(name_f[index]()) for index, name in enumerate(names)]
-    result = ",".join(result)
-    result = "{" + result + "}"
-    print "Final result: ", result
-    return result
+    def close_sockets(self, sock1, sock2):
+        '''
+        please close the sockets after you're done
+        '''
+
+        sock2.close()
+        sock1.close()
+        print "Connection closed."
+
+    def gen_data(self):
+        '''
+        CONSIDER RENAMING THIS FUNCTIOn
+        Generates the input json for pushing data to the phone
+        '''
+        names = ["\'temp\':", "\'co2\':", "\'grav\':", "\'time\':"]
+        name_f = [dc.read_temp, dc.read_co2, lambda: 0, self.get_time]
+        result = [name + str(name_f[index]()) for index, name in enumerate(names)]
+        result = ",".join(result)
+        result = "{" + result + "}"
+        print "Final result: ", result
+        return result
 
 
 if __name__ == '__main__':
-    client_sock, server_sock = get_sockets()
-    start_listener_thread(client_sock)
-
-    #Sender Daemon
+    server = BTServer()
+    server.start()
     try:
         while True:
             #input loop
@@ -156,5 +152,4 @@ if __name__ == '__main__':
                 break
     except IOError:
         pass
-
-    close_sockets(client_sock, server_sock)
+    server.shutdown()
