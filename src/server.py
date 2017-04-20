@@ -2,6 +2,7 @@ import threading
 import time
 import src.hwctrl.datacollect as dc
 import bluetooth as bt
+import json
 
 class BTServer:
     '''
@@ -59,9 +60,14 @@ class BTServer:
         This is the function that the thread uses to listen on the bluetooth socket.
         The parameter is a socket.
         '''
+        # TODO:
+        #     Make sure data being recieved is always in JSON format
+        #     Add a case for receiving the survey information
+        #     Clean up the current cases for the other data
         while True:
             try:
                 received_data = socket.recv(1024)
+                # TODO json parsing here?
                 if received_data == "dataReq\n":
                     print "Data start."
                     self.client_sock.send("data_begin".encode("utf-8"))
@@ -77,12 +83,19 @@ class BTServer:
 
                     self.client_sock.send("data_end".encode("utf-8"))
                     print "Data sent!"
+
                 elif received_data == "start\n":
                     self.fifo_w("start")
                     print "Received start command."
                     self.state = 2
                     self.client_sock.send("S_ACK".encode("utf-8"))
                 else:
+                    # Attempt to unpack the data from a string json object into a python object
+                    parsed_data = json.loads(received_data)
+                    #if type(parsed_data):
+                    # TODO json parsing here?
+
+
                     print "Recieved: " + str(received_data)
             except:
                 return
