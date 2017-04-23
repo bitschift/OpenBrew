@@ -92,8 +92,23 @@ public class Main extends Activity
             case R.id.button2:
                 intent = new Intent(this, Survey.class);
                 intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String survey = data.getStringExtra("survey");
+                try {
+                    sendData("{\"survey\":" + survey + "}");
+                }
+                catch(IOException e){
+
+                }
+            }
         }
     }
 

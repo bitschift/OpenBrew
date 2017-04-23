@@ -47,10 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/text_color"
-            android:text="How Does It Taste?"
+            android:text="How Does It Smell?"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/text_color" />
 
         <LinearLayout
             android:id="@+id/chemicalsmell"
@@ -75,22 +75,26 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/chemicalno"
                     style="@android:style/Widget.Holo.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="No"
-                    android:buttonTint="@color/colorPrimary"/>
+                    android:onClick="safe" />
 
                 <RadioButton
+                    android:id="@+id/chemicalyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
-                    android:text="Yes"
-                    android:buttonTint="@color/colorPrimary"/>
+                    android:onClick="warning"
+                    android:text="Yes" />
 
             </RadioGroup>
         </LinearLayout>
@@ -118,24 +122,28 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/mustysmellno"
                     style="@android:style/Widget.Holo.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="No"
                     android:textColor="@color/text_color"
-                    android:buttonTint="@color/colorPrimary"/>
+                    android:onClick="safe" />
 
                 <RadioButton
+                    android:id="@+id/mustysmellyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
+                    android:onClick="warning"
                     android:text="Yes"
-                    android:textColor="@color/text_color"
-                    android:buttonTint="@color/colorPrimary"/>
+                    android:textColor="@color/text_color" />
 
             </RadioGroup>
         </LinearLayout>
@@ -193,6 +201,7 @@
                     android:text="Weak" />
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/honeysmellbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -276,6 +285,7 @@
                     android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/alcoholsmellbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -376,6 +386,7 @@
                     android:textColor="@color/text_color"/>
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/claritybar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -407,7 +418,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/appitizing"
+            android:id="@+id/appetizing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -423,8 +434,8 @@
                 android:layout_marginTop="8dp"
                 android:text="Appetizing"
                 android:textAlignment="center"
-                android:textSize="24sp"
                 android:textColor="@color/text_color"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -455,10 +466,11 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/text_color"
-                    android:text="Gross" />
+                    android:text="Gross"
+                    android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/appetizingbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -483,8 +495,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="0.25"
                     android:text="Delicious"
-                    android:textColor="@color/text_color"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color" />
             </TableRow>
 
         </LinearLayout>
@@ -529,24 +541,28 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/mustytasteno"
                     style="@android:style/Widget.Holo.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="No"
                     android:textColor="@color/text_color"
-                    android:buttonTint="@color/colorPrimary" />
+                    android:onClick="safe"/>
 
                 <RadioButton
+                    android:id="@+id/mustytasteyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:gravity="center"
                     android:text="Yes"
                     android:textColor="@color/text_color"
-                    android:buttonTint="@color/colorPrimary"/>
+                    android:onClick="warning" />
 
             </RadioGroup>
         </LinearLayout>
@@ -604,6 +620,7 @@
                     android:textColor="@color/text_color"/>
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/sweetnessbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -687,6 +704,7 @@
                     android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
+                    android:id="@+id/alcoholtastebar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -718,5 +736,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/submit"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="submit"
+        android:text="SUBMIT" />
 
 </LinearLayout>
