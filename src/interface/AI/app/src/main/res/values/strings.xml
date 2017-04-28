@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Brew.AI</string>
     <string name="grav">Specific Gravity</string>
-    <string name="temp">Tempurature</string>
+    <string name="temp">Temperature</string>
     <string name="co2">Carbon Dioxide</string>
     <string name="title_activity_data">DataActivity</string>
     <string name="action_settings">Settings</string>
@@ -13,4 +13,7 @@
         <u>DO NOT DRINK IT!</u> The batch has gone bad and needs to be disposed of.
         Please clean the container thoroughly after disposing of the batch.
     </string>
+    <string name="happy">\u263A</string>
+    <string name="meh">\uD83D\uDE10</string> <!-- \u1F610 -->
+    <string name="unhappy">\u2639</string>
 </resources>

@@ -22,6 +22,7 @@ public class Survey extends AppCompatActivity {
     int survey_values[]={0,0,0};
     LinearLayout main;
     int value;
+    Dialog dialog;
 
 
 
@@ -60,7 +61,7 @@ public class Survey extends AppCompatActivity {
     }
 
     void warning(View v){
-        final Dialog dialog = new Dialog(this); // Context, this, etc.
+        dialog = new Dialog(this); // Context, this, etc.
         dialog.setContentView(R.layout.dialogue_warning);
         dialog.setTitle(R.string.app_name);
         dialog.show();
@@ -75,6 +76,9 @@ public class Survey extends AppCompatActivity {
                 survey_values[2] = -10;
                 break;
         }
+    }
+    void closeDialogue(View v){
+        dialog.cancel();
     }
     void safe(View v){
         switch(v.getId()){

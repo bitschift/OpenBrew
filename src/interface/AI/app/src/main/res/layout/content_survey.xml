@@ -197,18 +197,15 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/text_color"
-                    android:text="Weak" />
+                    android:text="Weak"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
                     android:id="@+id/honeysmellbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
@@ -282,6 +279,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="Weak"
+                    android:textAlignment="center"
                     android:textColor="@color/text_color" />
 
                 <brew.ai.CenterSeekBar
@@ -289,10 +287,6 @@
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
@@ -314,6 +308,61 @@
                     android:textColor="@color/text_color" />
             </TableRow>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sat_smell"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="How do you like the smell?"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/unhappy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/meh"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/happy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+            </RadioGroup>
         </LinearLayout>
 
     </LinearLayout>
@@ -383,17 +432,14 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="Clear"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@color/text_color"
+                    android:textAlignment="center"/>
 
                 <brew.ai.CenterSeekBar
                     android:id="@+id/claritybar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
@@ -467,17 +513,14 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="Gross"
-                    android:textColor="@color/text_color" />
+                    android:textColor="@color/text_color"
+                    android:textAlignment="center" />
 
                 <brew.ai.CenterSeekBar
                     android:id="@+id/appetizingbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
@@ -617,17 +660,14 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="Dry"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@color/text_color"
+                    android:textAlignment="center"/>
 
                 <brew.ai.CenterSeekBar
                     android:id="@+id/sweetnessbar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
@@ -701,17 +741,14 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="Weak"
-                    android:textColor="@color/text_color" />
+                    android:textColor="@color/text_color"
+                    android:textAlignment="center" />
 
                 <brew.ai.CenterSeekBar
                     android:id="@+id/alcoholtastebar"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="50"
