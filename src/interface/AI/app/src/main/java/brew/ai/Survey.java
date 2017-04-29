@@ -48,7 +48,7 @@ public class Survey extends AppCompatActivity {
             Log.d("SURVEY:", "Logged CenterSeekBar at" + String.valueOf(i));
         }
         for(int i = 0; i < bars.size(); i++){
-            value += (bars.get(i).getProgress()-50)/10;
+            value += (bars.get(i).getProgress()-50)/10 * (bars.get(i).getProgress() < 50? -1:1);
             Log.d("SURVEY:", "Current value: "+String.valueOf(value));
         }
         for(int i = 0; i < 3; i++){

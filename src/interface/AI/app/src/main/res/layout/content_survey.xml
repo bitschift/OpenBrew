@@ -544,6 +544,61 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/sat_look"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="How do you like the look?"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/unhappy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/meh"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/happy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+            </RadioGroup>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -770,6 +825,61 @@
                     android:textColor="@color/text_color"/>
             </TableRow>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sat_taste"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="How do you like the taste?"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                android:typeface="normal" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/unhappy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/meh"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/happy"
+                    android:textAlignment="center"
+                    android:textColor="@color/radioselector"
+                    android:textSize="40sp" />
+            </RadioGroup>
         </LinearLayout>
 
     </LinearLayout>

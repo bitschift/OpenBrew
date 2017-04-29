@@ -23,15 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DataActivity"
-            android:label="@string/title_activity_data"
-            android:parentActivityName=".Main"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="brew.ai.Main" />
-        </activity>
-        <activity
             android:name=".BrewSetup"
             android:label="@string/title_activity_brew_setup"
             android:parentActivityName=".Main"
