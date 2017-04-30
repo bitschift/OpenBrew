@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,24 +33,19 @@ import java.util.UUID;
 
 public class Main extends Activity
 {
-    TextView myLabel;
-    TextView Label;
-    EditText myTextbox;
+    //TextView myLabel;
+    //TextView Label;
+    //EditText myTextbox;
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
     OutputStream mmOutputStream;
     InputStream mmInputStream;
     Thread workerThread;
-    byte[] readBuffer;
-    int readBufferPosition;
     volatile boolean stopWorker;
-    ArrayList<String> unrefined_points;
     batch results;
-    String data = "";
     int state = 0; // 0 is normal, 1 is pre-brew, 2 is brewing, 3 is post brew
     Integer dataBegin = 0;
-    GraphView graph;
 
 
 
@@ -59,32 +55,10 @@ public class Main extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button openButton = (Button)findViewById(R.id.open);
-        Button sendButton = (Button)findViewById(R.id.send);
         Button closeButton = (Button)findViewById(R.id.close);
-
-        Button brewButton = (Button)findViewById(R.id.brew);
-        Button dataButton = (Button)findViewById(R.id.data);
-        myLabel = (TextView)findViewById(R.id.label);
-        myTextbox = (EditText)findViewById(R.id.entry);
-        Label = (TextView)findViewById(R.id.recv);;
-        graph = (GraphView) findViewById(R.id.graph1);
-        unrefined_points = new ArrayList<String>();
         results = new batch();
 
-        //Send Button
-        sendButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                try
-                {
-                    String msg = myTextbox.getText().toString();
-                    sendData(msg);
-                }
-                catch (IOException ex) { }
-            }
-        });
+
 
         //Close button
         closeButton.setOnClickListener(new View.OnClickListener()
@@ -100,19 +74,44 @@ public class Main extends Activity
         });
     }
 
+
     void launch(View v){
         Intent intent;
         switch(v.getId()){
-            case R.id.brew:
-                intent = new Intent(this, BrewSetup.class);
+            case R.id.button2:
+                intent = new Intent(this, Survey.class);
                 intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
-            case R.id.data:
-                intent = new Intent(this, DataActivity.class);
-                intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
-                startActivity(intent);
         }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String survey = data.getStringExtra("survey");
+                try {
+                    sendData("{\"survey\":" + survey + "}");
+                }
+                catch(IOException e){
+
+                }
+            }
+            final GraphView g[] = {(GraphView) findViewById(R.id.graph1),(GraphView) findViewById(R.id.graph2),(GraphView) findViewById(R.id.graph3)};
+            for (GraphView graph:g) {
+                graph.removeAllSeries();
+            }
+            results.points.clear();
+        }
+        if(requestCode == 2){
+            try {
+                sendData("start");
+                state = 2;
+            }
+            catch(IOException e){}
+        }
+
     }
 
     void openButt(View v){
@@ -131,12 +130,10 @@ public class Main extends Activity
         catch(IOException e){}
     }
     void start(View v){
+        Intent intent = new Intent(this, BrewSetup.class);
+        intent.putExtra("com.example.brew.ai.MESSAGE", "Are you kitten me?");
+        startActivityForResult(intent,2);
 
-        try {
-            sendData("start");
-            state = 2;
-        }
-        catch(IOException e){}
     }
 
     void findBT()
@@ -144,7 +141,7 @@ public class Main extends Activity
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if(mBluetoothAdapter == null)
         {
-            myLabel.setText("No bluetooth adapter available");
+            //myLabel.setText("No bluetooth adapter available");
             return;
         }
 
@@ -161,11 +158,11 @@ public class Main extends Activity
             //Label.setText("Devices Found");
             for(BluetoothDevice device : pairedDevices)
             {
-                Label.append(device.getName());
+                //Label.append(device.getName());
                 //if(device.getName().equals("cody-Lenovo-B590"))
                 //{
                     mmDevice = device;
-                    myLabel.setText("Bluetooth Device Found");
+                    //myLabel.setText("Bluetooth Device Found");
                     break;
                 //}
             }
@@ -182,7 +179,7 @@ public class Main extends Activity
 
             beginListenForData();
 
-            myLabel.setText("Bluetooth Opened");
+            //myLabel.setText("Bluetooth Opened");
         }
     }
 
@@ -206,12 +203,12 @@ public class Main extends Activity
 
     String getName(int i){
         if(i == 0){
-            return getResources().getString(R.string.grav);
+            return getResources().getString(R.string.temp);
         }
         else if(i == 1){
-            return getResources().getString(R.string.co2);
+            return getResources().getString(R.string.grav);
         }
-        return getResources().getString(R.string.temp);
+        return getResources().getString(R.string.co2);
     }
 
     LineGraphSeries<DataPoint> getDataPoints(batch b, String str){
@@ -232,29 +229,30 @@ public class Main extends Activity
         return new LineGraphSeries<>(data);
     }
     void graph(GraphView g, batch b, String var){
+        float high = 0;
 
-        g.getViewport().setMinX(0);
-        g.getViewport().setMaxX(b.points.get(b.points.size()-1).time);
+        g.getViewport().setMinX(b.points.get(0).time-1);
+        g.getViewport().setMaxX(b.points.get(b.points.size()-1).time+1);
         g.getViewport().setMinY(0);
-        g.getViewport().setMaxY(60);
         g.getViewport().setYAxisBoundsManual(true);
         g.getViewport().setXAxisBoundsManual(true);
 
         LineGraphSeries<DataPoint> data = getDataPoints(b, var);
-
-        data.setTitle(var);
-        data.setDrawDataPoints(true);
-        /*g.getLegendRenderer().setVisible(true);
-        g.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-        g.getLegendRenderer().setBackgroundColor(Color.alpha(0));*/
-
-        String tmp = "";
-        for(point p : b.points){
-            tmp += p.toString() + ",";
+        for(point p:b.points){
+            if(var.equals(getName(0))){
+                high = p.temp > high? p.temp : high;
+            }
+            else if(var.equals(getName(1))){
+                high = p.grav > high? p.grav : high;
+            }
+            else{
+                high = p.co2 > high? p.co2 : high;
+            }
         }
-        Log.d("Points", tmp);
 
-        g.setTitle(var);
+        g.getViewport().setMaxY(high);
+
+        //g.setTitle(var);
         g.addSeries(data);
         Log.d("Points", "Done");
     }
@@ -271,7 +269,7 @@ public class Main extends Activity
 
                 while(!Thread.currentThread().isInterrupted() && !stopWorker)
                 {
-                    final GraphView g = (GraphView) findViewById(R.id.graph1);
+                    final GraphView g[] = {(GraphView) findViewById(R.id.graph1),(GraphView) findViewById(R.id.graph2),(GraphView) findViewById(R.id.graph3)};
                     try
                     {
                         if(mmInputStream.available() > 0)
@@ -316,13 +314,16 @@ public class Main extends Activity
                                 {
                                     public void run()
                                     {
-                                        //Label.setText("RealData");
-                                        //for(String s: unrefined_points){
-                                        //    Label.append(s);
-                                        //}
 
-                                        graph(g, results, getName(0));
-                                        //Toast.makeText(getApplication().getBaseContext(), "DATA END", Toast.LENGTH_LONG).show();
+                                        if(state == 2){
+                                            for(int i = 0; i < 3; i++) {
+                                                g[i].removeAllSeries();
+                                                graph(g[i], results, getName(i));
+                                            }
+                                        }
+
+                                        findViewById(R.id.button2).performClick();
+
                                     }
                                 });
                             }
@@ -334,9 +335,12 @@ public class Main extends Activity
                                     {
                                         results.points.add(point.parseJSON(recvdata));
                                         if(state == 2){
-                                            g.removeAllSeries();
-                                            graph(g, results, getName(0));
+                                            for(int i = 0; i < 3; i++) {
+                                                g[i].removeAllSeries();
+                                                graph(g[i], results, getName(i));
+                                            }
                                         }
+
                                     }});
                             }
                             handler.post(new Runnable()
@@ -368,7 +372,7 @@ public class Main extends Activity
         if (mmOutputStream != null && str != null) {
             str += "\n";
             mmOutputStream.write(str.getBytes());
-            myLabel.setText("Data Sent");
+            //myLabel.setText("Data Sent");
         }
     }
 
@@ -379,7 +383,7 @@ public class Main extends Activity
             mmOutputStream.close();
             mmInputStream.close();
             mmSocket.close();
-            myLabel.setText("Bluetooth Closed");
+            //myLabel.setText("Bluetooth Closed");
         }
     }
 }
