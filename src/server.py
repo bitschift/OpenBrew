@@ -60,15 +60,12 @@ class BTServer:
         This is the function that the thread uses to listen on the bluetooth socket.
         The parameter is a socket.
         '''
-        # TODO:
-        #     Make sure data being recieved is always in JSON format
-        #     Add a case for receiving the survey information
-        #     Clean up the current cases for the other data
         while True:
             try:
                 received_data = socket.recv(1024)
-                # TODO json parsing here?
-                if received_data == "dataReq\n":
+                received_data.strip("\n")
+                received_data = json.loads(received_data)
+                if received_data == "dataReq":
                     print "Data start."
                     self.client_sock.send("data_begin".encode("utf-8"))
                     while True:
@@ -84,19 +81,16 @@ class BTServer:
                     self.client_sock.send("data_end".encode("utf-8"))
                     print "Data sent!"
 
-                elif received_data == "start\n":
+                elif received_data == "start":
                     self.fifo_w("start")
                     print "Received start command."
                     self.state = 2
                     self.client_sock.send("S_ACK".encode("utf-8"))
+                elif type(received_data) == dict:
+                    if 'survey_value' in received_data.keys():
+                        self.fifo_w("reward"+str(received_data['survey_value']))
                 else:
-                    # Attempt to unpack the data from a string json object into a python object
-                    parsed_data = json.loads(received_data)
-                    #if type(parsed_data):
-                    # TODO json parsing here?
-
-
-                    print "Recieved: " + str(received_data)
+                    print "[ERROR] Recieved: " + str(received_data)
             except:
                 return
 
