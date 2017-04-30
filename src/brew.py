@@ -1,7 +1,7 @@
 import time
-import src.ai.qlearning as la
-import src.hwctrl.datacollect as dc
-import src.hwctrl.modulecontrol as mc
+import ai.qlearning as la
+import hwctrl.datacollect as dc
+import hwctrl.modulecontrol as mc
 
 def wait_start():
     '''

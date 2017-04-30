@@ -1,6 +1,6 @@
 import threading
 import time
-import src.hwctrl.datacollect as dc
+import hwctrl.datacollect as dc
 import bluetooth as bt
 import json
 
