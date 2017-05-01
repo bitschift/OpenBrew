@@ -10,6 +10,8 @@ This feedback is gleaned via an Android app, and sent back to the controlling so
 ### Software
 ##### Depependencies
 ###### Raspberry Pi
+- Bluez
+- PyBluez
 - Keras
 
 which requires
@@ -23,3 +25,7 @@ The reposityory can be cloned onto a Raspberry Pi with the properly connected ha
 At this point, the software on the Pi will be waiting for confirmation from the Android app, and runs without further intervention.
 
 #### Android
+
+This app requires Android API version 23+. It connects with the Raspberry Pi via Bluetooth.
+Before you can connect the app to the Pi, you will need to pair the two devices.
+Once all the previous steps have been followed, you should be able to push start and it will brew a batch of mead!
