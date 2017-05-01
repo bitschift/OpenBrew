@@ -6,6 +6,9 @@ This feedback is gleaned via an Android app, and sent back to the controlling so
 
 ## Setup and Installation
 ### Hardware
+brew.ai must be run on built brewing hardware, which at a minimum must include a Raspberry Pi, temperature and fermentation sensing modules, and heat and stir control modules. Without these components, the software will not work correctly. Instructions to interface the hardware with Raspberry Pi software can be found [here](https://github.com/bitschift/brew.ai/tree/master/src/hwctrl).
+
+Alternatively to the Raspberry Pi, there is support for controlling the hardware on a Teensy, however this functionality is deprecated.
 
 ### Software
 ##### Depependencies
