@@ -8,6 +8,9 @@ modules are working:
   - Heating
   - Modulated stirring
 
+### Running brew.ai from a Raspberry Pi
+Once all hardware components are connected, the 'brew.py' script will begin the brewing process. 
+
 ### Receiving Data from Sensors
 Sensor data will be stored in an SQLite db on the Pi, in this table:
 ```SQL
