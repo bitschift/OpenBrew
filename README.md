@@ -21,7 +21,7 @@ which requires
 
 - SciPy
 - Numpy
-Build and installation instructions for Raspbian can be found [here](https://github.com/bitschift/brew.ai/tree/connor/READMEs/src/ai#keras-with-theano-on-raspberry-pi-b).
+Build and installation instructions for Raspbian can be found [here](https://github.com/bitschift/brew.ai/tree/master/src/ai#keras-with-theano-on-raspberry-pi-b).
 
 #### Rasberry Pi
 The reposityory can be cloned onto a Raspberry Pi with the properly connected hardware, and run with [`src/launch.sh`](https://github.com/bitschift/brew.ai/blob/master/src/brew.py)
