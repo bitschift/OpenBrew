@@ -26,11 +26,10 @@ def brew():
     data = []
     settings = ""
     while True:
-	settings = wait_start()
+        settings = wait_start()
         if settings != "":
             settings = settings.split("|")[1]
             break
-    print settings
     while True:
         print "getting action..."
         action = AI.get_action(dc.read_temp(), dc.read_co2(), 0, time.time())
