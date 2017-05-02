@@ -1,5 +1,6 @@
 package brew.ai;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class BrewSetup extends AppCompatActivity {
@@ -40,6 +43,13 @@ public class BrewSetup extends AppCompatActivity {
 
     }
     void submit(View v){
+        EditText ingredients[]={(EditText)findViewById(R.id.honey),(EditText)findViewById(R.id.yeast),(EditText)findViewById(R.id.water)};
+        SeekBar list[]={(SeekBar) findViewById(R.id.heat), (SeekBar)findViewById(R.id.speed)};
+        String result="{\"honey\":"+ingredients[0].getText()+",\"yeast\":"+ingredients[1].getText()+",\"water\":"+ingredients[2].getText() +
+                ",\"heat\":"+String.valueOf(list[0].getProgress())+",\"speed\":" +String.valueOf(list[1].getProgress())+"}";
+        Intent intent = new Intent();
+        intent.putExtra("settings",result);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

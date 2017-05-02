@@ -105,8 +105,10 @@ public class Main extends Activity
             results.points.clear();
         }
         if(requestCode == 2){
+
+            String settings = data.getStringExtra("settings");
             try {
-                sendData("start");
+                sendData("start|"+settings);
                 state = 2;
             }
             catch(IOException e){}

@@ -12,10 +12,10 @@ def wait_start():
     with open(path, "r") as fifo:
         while True:
             for line in fifo.readlines():
-                if line == "start":
-                    return True
+                if "start" in line:
+                    return line
                 print "ERROR: Non-start signal recieved while waiting for start"
-                return False
+                return ""
 
 def brew():
     '''
@@ -24,8 +24,12 @@ def brew():
     path = "/tmp/btcomm.fifo"
     actions = []
     data = []
-    while not wait_start():
-        continue
+    settings = ""
+    while True:
+        settings = wait_start()
+        if settings != "":
+            settings = settings.split("|")[1]
+            break
     while True:
         print "getting action..."
         action = AI.get_action(dc.read_temp(), dc.read_co2(), 0, time.time())
