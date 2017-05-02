@@ -81,8 +81,8 @@ class BTServer:
                     self.client_sock.send("data_end".encode("utf-8"))
                     print "Data sent!"
 
-                elif received_data == "start":
-                    self.fifo_w("start")
+                elif "start" in received_data:
+                    self.fifo_w(received_data)
                     print "Received start command."
                     self.state = 2
                     self.client_sock.send("S_ACK".encode("utf-8"))

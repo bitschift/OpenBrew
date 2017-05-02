@@ -1,20 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="brew.ai.BrewSetup$PlaceholderFragment"
-    android:id="@+id/text"
-    android:nestedScrollingEnabled="true"
-    android:orientation="vertical">
+    tools:context="brew.ai.BrewSetup$PlaceholderFragment">
 
 
     <LinearLayout
-        android:id="@+id/Smell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -44,8 +42,8 @@
                 android:layout_marginTop="8dp"
                 android:text="Honey"
                 android:textAlignment="center"
-                android:textSize="24sp"
                 android:textColor="@color/text_color"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -59,6 +57,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/honey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -90,24 +89,27 @@
                 android:layout_marginTop="8dp"
                 android:text="Yeast"
                 android:textAlignment="center"
-                android:textSize="24sp"
-                android:textColor="@color/text_color" />
+                android:textColor="@color/text_color"
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
                 <EditText
+                    android:id="@+id/yeast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="grams"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -129,8 +131,8 @@
                 android:layout_marginTop="8dp"
                 android:text="Water"
                 android:textAlignment="center"
-                android:textSize="24sp"
                 android:textColor="@color/text_color"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/customSeekBar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -144,10 +146,11 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/water"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,12 +162,13 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <Button
         android:id="@+id/submit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="SUBMIT"
-        android:onClick="submit"/>
+        android:onClick="submit"
+        android:text="SUBMIT" />
 </LinearLayout>

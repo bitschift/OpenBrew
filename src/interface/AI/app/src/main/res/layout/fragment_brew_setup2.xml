@@ -17,7 +17,6 @@
 
 
     <LinearLayout
-        android:id="@+id/Smell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -32,53 +31,6 @@
             android:textColor="@color/text_color" />
 
         <LinearLayout
-            android:id="@+id/chemicalsmell"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:text="Pulse Stirrer"
-                android:textAlignment="center"
-                android:textColor="@color/text_color"
-                android:textSize="24sp" />
-
-            <RadioGroup
-                android:layout_width="181dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/chemicalno"
-                    style="@android:style/Widget.Holo.CompoundButton.RadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="No" />
-
-                <RadioButton
-                    android:id="@+id/chemicalyes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="Yes" />
-
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/honeysmell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -131,14 +83,14 @@
                     android:textColor="@color/text_color" />
 
                 <SeekBar
-                    android:id="@+id/honeysmellbar"
+                    android:id="@+id/speed"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="0"
-                    android:progressTint="@color/colorPrimary"/>
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="65dp"
@@ -159,7 +111,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/alcoholsmell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -212,14 +163,14 @@
                     android:textColor="@color/text_color" />
 
                 <SeekBar
-                    android:id="@+id/alcoholsmellbar"
+                    android:id="@+id/heat"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="7"
                     android:max="100"
                     android:progress="0"
-                    android:progressTint="@color/colorPrimary"/>
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="65dp"
