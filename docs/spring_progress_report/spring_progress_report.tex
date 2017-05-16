@@ -4,12 +4,46 @@
 \geometry{textheight=9.5in, textwidth=7in}
 
 \usepackage{float}
-\usepackage{graphicx}
 \usepackage{algorithm2e}
 \usepackage{pgfgantt}
 \usepackage{booktabs}
-\graphicspath{ {images/} }
+\usepackage{graphicx}
+\graphicspath{{images/}}
 
+\usepackage{listings}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{%
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=R,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={self},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=0em,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve}     % string literal style
+}
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
 
@@ -65,7 +99,7 @@ A main goal of this project is creating a product with the ability to learn from
 \begin{figure}
 \label{fig:hw1}
 \caption{The first protoype of the brewing hardware with stirring element detached.}
-\includegraphics[width=\linewidth]{hw1.eps}
+%%\includegraphics[width=\linewidth]{hw1.eps}
 \end{figure}
 
 \subsubsection{Tasks Left}
@@ -83,21 +117,21 @@ A main goal of this project is creating a product with the ability to learn from
 \begin{figure}
 \label{fig:layout}
 \caption{Here is the layout of the app currently.}
-\includegraphics[scale=0.4]{android-layout.eps}
+%\includegraphics[scale=0.4]{android-layout.eps}
 \end{figure}
 
 
 \begin{figure}
 \label{fig:code}
 \caption{This is some of the code for button functionality.}
-\includegraphics[scale=0.4]{android-code.eps}
+%\includegraphics[scale=0.4]{android-code.eps}
 \end{figure}
 
 
 \begin{figure}
 \label{fig:python}
 \caption{This is the python script written to transmit and receive information.}
-\includegraphics[scale=0.4]{python-server.eps}
+%\includegraphics[scale=0.4]{python-server.eps}
 \end{figure}
 
 \vfill
@@ -109,13 +143,45 @@ A main goal of this project is creating a product with the ability to learn from
 
 \subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
 \subsubsection{AI Review and Purpose}
+The artificial intelligence aspect of this project is to create an autonomous agent which watches over the brewing process.
+The agent will have the ability to read data from sensors immersed in the brew, and act upon its decisions.
+Available actions are a stirring element, a heating element, and a trigger to stop the brewing process.
 
+Instead of hand-coding a specific policy based on historical data, we elected to use reinforcement learning.
+Specifically, we will use Q-learning with experience replay to train a neural network to gauge what actions should be taken when presented with a representation of the world.
+Q-learning traditionally uses a table to store Q-values for a finite set of state-actions pairs.
+We will represent our brewing process as a 4-dimensional state storing the current temperature, specific gravity, $CO_2$ level, and time.
+These variables are continuous, and have a potentially infinite range.
+Instead of attempting to manually bin their continuous domain into a discreet one, we will use a neural network to stand in place of the Q-table.
+Neural networks are general function approximators, and have been shown to be able to approximate the function encoded by the Q-table.
+This method will provide the structure for an intelligent, autonomous agent which learns from its environment.
+
+In order to test the performance and robustness of the AI, we are considering creating a simple simulator of a brewing system, based on simple physics principles.
+This system will allow us to create basic, but meaningful test data with which to train the AI on.
+The need for this secondary system is not yet cemented, but I will be proceeding as if it is needed.
 
 \subsubsection{AI Progress}
+In the winter progress report, the main hurdle left was data collection and training. This is currently an ongoing process, as brewing is a time-intensive process. However, the AI section has been finished for some time, and subsequently no development has been needed in this section. The following sections detail the state of AI section of the project.
+
+\subsubsection{Learning Agent}
+The first two items were completed handily, and the third is currently underway. The next two sections are examinations of interesting code sections, to explain the solution to the first two problems.
+The learning agent was quickly completed one weekend after the winter progress report. The most difficult function to write was the q-update function, where the learning occurs. This function is provided in Listing~\ref{lst:q-update}.
+\lstinputlisting[firstline=41,lastline=86,caption={Q-Update function to learn from the current reward and history of actions}]{code/qlearning.py}\label{lst:q-update}
+The method works by assembling the experience-replay memory, a list of state-action-state transitions from the current brewing run. It pairs this with the reward from the user, and uses the Bellman update function (line 21) to calculate the new best-action that the agent should take when it finds itself in a given state. With the action the current network provides and the new action it should take, we can perform standard backpropogation to train the network to output the new value (lines 41-45). By doing this repeatedly, the neural network learns an optimal action-selection policy. An analysis of the learning for the simple simulator will be given in Section~\ref{sec:AI-Results}.
+
+After this code was finished, the necessary dependencies were compiled onto the Raspberry Pi, and the learning agent was tested for basic functionality and the ability to run on the Raspberry Pi. The agent can make a single decision every few minutes, since it has a relatively slow processor and no GPU to speed up the neural network math. However, unlike many applications of machine learning this slow response time is not an issue for this project, as brewing is a slow, steady process that can take weeks.
 
 \subsubsection{Simple Simulator}
+This simulator was a very simple tested for ensuring the artificial intelligence was functioning correctly. It is comprised of a Python class object, which internally holds four variables: time, temperature, $CO_2$ levels, and specific gravity. Together, these variables represent the state of the brewing system. The simulator also keeps track of the reward, which is a measure of how successful and tasty the final product would be. This is determined by short functions which provide optimal bounds for values of the state variables. For example, if the temperature becomes too high or too low, the fermentation process would end prematurely. The code in Listing~\ref{lst:temp_reward} decrements the reward if it strays from these bounds. It also provides positive rewards for being inside the ``optimal'' bounds.
+\lstinputlisting[firstline=17, lastline=27,caption={Reward changes for the temperature variable}]{code/simulator.py}\label{lst:temp_reward}
 
-\subsubsection{Roadblocks and Solutions}
+\subsubsection{Results}\label{sec:AI-Results}
+The agent was trained to provide actions to the simulator, which would provide the next state to the agent. It would provide the reward at the end of a trial brewing, from which the agent would perform a learning update. After learning from the trial, the agent would run another trial. The agent is able to learn a successful policy over the course of 5000 trials. This is shown by the reward, a measure of performance, at each trial in Figure~\ref{fig:trial_graph}. 
+\begin{figure}[h]
+\label{fig:trial_graph}
+\caption{Learning is shown by the reduction of sub-par rewards over the course of the 5000 trials. Note that the simulator has discreet reward increments, resulting in the stratified nature of the graph. Additionally, each trial has random exploration movements at the beginning preventing a single coalesced result toward the end of the trials.}
+\includegraphics[width=\linewidth]{trial_reward.eps}
+\end{figure}
 
 
 \section{Summary}
