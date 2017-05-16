@@ -32,7 +32,7 @@
   frame=R,	                   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
+%  language=Python,                 % the language of the code
   morekeywords={self},           % if you want to add more keywords to the set
   numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=0em,                   % how far the line-numbers are from the code
@@ -166,14 +166,14 @@ In the winter progress report, the main hurdle left was data collection and trai
 \subsubsection{Learning Agent}
 The first two items were completed handily, and the third is currently underway. The next two sections are examinations of interesting code sections, to explain the solution to the first two problems.
 The learning agent was quickly completed one weekend after the winter progress report. The most difficult function to write was the q-update function, where the learning occurs. This function is provided in Listing~\ref{lst:q-update}.
-\lstinputlisting[firstline=41,lastline=86,caption={Q-Update function to learn from the current reward and history of actions}]{code/qlearning.py}\label{lst:q-update}
+\lstinputlisting[language=Python,firstline=41,lastline=86,caption={Q-Update function to learn from the current reward and history of actions}]{code/qlearning.py}\label{lst:q-update}
 The method works by assembling the experience-replay memory, a list of state-action-state transitions from the current brewing run. It pairs this with the reward from the user, and uses the Bellman update function (line 21) to calculate the new best-action that the agent should take when it finds itself in a given state. With the action the current network provides and the new action it should take, we can perform standard backpropogation to train the network to output the new value (lines 41-45). By doing this repeatedly, the neural network learns an optimal action-selection policy. An analysis of the learning for the simple simulator will be given in Section~\ref{sec:AI-Results}.
 
 After this code was finished, the necessary dependencies were compiled onto the Raspberry Pi, and the learning agent was tested for basic functionality and the ability to run on the Raspberry Pi. The agent can make a single decision every few minutes, since it has a relatively slow processor and no GPU to speed up the neural network math. However, unlike many applications of machine learning this slow response time is not an issue for this project, as brewing is a slow, steady process that can take weeks.
 
 \subsubsection{Simple Simulator}
 This simulator was a very simple tested for ensuring the artificial intelligence was functioning correctly. It is comprised of a Python class object, which internally holds four variables: time, temperature, $CO_2$ levels, and specific gravity. Together, these variables represent the state of the brewing system. The simulator also keeps track of the reward, which is a measure of how successful and tasty the final product would be. This is determined by short functions which provide optimal bounds for values of the state variables. For example, if the temperature becomes too high or too low, the fermentation process would end prematurely. The code in Listing~\ref{lst:temp_reward} decrements the reward if it strays from these bounds. It also provides positive rewards for being inside the ``optimal'' bounds.
-\lstinputlisting[firstline=17, lastline=27,caption={Reward changes for the temperature variable}]{code/simulator.py}\label{lst:temp_reward}
+\lstinputlisting[language=Python,firstline=17, lastline=27,caption={Reward changes for the temperature variable}]{code/simulator.py}\label{lst:temp_reward}
 
 \subsubsection{Results}\label{sec:AI-Results}
 The agent was trained to provide actions to the simulator, which would provide the next state to the agent. It would provide the reward at the end of a trial brewing, from which the agent would perform a learning update. After learning from the trial, the agent would run another trial. The agent is able to learn a successful policy over the course of 5000 trials. This is shown by the reward, a measure of performance, at each trial in Figure~\ref{fig:trial_graph}. 
