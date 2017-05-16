@@ -107,9 +107,22 @@ A main goal of this project is creating a product with the ability to learn from
 \subsubsection{Roadblocks}
 
 \subsection{Android Interface\\{\em\textbf{Cody Holliday}}}
+The Android app is almost feature complete. Significant progress was made during this term, but there was not enough time to complete it.
 
 
 \subsubsection{Work Done and Roadblocks}
+The work done this term included implementation of the survey after the brewing session, a pre-brewing activity, and a visual redesign of the app.
+The pre-brewing activity collects information from the user about the ingredients as well as how the hardware should act.
+This data is sent to the Raspberry Pi. After that the app continues in normal brewing mode.
+I reworked the design for the main brewing activity to allow the users to see the sensor data separated by type.
+In addition, the user can scroll through the graphs while still having the main buttons locked to the top.
+After the brewing is completed, the user survey opens. 
+Designing this activity was a painstaking process as this was the first redesign I did. I learned the best practice for design through trial and error.
+The survey asks the user to describe the brew and whether or not they liked it.
+
+The main roadblock for this entire process was design.
+I went through a couple designs before I understood how to use the different containers and layouts available in the Android XML.
+
 
 \newpage
 \vfill
@@ -137,8 +150,25 @@ A main goal of this project is creating a product with the ability to learn from
 \vfill
 \clearpage
 \subsubsection{Work Left Undone}
+According to the client requirements there is only one thing left undone.
+The pre-brewing section does send the data to the main brewing activity to be processed, but it never actually uses it.
+It only uses it as a condition to begin the main brewing loop.
 
-\subsubsection{App Design}
+According to a previous app design, there is a lot not finished.
+The user cannot recall the data from previous batches. There is no settings button for the user to use.
+All the little intermediate screens for brewing are not implemented, and the brewing activity is the same as the main activity.
+However, these are not in the client requirements. They were only in the progress report from winter term.
+
+\subsubsection{Interesting Code}
+I think the most clever code I wrote on this project had to do with the satisfaction buttons for each section on the user survey.
+The buttons are actually radio buttons with their dots hidden.
+\lstinputlisting[firstline=328,lastline=365,caption={The emoji radio button in XML.}]{code/content\_survey.xml}
+Then I set the text of the radio buttons to the unicode values of three emojiis: happy, neutral, and sad.
+\lstinputlisting[firstline=16,lastline=18,caption={The unicode values for the emojiis..}]{code/strings.xml}
+After that I created a color theme to change the alpha levels of the emojiis so that faces that weren't selected showed up gray.
+\lstinputlisting[firstline=1,lastline=5,caption={The color theme used for the emojiis.}]{code/radioselector.xml}
+Basically it is a normal radio button group, but it looks completely different.
+
 
 
 \subsection{Artificial Intelligence\\{\em\textbf{Connor Yates}}}
