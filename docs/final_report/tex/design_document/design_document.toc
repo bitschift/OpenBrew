@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}Purpose}{4}
+\contentsline {subsection}{\numberline {1.2}Scope}{4}
+\contentsline {subsection}{\numberline {1.3}Document Overview}{4}
+\contentsline {section}{\numberline {2}Glossary}{4}
+\contentsline {section}{\numberline {3}Stakeholders and Design Concerns}{4}
+\contentsline {section}{\numberline {4}System Overview}{5}
+\contentsline {subsection}{\numberline {4.1}Data Design}{5}
+\contentsline {section}{\numberline {5}Design Viewpoints}{5}
+\contentsline {subsection}{\numberline {5.1}Abstract Learning from Previous Trials \\ -- \textbf {\textit {Connor Yates}}}{5}
+\contentsline {subsubsection}{\numberline {5.1.1}Impact on Other Designs}{6}
+\contentsline {subsubsection}{\numberline {5.1.2}Learning Algorithm}{6}
+\contentsline {subsubsection}{\numberline {5.1.3}Decision Making Structures}{8}
+\contentsline {subsubsection}{\numberline {5.1.4}Overall Agent Structure}{8}
+\contentsline {subsection}{\numberline {5.2}Android-Based User Interface Design \\ -- \textbf {\textit {Cody Holliday}}}{9}
+\contentsline {subsubsection}{\numberline {5.2.1}Interface Device}{9}
+\contentsline {subsubsection}{\numberline {5.2.2}UI Connection to controller}{10}
+\contentsline {subsubsection}{\numberline {5.2.3}Dataflow to UI}{10}
+\contentsline {subsection}{\numberline {5.3}Brewing Hardware and Electronic Controls \\-- \textbf {\textit {Aravind Parasurama}}}{10}
+\contentsline {subsubsection}{\numberline {5.3.1}Temperature control implementations}{10}
+\contentsline {subsubsection}{\numberline {5.3.2}Data collection from brewing process}{11}
+\contentsline {subsubsection}{\numberline {5.3.3}Hardware connection to the client}{11}
+\contentsline {subsubsection}{\numberline {5.3.4}Central control system}{11}
+\contentsline {section}{\numberline {6}Testing Details and Timeline}{11}
+\contentsline {section}{\numberline {7}Summary}{12}
+\contentsline {section}{References}{12}

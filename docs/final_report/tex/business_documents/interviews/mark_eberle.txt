@@ -1,0 +1,126 @@
+First question: Why are you interested in brewing?
+
+Mark:
+To brew personally? Or to enjoy the fruits of the brewing?
+
+Cody:
+Personally.
+
+Mark:
+I think it's fun. I like to enjoy the results of the labor.
+
+Cody:
+I know you have said this before, but just for the interview. How much experience do you have in brewing?
+
+Mark:
+Not very much, I consider myself a novice.
+
+Cody:
+Okay, I am going to need to skip a bunch of questions since I know that you do not have a homebrewing setup.
+
+Mark:
+Correct.
+
+Cody:
+Do you remember anything from you did brew?
+
+Mark:
+Oh gosh, not much buddy. I'm wondering too, in Medford alone, all of the new breweries that are coming online, uh Walkabout Ale, and uh Bricktown, I wonder if they might be better resources for you, right?
+You're going to try to hit all those?
+
+Cody:
+We've already talked to some people that are rather experienced, but we're looking for the more inexperienced market.
+
+Mark:
+So I would consider it a hobby.
+
+Cody:
+So I'm just going to move right to it, what we're doing for our senior design project is we're developing a device that will autonomously brew mead M E A D as well as learn from user input how to improve recipes. 
+
+Mark:
+Wow cool.
+
+Cody:
+This thing will be fairly small, like a kitchen appliance, and will probably fit on a counter top and be the size of a large microwave. Not the width of a large microwave, but the height. This thing will have a touch interface where you will interact with it and tell it how you want to brew the mead, and then after it brews it, which will be over a decent period of time, hopefully with temperature control. At the end you taste the mead, and then you give the device input, basically yu tell it about different aspects of the batch and then it will take that information and then try to make a better recipe.
+Is this something you would be interested in?
+
+Mark:
+I would love to learn more about it. Is it something I would use personally? Potentially.
+What kind of volume is this able to produce?
+
+Cody:
+I think we're going to shoot for a gallon. Currently we do not have the hardware as of yet, but we're thinking about a gallon or so of mead.
+
+Mark:
+How would this be produced. Using honey? or Various fruits?
+
+Cody:
+The thing about mead is that it's very versatile. You can pretty much do anything you want with it, but the user of the device would supply the materials. What the edvice will do is give you a recipe and tell you how much of each ingredient you need.
+So it doesn't really limit you in terms of how you can change your mead to make it what you want.
+What do you think would be an acceptable cost for you?
+
+Mark:
+Probably a $250 price point.
+
+[Brief interruption]
+
+Cody:
+So other similar products for beer are a much higher price point.
+Just keep that in mind I think that would run $500+
+
+Mark:
+So that would be used by someone who would be wanting to produce more than just enough for personal consumption?
+
+Cody:
+Well there's multiple uses for something like this. There could be educational uses for people who are learning how to brew beer or mead as well as someone who really wants to make their own batches of mead that they can't really find in the store.
+So just custom mead that is specific to your tastes.
+So yeah that's the price point for beer. For example, PicoBrew is $800 and that is a small appliance. 
+That is an example for beer, but mead is an untapped market so there is no real comparison for our product.
+How comfortable are you with the device brewing it's own mead?
+
+Mark:
+I think it's a great idea.
+
+Cody:
+If you had that device, what do you think would improve your experience using it?
+
+Mark:
+First of all I would have confidence in its ability to deliver as promised.
+Once I am assure that it performs as advertised, I think I would then endeavor to brew more beer for personal consumption
+
+Cody:
+Other interviews have shown that people are interested in having a guide. For example graphs that show where certain variables are in the current process.
+
+Mark:
+That makes a lot of sense. You would want temperature control, some way that it would automatically measure the chemical composition as it changes.
+
+Cody:
+Yeah we're going to have sensors in the machine that will give you that information.
+How many steps do you want to take from unboxing to brewing?
+
+Mark:
+As few as possible. Are you planning on having prepackaged ingredients?
+
+Cody:
+Well, because mead is so simple, I don't think we'll be providing the materials since you can get the three basic ingredients at any grocery store.
+
+Mark:
+You want to make it fool proof, right? 
+
+Cody:
+As much as possible, yeah.
+
+Mark:
+Idiot proof, right?
+
+Cody:
+Yeah, that's probably be more the way we want to go. We're going to include some tipping sensors that can stop the device if it's not on flat ground.
+
+Mark:
+It's all going to be driven by that price point. More features cost more money.
+
+Cody:
+Any other questions or comments?
+
+Mark:
+I'm very thirsty. I would love to see it in operation, buddy.

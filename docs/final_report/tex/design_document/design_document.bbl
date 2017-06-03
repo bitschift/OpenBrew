@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{RussellNorvig}
+P.~Norvig, E.~Davis, and S.~J. S.~J. Russell, {\em Artificial intelligence : a
+  modern approach}.
+\newblock Upper Saddle River, NJ: Upper Saddle River, NJ : Prentice Hall, 2010.
+\newblock Includes bibliographical references (pages 1063-1093) and index.
+
+\bibitem{SuttonBarto}
+A.~G. Barto and R.~S. Sutton, {\em Reinforcement learning : an introduction}.
+\newblock Cambridge, Mass.: Cambridge, Mass. : MIT Press, 1998.
+\newblock Includes bibliographical references (p. [291]-312) and index.
+
+\bibitem{AndroidStudio}
+Google, ``{Download Android Studio and SDK Tools | Android Studio},'' 2016.
+\newblock Retrieved from: https://developer.android.com/studio/index.html.
+
+\bibitem{AndroidStats}
+F.~Richter, ``{Chart: The Price Gap Between iOS and Android Is Widening |
+  Statista},'' 2014.
+\newblock Retrieved from:
+  https://www.statista.com/chart/1903/average-selling-price-of-android-and-ios-smartphones/.
+
+\bibitem{BluStudioX8}
+BLUE, ``{Amazon.com: BLU Studio X8 HD - 5.0 GSM Unlocked Smartphone -Black:
+  Cell Phones \& Accessories},'' 2016.
+\newblock Retrieved from: https://www.amazon.com/BLU-Studio-X8-HD-Smartphone/.
+
+\bibitem{Pygame}
+Fredwordsplat, ``{python - Pygame on Android - Stack Overflow},'' 2014.
+\newblock Retrieved from:
+  http://stackoverflow.com/questions/23934370/pygame-on-android.
+
+\bibitem{Bluetooth}
+Android, ``{Bluetooth | Android Developers},'' 2016.
+\newblock Retrieved from:
+  https://developer.android.com/guide/topics/connectivity/bluetooth.html.
+
+\bibitem{BlueVersions}
+speedguide.net, ``{What is the difference between Bluetooth 2.0, 3.0 and 4.0 ?
+  :: SG FAQ},'' 2016.
+\newblock Retrieved from:
+  http://www.speedguide.net/faq/what-is-the-difference-between-bluetooth-20-30-460.
+
+\bibitem{Bluez}
+Douglas6, ``{Raspberry Pi View topic - Bluetooth Pairing},'' 2014.
+\newblock Retrieved from:
+  https://www.raspberrypi.org/forums/viewtopic.php?p=521067.
+
+\bibitem{JSONPython}
+Python, ``{18.2. json — JSON encoder and decoder - Python 2.7.12
+  documentation},'' 2016.
+\newblock Retrieved from: https://docs.python.org/2/library/json.html.
+
+\bibitem{Graphview}
+J.~Gehring, ``{Android Graph View plotting library},'' 2016.
+\newblock Retrieved from: http://www.android-graphview.org/.
+
+\bibitem{immersion}
+Chromalox, ``Circulation and immersion heaters.''
+\newblock Retrieved from:
+  https://www.chromalox.com/catalog/industrial-heaters-and-systems/circulation-immersion-heaters.
+
+\bibitem{thermocouple}
+OMEGA, ``Thermocouples.''
+\newblock Retrieved from http://www.omega.com/prodinfo/thermocouples.html.
+
+\bibitem{makingmead}
+A.~H. Association, ``Making mead.''
+\newblock Retrieved from
+  https://www.homebrewersassociation.org/how-to-brew/mead/making-mead/.
+
+\bibitem{datasheet}
+PJRC, ``K20 sub-family reference manual.''
+\newblock Retrieved from https://www.pjrc.com/teensy/K20P64M72SF1RM.pdf.
+
+\bibitem{teensy}
+Paul, ``Pjrc.''
+\newblock Retrieved from https://www.pjrc.com/teensy/teensy31.html.
+
+\end{thebibliography}

@@ -1,0 +1,52 @@
+Why are you interested in homebrewing?
+
+"I'm interested in homebrewing because I really like beer, I want to experiment with new flavours
+of beer, and it looks pretty fun."
+
+How much experience do you have homebrewing?
+  followup: What is your homebrewing setup?
+
+"Absolutely none."
+
+What are some major issues that you see in your homebrewing process?
+
+"It's really complicated, takes too much time"
+
+How would you improve on your current setup?
+  followup: How much does cost limit you in improving your setup? Is there a space limitation as well?
+
+How much control do you like to have when homebrewing? What aspects of your setup allow you easily control the process?
+
+"I would like it to be a camera almost, where you have multiple modes where you can modulate between automatic and manual
+modes for brewing, so I can learn as I go."
+
+What would your ideal small scale brewing setup look like?
+
+"Something that is well-designed and would fit in a modern kitchen but also in an everyday home kitchen. Something
+that is designed well."
+
+How much would you be willing to spend on that setup?
+
+"$200-$300."
+
+How do you think the home brewing market could be expanded?
+
+"Make it more available to everyday shoppers. Have a section of a supermarket in the alcohol section for getting
+related accesories and stuff."
+
+Are there any demographics that are often overlooked in the homebrewing market?
+
+"... All of them? The market seems to be focused on white Portland hipsters." 
+
+[Describe product before asking]
+What do you think of this device? Is this something you would want?
+
+"Yeah, totally."
+
+How comfortable are you with autonomous fermentation? Is there something that would make you more comfortable with this device?
+
+"Is there a risk to it? If there is, then yeah I'm not that comfortable."
+
+What do you think our product should have that would improve the user's experience in brewing?
+
+"The device should be as affordably upgradeable as possible."

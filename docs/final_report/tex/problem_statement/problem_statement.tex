@@ -1,0 +1,115 @@
+\documentclass[letterpaper,10pt]{article}
+\pagestyle{empty}
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+\author{Connor Yates\\
+\texttt{yatesco@oregonstate.edu}
+\and
+Aravind Parasurama\\
+\texttt{parasura@oregonstate.edu}
+\and
+Cody Holliday\\
+\texttt{hollidac@oregonstate.edu}}
+\date{\today}
+\title{OpenBrew Problem Statement}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	Home beer or mead brewing is not currently a process as simple as brewing coffee.
+	We aim to change this, and make home brewing as easy as brewing coffee with the OpenBrew project.
+	The OpenBrew project will consist of two major components:
+	A hardware system for physically automating the brewing process, and a software system for managing the brewing process, utilizing machine learning to optimize mead or beer recipes.
+	Through these components, a user will be able to easily incorporate a fully automated, intelligent home brewing system into an existing setup or as the framework to construct a new brewing system.
+\end{abstract}
+
+\newpage
+
+\section{Definition of Problem}
+It is not possible to brew mead or beer at home with the same ease as brewing a morning cup of coffee.
+Previously, limitations on available technology prevented such a product from existing.
+Thus brewing has remained limited to either professionals or dedicated hobbyists.
+Today, more powerful, readily-available processors can be combined with easy-to-deploy networked sensors to create an easy to use product that can automate brewing.
+
+However, hardware is not the only limit to easy to use, automated home brewing. 
+Brewing a cup of coffee is a relatively simple and short process.
+Fermentation is a more complex chemical process that takes place over a longer period of time.
+This adds a huge amount of complexity to the problem, which contributes to the eclectic nature of home brewing.
+By combining the readily available hardware with powerful algorithms from the fields of machine learning and artificial intelligence, we can create an effective automated home brewing setup.
+
+The market for home brewing in the Pacific-Northwest, while robust, is a place full of potential.
+Particularly with mead, there are no items on the market that can truly automate the brewing process for the common person, from start to finish.
+This intersection of eclectic Pacific-Northwest culture and modern technology is where our project come in to fill the need.
+
+\section{Proposed Solution}
+The solution we propose is twofold in nature.
+The first piece is a hardware implementation, which is controlled by the second piece, 
+the autonomous software.
+
+\subsection{Hardware}
+We will construct our brewing device with common, off-the-shelf components
+to create a simple and modular design. The reason for this decision is 
+lower end hardware is more accessible to customers new to brewing.
+Additionally, a microcontroller paired with general purpose sensors will be 
+introduced into the brewing setup to measure and control the brewing process.
+These components should not be cost prohibitive for the average home-brewer.
+
+\subsection{Software}
+The most important software aspect is the learned control policy 
+to automate the brewing process. By providing a learning algorithm with the proper 
+inputs at initialization and throughout the brewing process, the computer can completely 
+control the complex chemical process. This allows the computer to improve the product 
+based on the feedback from the user. To simplify this from an engineering and user 
+perspective, we suggest a three part software solution.
+
+The first part would be a simple interface for the user so they can 
+interact with the control policy on a high level without needing to know concepts of 
+machine learning. Secondly, there will need to be specific code for the microcontroller 
+that can interface with a predetermined complex control policy. This interface would 
+require the ability to translate inputs from the raw sensor data into a format for 
+the policy to accept, and to take the  output of the policy and translate into specific 
+actions. The third part is the machine learning and artificial intelligence aspect.
+Here, we will need to construct a method of creating and training a control policy 
+that can satisfy the following:
+
+\begin{enumerate}
+	\item Accept feedback from the user, and incorporate this feedback into the 
+		policy for fine-tuning.
+	\item Provide real-time control commands based on the continuous input that 
+		can be used by the microcontroller.
+	\item Does not require extensive amounts of data for bootstrapping the learning 
+		of the policy.
+\end{enumerate}
+
+\subsection{Business Aspects}
+Since this proposal is being supported by the Austin Entrepreneurship Program, our 
+solution also needs to incorporate aspects of marketability. In order to shape our 
+product into something people would be interested in, we will incorporate ideas 
+from interviews with prospective customers into our design. We will also create 
+business documents such as a lean canvas business model to help plan how this product 
+will grow in the future.
+\section{Performance Metrics}
+The measurable outcome of our project is threefold; we create a device that 
+autonomously brews mead, compile data on the progress of our algorithm 
+over time, and begin developing a business around this device. 
+The device will have a user friendly interface that shows metrics and allows
+for basic user control over the brewing process The algorithm will determine
+how the mead will be brewed then interact with the microcontroller to brew 
+the mead. The microcontroller will control the mechanical parts according to
+the output of the algorithm. Throughout the process of development we 
+will record and graph data showing how the algorithm changes as it learns 
+from input we provide. 
+
+In addition to collecting data on batches of mead, we will be 
+incorporating business practices into our project at every step. We will 
+develop a business plan using the lean canvas model template, talk to 
+brewers and customers about the brewing process, and incorporate at least 
+three suggestions for our device in our final project.
+
+The cost to build our final product should be reasonably priced for the new home brewer. 
+The price of the device will be a relative proportion of the costs of home brewing kits.
+\end{document}
+

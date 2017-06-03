@@ -1,7 +1,6 @@
 TARGET=final_report
 #TEX=/usr/local/apps/tex_live/current/bin/x86_64-linux/latex
 TEX=latex
-
 default: pdf
 
 clean: clean-doc
