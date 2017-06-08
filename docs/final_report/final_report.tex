@@ -41,8 +41,6 @@ Cody Holliday\\
 
 \section{Introduction}
 
-
-
 Who requested it?
 Why was it requested?
 What is its importance?
@@ -57,16 +55,36 @@ What was the role of the client(s)? (I.e., did they supervise only, or did they 
 \include{./tex/client_requirements/client_requirements.tex}
 \section{Difference Between Final Product and Client Requirements}
 
+
+
+The Client Requirements document was not modified at all during the year, even as we changed the design.
+We did however, fail to complete some of the business related requirements from the original document.
+
+\begin{center}
+%\begin{tabular}{ p{0.01\linewidth} p{0.2\linewidth} p{0.2\linewidth} p{0.59\linewidth} }
+\begin{tabular}{ lll p{0.3\linewidth} }
+ \# & Requirement & What happened to it? & Comments \\
+\hline
+ 1 & Microcontroller & Deemed unnecessary and removed from design. & Actuators and sensors  were integrated directly into the Raspberry Pi \\ 
+ 2 & Business Requirements & Incomplete. & Only the interviews were conducted. \\  
+\end{tabular}
+\end{center}
+
 \section{Design Document}
 \include{./tex/design_document/design_document.tex}
 
 \section{How the Design Changed}
+
+During development it was determined that the microcontroller was unnecessary and that the sensors can interface directly with the Raspberry Pi.
+This simplified the design and centralized device functionality to the Raspberry Pi.
 
 \section{Tech Review}
 \include{./tex/tech_review/tech_review.tex}
 
 \section{How the Tech Changed}
 \section{Weekly Blog Posts}
+\input{./logs.tex}
+
 \section{Poster}
 \section{brew.ai Documentation}
 \section{Tech Information Sources}
