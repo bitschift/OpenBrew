@@ -6,10 +6,12 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{algorithm2e}
+\usepackage{rotating}
 
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
 \setcounter{secnumdepth}{4}
+\graphicspath{./images}
 
 \titleformat{\section}[block]{\bfseries\Large}{\thesection}{0.4em}{}
 \titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{0.4em}{}
@@ -61,7 +63,6 @@ The Client Requirements document was not modified at all during the year, even a
 We did however, fail to complete some of the business related requirements from the original document.
 
 \begin{center}
-%\begin{tabular}{ p{0.01\linewidth} p{0.2\linewidth} p{0.2\linewidth} p{0.59\linewidth} }
 \begin{tabular}{ lll p{0.3\linewidth} }
  \# & Requirement & What happened to it? & Comments \\
 \hline
@@ -86,6 +87,15 @@ This simplified the design and centralized device functionality to the Raspberry
 \input{./logs.tex}
 
 \section{Poster}
+\newpage
+\vfill
+\begin{sidewaysfigure}[ht]
+\includegraphics[width=\textwidth]{./images/team07.eps}
+\end{sidewaysfigure}
+\vfill
+\clearpage
+
+
 \section{brew.ai Documentation}
 \section{Tech Information Sources}
 \section{What Did We Learn?}
