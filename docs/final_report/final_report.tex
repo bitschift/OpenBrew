@@ -56,11 +56,42 @@ What was the role of the client(s)? (I.e., did they supervise only, or did they 
 \section{Client Requirements}
 \include{./tex/client_requirements/client_requirements.tex}
 \section{Difference Between Final Product and Client Requirements}
-
-
-
 The Client Requirements document was not modified at all during the year, even as we changed the design.
 We did however, fail to complete some of the business related requirements from the original document.
+
+\begin{ganttchart}[
+    y unit title=0.5cm,
+    y unit chart=0.6cm,
+    time slot format=isodate-yearmonth,
+    compress calendar,
+    title/.append style={shape=rectangle, fill=black!10},
+    title height=1,
+    bar/.append style={fill=green!90},
+    bar height=.6,
+    bar label font=\normalsize\color{black!50},
+    group top shift=.6,
+    group height=.3,
+    group peaks height=.2,
+    bar incomplete/.append style={fill=green!40}
+  ]{2016-10-27}{2017-05-02}
+  \gantttitlecalendar{year} \\
+  \gantttitlecalendar{month} \\
+  \ganttbar{Requirements Document}{2016-10-28}{2016-11-04} \\
+  \ganttlinkedbar{Survey Potential Users and Customers}{2017-02-17}{2017-02-30} \\
+  \ganttlinkedbar{Research AI, ML, RL structures}{2016-11-04}{2016-11-24} \\
+  \ganttgroup{Construct Prototype}{2017-01-06}{2016-12-19} \\
+    \ganttbar{Hardware}{2016-11-04}{2016-11-05} \\
+    \ganttbar{Electronics}{2016-11-05}{2016-11-10} \\
+    \ganttlinkedbar{Gather Data}{2016-11-10}{2016-12-05} \\
+    \ganttbar{Construct Control Policy}{2016-12-05}{2016-12-19} \\
+    \ganttbar{Gather More Data}{2016-12-19}{2017-01-19} \\
+  \ganttgroup{Second Prototype Iteration}{2017-01-19}{2017-03-04} \\
+    \ganttbar{Assemble Hardware}{2017-01-20}{2017-01-21} \\
+    \ganttlinkedbar{Electronics}{2017-01-21}{2017-01-26} \\
+    \ganttbar{Gather Data}{2017-01-26}{2017-02-19} \\
+    \ganttbar{Rework Control Policy}{2017-02-19}{2017-03-14} \\
+    \ganttbar{Prepare For Expo}{2017-03-14}{2017-04-29}
+\end{ganttchart}
 
 \begin{center}
 \begin{tabular}{ lll p{0.3\linewidth} }
