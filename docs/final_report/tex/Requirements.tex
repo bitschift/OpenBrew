@@ -43,8 +43,8 @@ We did however, fail to complete some of the business related requirements from 
 \begin{tabular}{lll p{0.3\linewidth} }
 	Requirement & What happened to it? & Comments \\
 	\hline
-	1 & Microcontroller & Deemed unnecessary and removed from design. & Actuators and sensors  were integrated directly into the Raspberry Pi \\ 
-	2 & Business Requirements & Incomplete. & Only the interviews were conducted. \\  
+	1 & Microcontroller & Deemed unnecessary and removed from design. & Actuators and sensors  were integrated directly into the Raspberry Pi \\
+	2 & Business Requirements & Incomplete. & Only the interviews were conducted. \\
 	3 & Assemble a brewing setup. & Completed.\\
 	4 & Acquire electronics hardware - microcontroller, actuators, and sensors. & Completed.\\
 	5 & Gather data for training machine learning algorithm. & Completed.\\
@@ -56,4 +56,33 @@ We did however, fail to complete some of the business related requirements from 
 \end{tabular}
 \end{center}
 
-
+\begin{ganttchart}[
+    y unit title=0.5cm,
+    y unit chart=0.6cm,
+    time slot format=isodate-yearmonth,
+    compress calendar,
+    title/.append style={shape=rectangle, fill=black!10},
+    title height=1,
+    bar/.append style={fill=green!90},
+    bar height=.6,
+    bar label font=\normalsize\color{black!50},
+    group top shift=.6,
+    group height=.3,
+    group peaks height=.2,
+    bar incomplete/.append style={fill=green!40}
+  ]{2016-10-27}{2017-05-02}
+  \gantttitlecalendar{year} \\
+  \gantttitlecalendar{month} \\
+  \ganttbar{Requirements Document}{2016-10-28}{2016-11-04} \\
+  \ganttlinkedbar{Survey Potential Users and Customers}{2017-02-17}{2017-02-30} \\
+  \ganttlinkedbar{Research AI, ML, RL structures}{2016-11-04}{2016-11-24} \\
+  \ganttgroup{Construct Prototype 1}{2016-12-14}{2017-03-01} \\
+    \ganttbar{Hardware}{2016-12-14}{2017-03-01} \\
+    \ganttbar{Software}{2017-01-06}{2017-03-01} \\
+    \ganttbar{Enclosure}{2017-01-15}{2017-03-01} \\
+    \ganttlinkedbar{Gather Data}{2017-03-01}{2017-05-02} \\
+  \ganttgroup{Second Prototype Iteration}{2017-03-01}{2017-05-02} \\
+    \ganttbar{Assemble Hardware}{2017-01-20}{2017-01-21} \\
+    \ganttbar{Construct Enclosure}{2017-01-20}{2017-01-21} \\
+    \ganttbar{Prepare For Expo}{2017-05-01}{2017-05-02}
+\end{ganttchart}
