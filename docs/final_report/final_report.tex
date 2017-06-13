@@ -8,36 +8,59 @@
 \usepackage{algorithm2e}
 \usepackage{rotating}
 \usepackage{listings}
+\usepackage{color}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
 \setcounter{secnumdepth}{4}
 \graphicspath{{images/}}
+\lstset{%
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=R,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+%  language=Python,                 % the language of the code
+  morekeywords={self},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=0em,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve}     % string literal style
+}
 
-\titleformat{\section}[block]{\bfseries\Large}{\thesection}{0.4em}{}
-\titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{0.4em}{}
-\titleformat{\subsubsection}[block]{\bfseries\normalsize}{\thesubsubsection}{0.4em}{}
-\setlength{\parindent}{0pt}
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-\titleformat{\paragraph}{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-
-\author{Connor Yates\\
-\texttt{yatesco@oregonstate.edu\\}
-\and
-Aravind Parasurama\\
-\texttt{parasura@oregonstate.edu\\}
-\and
-Cody Holliday\\
-\texttt{hollidac@oregonstate.edu\\}}
-\date{\today}
-\title{brew.ai Final Report}
 \begin{document}
-\maketitle
-
+{\centering
+	{\scshape\LARGE Oregon State University\par}
+	\vspace{1cm}
+	{\scshape\Large CS Senior Design Final Report\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Brew.ai - Team 7\par}
+	\vspace{2cm}
+	{\Large\itshape Connor Yates\par}
+	\texttt{yatesco@oregonstate.edu\\}
+	{\Large\itshape Aravind Parasurama\par}
+	\texttt{parasura@oregonstate.edu\\}
+	{\Large\itshape Cody Holliday\par}
+	\texttt{hollidac@oregonstate.edu\\}
+	\vspace{2cm}
+	\vfill
+% Bottom of the page
+	{\large \today\par}
+}
 \newpage
 \tableofcontents
 \newpage
@@ -57,8 +80,16 @@ Cody Holliday\\
 \bibliography{final_report}
 \bibliographystyle{ieeetr}
 
+\newpage
 \appendix
 \section{Code Listings}
-\section{Photos, Etc.}
+\subsection{Q-Learning Function}
+\lstinputlisting[language=Python,firstline=41,lastline=86,caption={Q-Update function to learn from the current reward and history of actions}]{code/qlearning.py}\label{lst:q-update}
+The method works by assembling the experience-replay memory, a list of state-action-state transitions from the current brewing run. It pairs this with the reward from the user, and uses the Bellman update function (line 21) to calculate the new best-action that the agent should take when it finds itself in a given state. With the action the current network provides and the new action it should take, we can perform standard backpropogation to train the network to output the new value (lines 41-45). By doing this repeatedly, the neural network learns an optimal action-selection policy. 
+
+\subsection{Simple Brewing Simulator}
+\lstinputlisting[language=Python,firstline=17, lastline=27,caption={Reward changes for the temperature variable}]{code/simulator.py}\label{lst:temp_reward}
+This simulator was a very simple tested for ensuring the artificial intelligence was functioning correctly. It is comprised of a Python class object, which internally holds four variables: time, temperature, $CO_2$ levels, and specific gravity. Together, these variables represent the state of the brewing system. The simulator also keeps track of the reward, which is a measure of how successful and tasty the final product would be. This is determined by short functions which provide optimal bounds for values of the state variables. For example, if the temperature becomes too high or too low, the fermentation process would end prematurely. The code in Listing~\ref{lst:temp_reward} decrements the reward if it strays from these bounds. It also provides positive rewards for being inside the ``optimal'' bounds.
+
 
 \end{document}
