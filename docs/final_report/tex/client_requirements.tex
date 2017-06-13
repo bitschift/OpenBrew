@@ -1,0 +1,200 @@
+\section{Overview}
+Section 1.1 describes the scope of the requirements for the brew.ai project.
+Section 2 defines terms used in the document as well as terms that are normally used when discussing the project.
+Section 3 Introduces the purpose of this document.
+Section 4 outlines the project in a high level.
+Section 5 describes the requirements through user stories.
+Section 6 describes the stretch goals for the project.
+
+\subsection{Scope}
+brew.ai is a device that automatically brews mead and learns how to brew better over time.
+The scope of this document focuses on the specifications of the device as well 
+as the steps to build a business around it.
+
+\section{Definitions}
+\begin{itemize}
+	\item Actuators - Electromechanical devices that allow the microprocessor to 
+		affect the fermentation process.
+	\item Artificial Intelligence - A learned control policy which controls 
+		the microcontroller.
+	\item AI - See Artificial Intelligence.
+	\item Brewing Setup - The collection of brewing vessels where fermentation 
+		occurs.
+	\item Microcontroller - A small, simple computer connected to sensors and 
+		actuators on the brewing setup.
+	\item Sensors - A collection of electronic sensors which measure useful data, 
+		such as temperature and specific gravity.
+\end{itemize}
+
+\section{Introduction}
+Broadly, this document serves to layout the requirements of this project.
+These requirements focus on both business and technological aspects.
+This document aims to assist in:
+\begin{itemize}
+	\item Providing specific deliverables and deadlines for the developers.
+	\item Define the initial scope of the project.
+	\item Create a structure to advance the business possibilities of the project.
+	\item Incorporating the mindset, wants, and needs of the user into the final project.
+\end{itemize}
+To this end, the document provides an overview of the project, followed by the specific requirements.
+The specific requirements will provide context for specific goals, and means by which to 
+measure the attainment of the goals.
+
+\section{Overall Description}
+\subsection{Product Perspective}
+This project is self contained, but it does use other projects to help create it.
+TensorFlow is a library created by Google for the development of Artificial Intelligence.
+TensorLayer is an extension on top of TensorFlow for Reinforcement Learning extensions.
+
+\subsubsection{User Interfaces}
+The Android user interface should be designed per Google material design guidelines.
+The Android interface should have two states: pre-brewing and post-brewing.
+The pre-brewing interface will allow users to select the taste of their batch.
+There will also be a section for advanced settings that allow the user to tune how the
+device will function during the brewing process.
+The post-brewing interface will have the user rate the batch based on predefined 
+characteristics of the batch as well as a general overall satisfaction with the batch.
+
+\subsubsection{Hardware Interfaces}
+The Android software will interact with the brewing hardware through a microcontroller.
+The microcontroller will provide the Android software an interface for interacting with 
+the brewing hardware; allowing the software to both modify brewing behavior and to gather
+telemetry about an ongoing process.
+
+\subsubsection{Hardware Devices}
+The brewing hardware will be a non-portable, fully-connected machine with storage containers 
+and other apparatuses needed for brewing and fermenting. 
+Each component of the hardware solution will have sensors and controllers relevant to the brewing
+state.
+The hardware solution will interface with the microcontroller solution, and the user will interact 
+both with an Android app and directly with the hardware.
+Specifics on hardware design will be added to this document as development unfolds.
+
+\subsubsection{Memory}
+The microcontroller will have limited memory space for instructions and sensory inputs. Any
+process of complexity will need to be kept on the Android system or learning service backend.
+
+\subsubsection{Operations}
+The device will have three states: pre-brewing, brewing, and post-brewing.
+Pre and post brewing are characterized by inputs from the user.
+Pre-brewing will take inputs from the user either in a simple or advanced way.
+Simple inputs are how the mead should taste, and advanced inputs are technical details on how the device will make the brew.
+The brewing state will entail the device brewing the mead without input from the user.
+During the brewing state, the user only has the option to cancel the brewing process..
+During the post-brewing state the user will have a menu that will have different sections on different aspects of the flavor.
+After completion of the short quiz, these menus will save the data and give it to the AI for analysis.
+Ideally data will be saved at every point in the operation so that when the machine is plugged in again, it can prompt the user if it wants to make the batch again or what the user thinks of the previous batch.
+
+\subsubsection{Site Adaptation Requirements}
+The brewing device will incorporate sensors and microcontrollers that are effectively housed
+in order to prevent any kind of water damage to sensitive parts.
+
+\subsection{Product Functions}
+The project will have two functions:
+\begin{itemize}
+	\item Brew mead
+	\item Learn from the user how the previous batch tastes
+\end{itemize}
+
+\subsection{User Characteristics}
+User experience in the brewing process will range from absolute beginner to experienced brewer.
+These characteristics are reflected in the options given in the user interface.
+
+\subsection{Constraints}
+\subsubsection{Safety Considerations}
+A major consideration for dealing with food or beverages is cleanliness.
+This project will incorporate safety measures so that when the device brews a batch it will be safe for human consumption.
+The device will have to be safeguarded to prevent injury of the user during operation.
+\subsubsection{Hardware Limitations}
+The hardware will be inexpensive as well as easy to incorporate into a singular device.
+The microcontroller will have to interface well with this device as well as the computer giving it instructions.
+The computer will need an interface for the microcontroller as well.
+When fully complete the hardware will be both modular and water resistant..
+
+\subsection{Assumptions and Dependencies}
+The AI will operate using the TensorFlow libraries designed by Google, and TensorLayer extension libraries for reinforcement learning.
+
+\section{Specific Requirements}
+\subsection{Customer User Stories}
+\begin{itemize}
+	\item Automated brewing will make brewing accessible to even amateurs. For those interested in trying brewing simply as an
+		occassional hobby, quality results will be accessible with brew.ai. An easy to set up, fully linked automated brewing system can
+		become an integral part of holiday cooking when brewing for the family.
+	\item A backend learning service attached to the device can help two classes of consumers. The amateur brewer can utilize this 
+		service to effortlessly create simple and unique flavors of mead. The professional brewer can utilize this service
+		to better improve recipes that undergo constant revision.
+	\item A simple, preprogrammed microcontroller solution for controlling the brewing hardware helps keep the technology out of the way
+		of consumers. Having less functionality on the microcontroller removes any necessity for updates on that level, and also makes
+		the product more servicable as users can simply swap out hardware devices on their systems.
+	\item An Android client provides a friendly and easy to use interface for the consumer. The nature of touch screen interfaces lends 
+		itself to an easy to use, but powerful layout. The ability to deliver over the air updates on the fly to Android applications
+		allows for functionality to be tweaked after any potential hardware is put into production. The Android client provides simplified
+		controls and guided instructions for the amateur brewer to brew with ease. The client also provides more advanced controls for more
+		professional brewers with more knowledge of the various factors that go into a brew.
+\end{itemize}
+\subsection{Technical Requirements}
+Based upon our own ideas of for the project, as well as the concepts from the user stories, the technical requirements can be summarized as follows.
+These requirements are presented in order of their completion.
+I.e., requirements must be completed in their presented order.
+\begin{itemize}
+	\item Assemble a brewing setup.
+	\item Acquire electronics hardware - microcontroller, actuators, and sensors.
+	\item Gather data for training machine learning algorithm.
+	\item Design learning structure for the control policy.
+	\item Create the learning structure and control policy.
+	\item Train the policy.
+	\item Use the policy to automate the fermentation process.
+	\item Create a user interface to monitor and control the brewing process.
+\end{itemize}
+\subsection{Project Completion Guidelines}
+\begin{ganttchart}[
+    y unit title=0.5cm,
+    y unit chart=0.6cm,
+    time slot format=isodate-yearmonth,
+    compress calendar,
+    title/.append style={shape=rectangle, fill=black!10},
+    title height=1,
+    bar/.append style={fill=green!90},
+    bar height=.6,
+    bar label font=\normalsize\color{black!50},
+    group top shift=.6,
+    group height=.3,
+    group peaks height=.2,
+    bar incomplete/.append style={fill=green!40}
+  ]{2016-10-27}{2017-05-02}
+  \gantttitlecalendar{year} \\
+  \gantttitlecalendar{month} \\
+  \ganttbar{Requirements Document}{2016-10-28}{2016-11-04} \\
+  \ganttlinkedbar{Survey Potential Users and Customers}{2016-11-04}{2016-11-19} \\
+  \ganttlinkedbar{Develop Lean Canvas Model}{2016-11-20}{2016-11-27} \\
+  \ganttlinkedbar{Research AI, ML, RL structures}{2016-11-04}{2016-11-24} \\
+  \ganttgroup{Construct Prototype}{2016-11-04}{2016-12-19} \\
+    \ganttbar{Hardware}{2016-11-04}{2016-11-05} \\
+    \ganttbar{Electronics}{2016-11-05}{2016-11-10} \\
+    \ganttlinkedbar{Gather Data}{2016-11-10}{2016-12-05} \\
+    \ganttbar{Construct Control Policy}{2016-12-05}{2016-12-19} \\
+    \ganttbar{Gather More Data}{2016-12-19}{2017-01-19} \\
+    \ganttlinkedbar{Second survey of users}{2017-01-19}{2017-01-26} \\
+    \ganttlinkedbar{Update Lean Canvas Model}{2017-01-26}{2017-01-29} \\
+  \ganttgroup{Second Prototype Iteration}{2017-01-19}{2017-03-04} \\
+    \ganttbar{Assemble Hardware}{2017-01-20}{2017-01-21} \\
+    \ganttlinkedbar{Electronics}{2017-01-21}{2017-01-26} \\
+    \ganttbar{Gather Data}{2017-01-26}{2017-02-19} \\
+    \ganttbar{Rework Control Policy}{2017-02-19}{2017-03-14} \\
+    \ganttbar{Prepare For Expo}{2017-03-14}{2017-04-29}
+\end{ganttchart}
+\subsection{Business Requirements}
+As we develop this project we must treat it as if we are starting a business.
+The steps to start this process are:
+\begin{itemize}
+	\item Develop a business plan using the Lean Canvas Model
+	\item Interview businesses and homebrewers about their needs as brewers as well as what they want to change about their process.
+	\item After developing a prototype, ask businesses and homebrewers about possible features to add to the device.
+	\item Make a pitch deck.
+	\item Pitch the idea at an event.
+	\item Interview with 10 potential customers.
+\end{itemize}
+
+\section{Stretch Goals}
+The stretch goal of the project is to implement beer brewing functionality.
+This would include modification of the hardware to include the usage of hopps in the brewing process.

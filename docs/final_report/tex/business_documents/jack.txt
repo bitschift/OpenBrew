@@ -1,0 +1,93 @@
+Why are you interested in homebrewing?
+I am interested in home brewing for three reasons:
+1 I can make exactly what I want, I don't have to worry about what the market carries,
+2: enjoy the creativity
+3: cost effective, cheaper to make good stuff than buy at the store 
+
+How much experience do you have homebrewing?
+Over 20 years
+  followup: What is your homebrewing setup?
+Is a collection of buckets. The overall process being: heat water, pour into buckets, rack into carboys and bottle.
+Since he doesn't make beer, doesn't need mash grinder, more similar to a wine setup
+
+What are some major issues that you see in your homebrewing process?
+Most major issue is temperature control.
+Mixing ingredients is easy, keeping the right temperature is a challenge.
+
+How would you improve on your current setup?
+Refined system to reduce the number of variables by continually weighing and measuring, temperature data collection, but doesn't have the facilities to keep a totally controlled environment.
+Basically what you need is a (hacked) fridge, which keeps the temperature around 50-60 degrees.
+  Followup: How much does cost limit you in improving your setup? Is there a space limitation as well?
+This is prohibitively expensive, since a chest freezer is rather expensive (needed for thermal insulation), 
+
+Are there space limitations?
+Yes, as an anecdotal note, we owned no washer or dryer and until last week the wash closet was the most thermally stable space but the brewing equipment took up a lot of space.
+Now in a bathroom, which has poor temperature control and large temperature swings, but cleans up easily in event of spill.
+
+How much control do you like to have when homebrewing? What aspects of your setup allow you easily control the process?
+The more control I have, the more deterministic effect it has on the final product. An expert can determine the right ratios of sugar/yeast for a harder mead, and all of that is determined on how accurate the initial measurements are.
+What aspects/tools are needed?
+ - Scale, tared with the bucket, thus can easily add 4.5 kg of honey
+ - thermometer 
+ - hydrometer - specific gravity (performs a mixture based average of the liquids) allows for checking of previous calculations by measuring density of fluid. Also allows for checking the progression of brewing process.
+
+What would your ideal small scale brewing setup look like?
+Its close to what he has.
+If given a bunch of money (about $200, including the price of a fridge for thermal insulation/control), would make sure all the measurement tools are accurate and precise.
+Also would look for good temperature control systems.
+After this, the next steps would be controlling pH, controlling taste.
+
+How much would you be willing to spend on that setup?
+It would cost around $200.
+
+How do you think the home brewing market could be expanded?
+You can break down homebrewing into a few categories
+1 - people who are crafty, not in a computer/tech way, but in a handy manner
+2 - foodies people who are comfortable with the process of food creation/fermentation, food science
+3 - competition grade home brewers
+expansion:
+4 - "I would homebrew if only it were easier"
+    You could give this person a kit, with a bunch of the supplies and some ingredients, then you could buy it as a box set, as a unit so you guarantee that the instruments all match and line up. Then from there, people can buy more ingredients and more supplies (upgrades?) for a better kit/setup
+people have concerns about space, time, and hardware. If you have the time, the hardware should be the easy part.
+
+Are there any demographics that are often overlooked in the homebrewing market?
+(Kinda answered above)
+
+[Describes product before asking]
+What do you think of this device? Is this something you would want?
+Look at from two different perspectives:
+Computer science hat: Some of the control issues can be resolved using BrewPi (The easy part), which we can leverage to implement the solid-state relays to control temperature and the actuators in the fermentation chamber. You can skip the hard part of they physics with this type of software.
+The harder part will be the learning part, to have it do it quickly and in isolation. In traditional ML, you have try to map inputs to outputs.
+There can be unexpected, potentially unmeasurable aspects. Replicating the human nose/mouth is incredibly expensive, and sometimes the product can taste like cat-piss but still have good initial measurement data.
+Including troubleshooting as an aspect of the product will be necessary for fringe cases like this.
+Having a master help create a survey so that we can get a good, reliable feedback mechanism from the user.
+
+From the brewing side, brewing a pale ale vs a brown ale, it has a similar process but different base ingredients.
+So we would need a library of base recipes for the ML to start from.
+(TL note: This would be a system of bootstrapping/dynamically switching recipes for each type of final product you want. You would have different recipes/control policies depending on what the desired output is).
+So this way the computer can say you are right on for all of my ingredients, then go through the process, get the result.
+Then at the end, the computer would guide you through the specific recipe's rating system (what do you smell, how does it look) that way you can accurately gauge if the result is a "good porter". You and I might have different preferences, but the judges who make standards as to what defines the "good porter" 
+(LOOK INTO BJCP judging protocol)
+
+Would you want it?
+If it worked, from the hardware and software, he would use it as a training mechanism to train fellow brewers at a meadery.
+It could be useful as a homebrewer, and as a training tool in larger scale production.
+
+How comfortable are you with autonomous fermentation? Is there something that would make you more comfortable with this device?
+I would be comfortable with it because of the knowledge of the fermentation process, as well as a general knowledge of comp sci stuff needed.
+I haven't seen your code yet, but I have an idea of what arduinos and web servers and stuff do, so I know what sections to trust it on, and when it's output would need closer inspection.
+
+For someone who is not as familiar, what would make new customers more comfortable?
+A "hello world" test batch with alpha and beta testers, and share with Jeff's customers, people who can do some quality control and share a alpha/beta release with respectable people in the community.
+
+What do you think our product should have that would improve the user's experience in brewing?
+Support/chat in an ideal world.
+But having something that's not just numbers on a screen. Sharing with the cloud, etc.
+Lets have a graph. X axis is time, plots some known curve (linear, poly, etc) but you can see the std dev, and see how my current process is going in comparison to the database of previous batches, and we can see how it compares to the database in real time, and can be reassuring. 
+So you can see if you are within the band of std dev, and can see how my values compared to past people.
+From there, you can identify problem areas and things to check to fix the quality of the product, identify things to do better next time, etc
+
+Follow up questions:
+What resources exist for generating these data graphs?
+Best method, get other people to help generate data to make a robust data set.
+Say get 10 batches, then get do the review of the product, then get results so we can get a solid data set to compare against.

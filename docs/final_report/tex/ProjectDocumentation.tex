@@ -1,0 +1,256 @@
+\section{brew.ai Documentation}
+
+brew.ai is the automated, autonomous brewing device to bring the power of machine learning into the hands of the amateur brewer, allowing the creation of new recipes tailored to the brewers taste.
+This is accomplished by using general reinforcement learning (Q-Learning) powered from the users feedback of each brew.
+This feedback is gleaned via an Android app, and sent back to the controlling software.
+
+\subsection{Setup and Installation}
+\subsubsection{Software Dependencies}
+
+\textbf{Raspberry Pi}
+\begin{itemize}
+\item Bluez
+\item PyBluez
+\item Keras
+\end{itemize}
+
+\textbf{Keras}
+\begin{itemize}
+\item SciPy
+\item Numpy
+\end{itemize}
+
+Build and installation instructions can be found in the AI section. \\
+
+\subsubsection{Raspberry Pi}
+The repository can be cloned onto a Raspberry Pi with the properly connected hardware, and run with src/launch.sh
+At this point, the software on the Pi will be waiting for confirmation from the Android app, and runs without further intervention. \\
+
+\subsubsection{Android}
+This app requires Android API version 23+. It connects with the Raspberry Pi via Bluetooth.
+Before you can connect the app to the Pi, you will need to pair the two devices.
+Once all the previous steps have been followed, you should be able to push start and it will brew a batch of mead! \\
+
+\subsubsection{Hardware}
+brew.ai must be run on built brewing hardware, which at a minimum must include a Raspberry Pi, temperature and fermentation sensing modules, and heat and stir control modules. Without these components, the software will not work correctly. 
+
+brew.ai uses data from sensors to decide what the hardware should do. Currently, these
+modules are working:
+\begin{itemize}
+\item Temperature sensor
+\item Water level sensor
+\item Heating
+\item Modulated stirring
+\end{itemize}
+
+\textbf{Running brew.ai from a Raspberry Pi}
+
+Once all hardware components are connected, the \verb|brew.py| script will begin the brewing process. \\
+
+\textbf{Receiving Data from Sensors}
+
+Sensor data will be stored in an SQLite db on the Pi, in this table:
+
+\begin{lstlisting}
+CREATE TABLE data ( 
+  id int NOT NULL,
+  temp int,
+  waterlevel int,
+  time TIMESTAMP CURRENT_TIMESTAMP,
+  CONSTRAINT data_pk PRIMARY KEY (id)
+);
+\end{lstlisting}
+
+Temperature will be stored in units of degrees, Celsius. Water level will be a delta in centimeters
+over the time of brewing.
+
+To collect data, the \verb|datacollect.py| service must be instantiated in the background, and will store sensor
+readings in the db every 10 minutes.\\
+
+
+\textbf{Controlling Stirring and Temperature}
+
+The command listener in \verb|modulecontrol.py| looks for a command and a value.
+For instance, to set temperature to 60C from the shell, run this command:
+
+\verb|sudo python modulecontrol.py t 60|
+
+Here are the various commands:
+
+\begin{center}
+\begin{tabular}{ c c c }
+ Implement     & Command|  & Value \\
+\hline
+ Stirring      & \verb|s|      & Speed from 0 (stopped) to 100 (full) \\
+ Temperature   & \verb|t|      & Desired temperature in °C              
+\end{tabular}
+\end{center}
+
+
+Alternatively to the Raspberry Pi, there is support for controlling the hardware on a Teensy, however this functionality is deprecated. \\
+
+DEPRECATED: Interfacing with brew.ai Hardware with a Teensy 2.0 and Raspberry Pi
+
+brew.ai uses data from sensors to decide what the hardware should do. Currently, these
+modules are working:
+
+\begin{itemize}
+\item Temperature sensor
+\item Water level sensor
+\item Heating
+\item Modulated stirring
+\end{itemize}
+
+\subsubsection*{Receiving Data from Sensors}
+Sensor data will be sent in JSON packets to the learning agent, in this format:
+\begin{lstlisting}
+  "packets": {
+    "packet": [
+      {
+        "temperature": " ",
+        "waterLevel": " "
+      }
+    ]
+  }
+\end{lstlisting}
+
+Temperature will be sent in units of degrees, Celsius. Water level will be a delta in centimeters
+over the time of brewing.\\
+
+\subsubsection*{Controlling Stirring and Temperature}
+The command listener looks for a command and a value.
+For instance, to set temperature to 60C, send this command:
+\verb| t 60 |
+
+Here are the various commands:
+\begin{center}
+\begin{tabular}{ c c c }
+ Implement & Command & Value \\ 
+ \hline
+ Stirring & \verb|s| & Speed from 0 (stopped) to 10 (full) \\
+ Temperature & \verb|t| & Desired temperature in °C 
+\end{tabular}
+\end{center}
+
+\subsubsection{Interface}
+
+This is the code for the interface for Brew.AI. This is an Android app compatible with Android API level 23+.
+
+%![main](http://i.imgur.com/X0Y3qCug.png) ![prebrew](http://i.imgur.com/TIELruL.png) ![survey](http://i.imgur.com/FNvLpOn.png)
+
+Raspberry Pi Package Requirements:
+
+\begin{itemize}
+\item bluez
+\item pybluez (pip install)
+\end{itemize}
+
+There are 4 things that need to be set up for this part to work:
+
+\begin{itemize}
+\item Pairing the phone and the raspberry pi.
+\item The Android app.
+\item The "server.py" script (This is a testing script. The actual script is in "brew.ai/src").
+\item The fifo listener (This is for testing by itself. The brewing script in the "brew.ai/src" has a fifo listener inside it.).
+\end{itemize}
+
+\textbf{Pairing (Android)}
+
+First open "/etc/bluetooth/main.conf" and on the line that says "DisablePlugins = " add "pnat".
+
+After that, run the command "sudo invoke–rc.d bluetooth restart".
+
+Once that is finished, the devices need to be paired. To pair the two devices you must run "sudo hciconfig hci piscan". This will make the pi visible and available to be paired with. \\
+
+\textbf{Python scripts (Pi)}
+
+Before you run any of the python scripts, run this command "mkfifo /tmp/btcomm.fifo". This will create the fifo that the two scripts use to communicate.
+
+After they are paired and the fifo is created, run "server.py" (with sudo) and "test.py".\\
+
+\textbf{Android App}
+
+To connect the Android to the pi, press the "connect" button. Then to start the brewing process, press start.
+You will be taken to a page so that you can customize your batch. After you submit your alterations, the brewing will start.
+After the `server.py` script is done generating data, you will be taken to a survey activity where you can give feedback to the device.
+This is only for testing purposes. All the data is randomly generated. The real script gathers data from the sensors.\\
+
+\subsubsection{AI Software}
+The AI implemented here is a general Q-learning agent, implemented with a neural network to approximate the traditional Q-table. The traditional Q-table is strictly bound in dimension and requires a finite number of states in the system. The state consists of continuous measurements like temperature or CO2 levels. This requires a neural network be used to avoid an infinite size table for Q-learning. Otherwise, the Q-learning process proceeds like normal. The state-action-reward history is utilized by the Bellman update function, which is used to calculate the target weights for the neural network, which is trained through standard back propagation.
+
+This is implemented in the learning agent in "qlearning.py". A basic simulator was contrusted to test the rough learning ability of the agent to identify any major bugs, which is written in "simulator.py" and "simple\_training.py". \\
+
+\subsubsection*{Keras with Theano on Raspberry Pi B+}
+
+Theano made its compilation process compatible for different ARM architectures, including the Raspberry Pi. This makes it possible to install and setup Keras with the Theano backend with only a few hours of work.
+This guide was made possible by the following blog posts:
+
+\verb|http://wyolum.com/numpyscipymatplotlib-on-raspberry-pi/|
+
+\verb|http://www.pyimagesearch.com/2016/07/18/installing-keras-for-deep-learning/|
+
+Together, they had enough information to create a full list of instructions for installing Keras and Theano on the Raspberry Pi.\\
+
+\subsubsection*{Instructions}
+
+First satisfy the runtime and buildtime dependeicies: \\
+
+\textbf{Numpy}
+
+\verb|sudo apt-get install python-numpy |\\
+
+\textbf{Scipy}
+\begin{lstlisting}
+sudo apt-get install libblas-dev
+sudo apt-get install liblapack-dev
+sudo apt-get install python-dev   ---  Possibly already installed
+sudo apt-get install libatlas-base-dev --- Optional, for faster execution
+sudo apt-get install gfortran
+sudo apt-get install python-setuptools --- Possibly already installed
+sudo easy_install scipy
+\end{lstlisting}
+
+The last step is synonymous with installing scipy through \verb|pip|, and can be done with that method.
+Either way, installing scipy will take several hours. \\
+
+\textbf{Theano}
+
+First, we have a few more dependencies to get
+
+\begin{lstlisting}
+sudo pip install scikit-learn
+sudo pip install pillow
+sudo pip install h5py
+\end{lstlisting}
+With these dependencies met, we can install a stable Theano release from the git source
+
+\verb|sudo pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git|\\
+
+\textbf{Keras}
+
+The installation can occur with the command:
+
+\verb|sudo pip install keras|
+
+After Keras is installed, you will want to edit the Keras configuration file \verb|~/.keras/keras.json| to use Theano instead of the default TensorFlow backend.
+This requires changing two lines. The first change is: 
+
+\verb|`image_dim_ordering`: `tf`  --> `image_dim_ordering`: `th`|
+
+and the second:
+
+\verb|`backend`: `tensorflow` --> `backend`: `theano`|
+
+(The final file should look like the example below)
+
+\begin{lstlisting}
+{
+    "image_dim_ordering": "th", 
+    "epsilon": 1e-07, 
+    "floatx": "float32", 
+    "backend": "theano"
+}
+\end{lstlisting}
+
+\textbf{Testing}
+Now, pull up an interactive Python terminal and attempt to \verb|import Keras|. This will take a minute, but no errors should occur with a full installation of the packages listed above.

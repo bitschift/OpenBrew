@@ -1,0 +1,12 @@
+\section{Design Document}
+\input{./tex/design_document.tex}
+
+\section{How the Design Changed}
+
+\subsection{Hardware Changes}
+During development it was determined that the microcontroller was unnecessary and that the sensors can interface directly with the Raspberry Pi.
+This simplified the design and centralized device functionality to the Raspberry Pi.
+
+\subsection{AI Changes}
+There were no major changes to the AI design as outlined in the design document. What was described is what was implemented.
+For the simple simulator training, the action to stop the brewing was removed, so the agent needed to only learn to map states over the two actions. This does not change the theoretical structure or operational capacity of the agent, but simplified the training for the proof-of-concept stage of agent design.

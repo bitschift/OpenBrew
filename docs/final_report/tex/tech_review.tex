@@ -1,0 +1,314 @@
+\section{Overview}
+This document provides a technical review of three broad topics within the brew.ai project: hardware, machine learning, and user interface.
+Each broad topic will be discussed in its own section, preceded by an introduction by the section author.
+After the introduction, a review of the potential technologies will be given.
+Each broad topic will be divvied into three or more sub-topics, which will address specific technologies that will be combined to address the broad topic of the section.
+Finally, each broad topic will have a recommendation about which specific technologies should be used.
+
+\section{Controller Hardware -- \textbf{\textit{Aravind Parasurama}}}
+\subsection{Introduction}
+Mead making involves a number of simple steps, and careful calibration \cite{makingmead}. The process involves: 
+\begin{enumerate}
+	\item Mixing water and honey (called 'must'),
+	\item Measuring the gravity of the must,
+	\item Pitching yeast, and
+	\item Fermenting
+\end{enumerate}
+In order to automate this process the user will simply have to prepare the must and pitch the yeast after the device measures initial gravity.
+The physical device will be in the form of a bucket lid that will contain all of the necessary brewing hardware. A heating and cooling element will
+	dangle from the lid and gently touch the surface of the fermenting yeast. This element will maintain water temperature as such. No components should be at
+	risk of water damage.
+The device itself will require a microcontroller in the form of a Teensy 2.0 or Teensy 3.2, a temperature control unit in the form of a peltier junction
+	or boiling plate, a temperature measurement unit in the form of a thermistor or thermocouple, a fermentation measurement element in the form of a 
+	hydrometer and a carbon dioxide sensor, and a transmitter implemented with either bluetooth or the nRF2401.
+
+\subsection{Microcontroller Solution}
+The brew.ai hardware will centrally require a microcontroller for all cooking and transmitting routines.
+The current options are between a Teensy 2.0, powered by the AVR based ATmega32u4, and the Teensy 3.2, powered by the ARM based Cortex-M4 \cite{teensy}. 
+\subsubsection{Teensy 3.2}
+ARM microcontrollers provide more power, and multiple threads, for running complex routines with ease.
+However, the Cortex M4 MK20DX256VLH7 \cite{datasheet} on the Teensy 3.2 does not make interfacing with various pin features as easy as AVR does, and thus 
+programming on this chip is more difficult.
+The Teensy 3.2 could enable more advanced real-time computing on the brewing hardware itself, however, this might be unnecessary and the added cost of the
+	Teensy 3.2 makes the 2.0 a much more attractive option.
+\subsubsection{Teensy 2.0}
+AVR microcontrollers provide an accessible and powerful solution for interfacing with multiple sensors and making multiple components work together.
+The Teensy 2.0 provides a very useful breakout for interfacing with GPIO, PWM, the ADC, and other features in the ATmega32u4.
+The datasheet for this processor is also very accessible, making maintenance of code much easier.
+
+\subsection{Cooking Hardware}
+The cooking hardware is essentially a set of microcontroller modules that will be connected to and controlled by the Teensy.
+We require a hydrometer, a temperature control unit, a carbon dioxide sensor, and a temperature measurement unit.
+\subsubsection{Digital Hydrometer}
+A digital hydrometer is required for measuring the initial gravity of the must, as well as for keeping subsequent measurements for fermentation control.
+These modules are readily available, and should not require significant power, nor should they require any difficult calibration steps.
+\subsubsection{Thermistor}
+A thermistor is a resistor device that can be attached to the ADC registers of the Teensy for temperature measurement.
+These devices are generic, however their individual construction and tuning will necessitate individual thermistor calibration every time a thermistor
+	is broken and needs to be replaced.
+\subsubsection{Thermocouple}
+The thermocouple device is an essentially plug-and-play device for measuring immediate temperature, and can be attached to 
+	any GPIO on the AVR microcontroller \cite{thermocouple}. 
+The advantage of a thermocouple over a thermistor is the lack of the tedious recalibration step needed everytime a thermistor 
+	needs to be replaced. 
+It is worth noting the generally larger size, and increased cost of using a thermocouple.
+\subsubsection{Peltier Junction}
+The peltier junction is a thermoelectric temperature control device that operates by creating a temperature difference on either side of the 
+	device \cite{peltier}.
+These devices range in price, and more expensive junctions can generate a greater temperature differential more efficiently, and also last longer.
+Use of the peltier junction for temperature control will necessitate a heatsink to be attached to one side, so as to allow both heating and cooling 
+	functionality.
+Peltier junctions are power hungry devices, and thus require an external power supply.
+The most effective way to control a peltier junction is with pulse-width modulation.
+\subsubsection{Boiling Plate}
+A boiling plate would be connected to the lid and placed under the bucket for temperature control.
+Unlike a peltier junction, a boiling plate cannot finely control temperature, or provide cooling.
+Boiling plates would be less expensive, and would require less extra hardware to get running.
+\subsubsection{Carbon Dioxide Sensor}
+The carbon sensor will serve the purpose of measuring fermentation levels.
+Carbon dioxide sensors should be like digital hydrometers in that they are mostly plug-and-play in nature, and should require no calibration.
+
+\subsection{Data Transmission}
+In order for the user to get analytics and feedback about their brewing, and for the system in general to work, a wireless data transmitter is needed.
+The choices are between the nRF2401 2.4GHz transmitter, and a generic USART bluetooth module.
+\subsubsection{nRF2401}
+The nRF2401 is a very inexpensive 2.4GHz transmitter, capable of connecting to a wifi network, or ad-hoc connections to other 2.4GHz 
+	transmitters \cite{nrf}.
+The nRF2401 has very little support in code, and entire libraries would need to be written in order to effectively and reliably use the transmitter.
+The added libraries would add large amounts of technical debt to a primarily hardware component of brew.ai.
+\subsubsection{USART Bluetooth}
+Bluetooth USART modules are plentily availble, however for a slightly higher cost than the nRF2401.
+These modules easily communicate over the USART functionality of the Teensy, and the calibration is minimal.
+Many devices can easily connect to a bluetooth module, as it is a standard functionality.
+
+\subsection{Recommendation}
+For the specific needs of brew.ai, the choices between the technical options are straightforward.
+The Teensy 2.0 will serve the microcontroller needs of this project.
+USART bluetooth modules will be used for data transmission, if not direct USART to a Raspberry Pi type device.
+A carbon dioxide sensor and a digital hydrometer are needed, along with a thermistor for measuring temperature, and a peltier junction for controlling it.
+
+\section{Machine Learning  -- \textbf{\textit{Connor Yates}}}
+\subsection{Introduction}
+While a vague title, this section investigates one of the defining features of brew.ai.
+In order to create an automated brewing system that not only controls the process in an automated fashion, but can learn from mistakes and improve upon the product, a method of artificial intelligence must be used.
+The artificial intelligence that must be imbued in the project has the specific goal of controlling the brewing process.
+This is done by sending high level signals such as ``raise temperature'' or ``reduce stir rate'' to the hardware motor controller discussed in Aravind's section.
+In order to make these decisions, a continual stream of data from the sensors is fed into the artificial intelligence module, which inform the decision.
+Learning will be done in a ``online'' manner, since this allows improvements to the controller policy to happen in between batches \cite{RussellNorvig}.
+
+There are several parts to the artificial intelligence setup for the brew.ai project.
+This section will focus on three main aspects: learning algorithm, decision making structure, and preexisting implementations.
+It is important to note that these aspects are not mutually exclusive. 
+Decisions made in one section may effect the choices in another section.
+However, there is still a large degree of freedom between each section, especially with regards to the preexisting software packages that are available.
+
+\subsection{Learning Algorithm}
+The class of learning algorithm used is a major choice when setting up the machine learning aspect of the project.
+This will dictate how the controller policy will behave while we try to feed it data, which is the most complex part of the machine learning subsection.
+\subsubsection{Q-Learning}
+Q-learning is a traditional reinforcement learning technique where all possible states and actions are paired up, and a reward mapping between the current state and potential actions can be learned and exploited \cite{SuttonBarto}.
+This method is based off a dynamic programming representation of learning, where knowledge from nearby states gets combined into the final value of the state-action pair.
+This is important because it creates a solid method of temporal-difference learning \cite{SuttonBarto}, as it becomes possible to associate rewards to series of actions.
+As more chains of actions are taken, it can become clear to the agent which actions are preferable in which states.
+By learning the action-value function, which returns the most favorable reward at a given state, the agent learns to act optimally within the world.
+\subsubsection{Bayesian Modeling with Model Averaging}
+Based on the standard Bayesian probabilistic equations, Bayesian modeling uses Bayesian networks as a framework for learning \cite{RussellNorvig}.
+While there are different approaches in which Bayesian modeling can be used, the most applicable to our domain is the application known as structure learning \cite{RussellNorvig}.
+In this method, machine learning techniques are used to determine the structure of the Bayesian network which best represents the data.
+With smaller data sets, such as what I anticipate with this project, a method can be used for Bayesian modeling where multiple models are produced with various dimensionality requirements, and then averaged to create a single model \cite{RussellNorvig}
+This allows us to create a better fitting model without needing large amounts of data like other methods would require.
+
+\subsubsection{Deep Learning}
+Deep learning is a popular subject in today's media, with the success of projects like AlphaGo grabbing headlines \cite{alphago}.
+Conceptually, deep learning focuses on leveraging smart methods of analyzing data to extract high level abstractions and features within complex data sets \cite{Goodfellow-et-al-2016-Book}.
+While the technology behind deep learning is impressive, it heavily relies on utilizing massive datasets in order to learn complex, obscure patterns.
+This is fundamentally impossible with our project, since we do not have the time nor budget to spend a year gathering data.
+
+\subsubsection{Genetic Algorithms}
+Genetic algorithms look at creating powerful solutions to problems by leveraging biologically-inspired techniques \cite{RussellNorvig}.
+The concepts of mutation, selection, and genetic crossover have been successfully applied to a variety of state-search problems in the past \cite{RussellNorvig}.
+Agent policies, which govern their actions, can be represented as numerical arrays.
+The specific transformation for this depends on the model used (ie, neural networks vs state tables).
+In either case, genetic algorithms use a population of agent policies which all run and receive a reward.
+These rewards are used to calculate the fitness of an policy, which determines how likely the policy is to create offspring and continue to exist \cite{RussellNorvig}.
+At the end of each generation of policy performance, the rewards are assigned, fitness is determined, and the creation of new policies begins.
+This method is generally modeled after biological reproduction, and can use concepts such as genome crossover and genetic mutation to create new policies to be evaluated.
+
+\subsection{Decision Making Structure}
+Some of these methods presented are heavily tied to a specific type of learning algorithm, eg Bayesian networks are mostly only of use when paired with Bayesian models.
+However, the differences between these types of structures helps define the state space the learner will operate over.
+For example, a neural network can be used as a continuous approximate of a Q-table in continuous reinforcement learning domains.
+The decisions present in this section will shape how the problem domain is modeled.
+
+\subsubsection{Neural Networks}
+Neural networks are a computational equivalent to neurons within human brains \cite{SuttonBarto}.
+The network is made from a series of individual neurons, which are connected in layers.
+An individual neuron can be though of as a single linear function: it receives an input signal, applies some weighting and bias, and creates an output signal.
+The individual neuron is not incredibly powerful, but when combined in series, they gain the ability to create complex function approximates \cite{SuttonBarto}.
+
+When the weights to individual neurons are set correctly, the connected series of neurons can approximate complex phenomena that would be near impossible to model by hand.
+This is one of the major appeals to using neural networks for machine learning tasks.
+Additionally, neurons typically receive floating point numbers as input, which does not limit them to discrete domains.
+As networks are built, there is no theoretical limit to the number of input or output signals.
+This is useful as it allows the network to easily receive each sensor as an input, and send signals to each actuator as output.
+
+\subsubsection{State-Action Table}
+State-action tables are a simple method of determine what actions to take.
+Simply put, the agent looks at what state it is in - the status of all the information the sensors can provide to the agent.
+This state is used as a key which is looked up in the table, where an action is read out.
+This action is then acted upon by the agent, and the cycle begins again with sensing.
+
+One issue with this method is that the entire table has to be stored by the agent at all times.
+It does not have to be actively loaded into memory constantly, but the table quickly takes up room as the dimensionality of the state grows.
+This makes the state-action table representation ill-suited to high-dimensional problems.
+However, while this makes this solution infeasible in high-dimensional problems, it creates a strong case for smaller-dimensional problems.
+Lookup tables are incredibly quick to access and edit, which allows the agent to have speedy response times in both learning and acting phases.
+
+\subsubsection{Bayesian Networks}
+Bayesian networks are directed graphs which represent a probabilistic hierarchy of information \cite{RussellNorvig}.
+They allow us to mathematically represent dependencies between fields of information.
+For example, the question ``Is it warm in the house?'' is dependent upon the answers to ``Is it summer?'' and ``Do the tenants have a heater?''.
+Depending on the status of the answers to the latter questions, we can make a more informed decision about the status of warmth in the house.
+
+Within the context of our problem, a Bayesian network provides the ability to take current sensor readings, and use those to populate a probability table which represents our system.
+The dimensionality of that table is determined by the expert in the system (myself, in our case) but the Bayesian network provides the structure on how to fill out the table.
+This table is then used to calculate desired probabilities about how much impact given actions would have on the system, which would give us the necessary information to make a decision about the next action to take.
+
+\subsection{Preexisting Implementations}
+This section looks at pre-implemented libraries that are available for machine learning routines.
+Considerations on memory usage, programming language API, and available functionality are the primary concerns for this sections.
+While there are many different machine learning and artificial intelligence libraries available, the ones presented below were selected for their immediate relevance to the project.
+\subsubsection{Keras}
+Keras is a high level machine learning suite built for the Python programming language \cite{keras}.
+It is billed as a deep learning library for Python, but as it provides a standard implementation of neural networks, can be used for any learning method involving neural networks.
+A major advantage to this library is that while it provides a simple, high level API for Python, it relies on either Theano or Tensorflow as the mathematical back-end.
+Both of these packages are heavily optimized, GPU enabled linear algebra suites which can greatly increase the speed of machine learning programs.
+
+But while Keras provides strong and fast neural network manipulation within its API, it provides little to no support for general artificial intelligence and machine learning algorithms, such as a basic evolutionary algorithm implementation to work off of.
+If this package is used, it would require a non-trivial amount of work to successfully implement the chosen learning algorithm.
+
+\subsubsection{FANN}
+FANN, the Fast Artificial Neural Networks library, is a singular purpose, C language library with bindings in C++ \cite{fann}.
+It is built to create basic neural networks and keep the computational overhead a light as possible.
+Since it is built from a strictly typed language, with GPU support built in, and a singular purpose in mind, FANN is able to optimize its performance over common neural network operations \cite{fann}.
+However, this specialization comes at the cost of being inflexible and less user friendly.
+Using FANN would also require hand-building the higher-level machine learning algorithms, but instead of in a softer language like Python, direct interactions with the FANN library occurs through C/C++.
+Since the final solution is not designed with breakneck speed in mind, the benefits in performance are quickly outweighed by the costs in future development time.
+
+\subsubsection{Torch}
+Torch is a self described ``scientific computing framework with wide support for machine learning algorithms that puts GPUs first'' \cite{torch}.
+It specializes in providing a more general framework than the previous two entries, with the goal of being useful to different types of scientific computing and research.
+Torch has access to powerful GPU libraries and fast internal C routines, but provides a high level scripting language interface similar to Keras.
+In the case of Torch, the LUAJIT language is used, which is a special version of the traditional LUA scripting language that utilizes a just-in-time compiler \cite{torch}.
+
+Of special note is the community repository of commonly implemented-packages written for Torch.
+While all three presented technologies are open source, Torch is the only one boasting of a strong community driven repository of useful extensions to the base package.
+
+\subsection{Recommendation}
+For the final recommendation of the presented technologies, I put forward an initial combination of Q-learning with neural networks using the Keras library.
+Q-Learning is a strong, well proven method of reinforcement learning, and in our project, the ability to assign rewards to performances will be an easy and effective method of providing a learning signal.
+While Q-value tables are commonly used in toy problems, neural networks can be used to approximate q-tables in more fuzzy, continuous domains.
+Genetic algorithms are an attractive proposal for this problem since they naturally grow outward from a single starting point.
+But in order for these algorithms to be effective, there needs to be a significant population size with enough generations to allow for convergence to a single performance.
+This level of simulation and real world data collecting is infeasible with our time and resources.
+
+I choose to use Keras for this project mainly due to my familiarity with Python. 
+Keras is a library I have used before, so I am more intimate with its quirks, and I feel confident in being able to build missing components from scratch quickly and efficiently in Python.
+
+If there is time during the project, after we have collected our data I am curious as to how a combination Q-learning and Bayesian model search would perform.
+In this idea, Bayseian model generation would generate a high level model of state transitions, and provide a belief as to what state the system is in.
+From this point, Q-learning would be applied utilizing a Q-value tabnle to learn optimal actions over the states generated by the Bayesian modeling.
+I believe that this could help bootstrap the learning of optimal actions in a complex process with smaller data sets.
+While intriguing, I leave this topic open to further discussion and research and recommend Q-learning with neural networks using the Keras library
+
+\section{User Interface  -- \textbf{\textit{Cody Holliday}}}
+\subsection{Introduction}
+The User Interface is an important part of brew.ai, since it is one of the few things that the user interacts with.
+Interactivity and processing power issues come into play depending on the implementation of the User Interface, so the implementation options need to be weighed carefully.
+The Raspberry Pi is assumed to be the controller of brew.ai and is referred to as such.
+
+\subsection{User Interface Device}
+
+\subsubsection{Android}
+An Android device would fit a user interface well, as it already integrates touch control features into the platform.
+This allows us to easily create an interface for the device, as all it would require is an Android app to display and receive data.
+The trickiest part for this option is communication of data between the Android device and the hardware.
+Several options are available depending on the method used to connect the device to the hardware.
+However, inherent organization in the Android app framework helps with readability and simplicity of the code.
+
+\subsubsection{Touch Screen}
+A touch screen would place all of the processing and rendering of the interface onto the Raspberry Pi.
+The advantage of this choice would be to reduce the complexity of the system, since it is only a screen.
+Touch controls would be easily implemented using the Raspberry Pi touch display \cite{TouchScreen}.
+The interface itself can be programmed in the Kivy Python GUI library \cite{Kivy}.
+This method does put a larger load on the Raspberry Pi than the Android method, and it is more difficult to set up.
+
+\subsubsection{Physical Buttons And Screen}
+This option is similar to the touch screen, but simpler to set up.
+Buttons are wired into the Controller, and a screen is attached.
+Touch screens require higher processing power from a device than a simple button and screen interface.
+There are multiple ways to handle the display on the screen.
+The display could just be a series of pictures sent to the display, or the interface would be written in the Python Kivy language \cite{Kivy}.
+In addition, upgrading the interface would be limited since there would be a limited number of buttons to work with.
+
+\subsection{Data Generation and Flow}
+Android is the most likely choice of the previous three, so this section is a building on that assumption.
+This explores three different ways that data from the microcontroller can be analyzed and subsequently graphed.
+
+\subsubsection{Data Analyzed on Controller, Graph on Controller}
+If both analysis of data and graphing were only done on the Raspberry Pi, then transfer of information would be much simpler.
+The data is sent from the microcontroller to the Pi, then the Pi sends a graph to the interface.
+Python would be used to analyze the data and a library called Plotly could be used to graph that data \cite{Plotly}.
+
+\subsubsection{Data Analyzed on Controller, Graph on Interface}
+Spreading the processing of the data over both devices reduces the overall load on both.
+Graphing libraries are available on Android to make graphing simpler \cite{Graphview}.
+The advantage of native graphing is that the graph can be easily rendered for an Android device.
+Sending a graph of image to the device could result in scaling and color issues.
+
+\subsubsection{Data Analyzed on Interface, Graph on Interface}
+There are a couple of ways to handle the flow of data in this system.
+Either the data is streamed through the Raspberry  Pi, or the interface is hooked directly into the sensors of the hardware.
+The microcontroller can connect directly to the interface and stream the data.
+This would make the analysis of data completely independent in both the Raspberry Pi and the interface.
+Making these independent would put less of a load on the Pi so that it can utilize the CPU solely for Machine Learning.
+However, this could lead to differences in results due to the differences in architecture and language implementation.
+Alternatively, the data could be streamed through the Raspberry Pi.
+In order to stream the data through the Pi, input and output would have to be coordinated between the microcontroller and the interface.
+This method could lead to concurrency issues, and that is beyond the scope of this project.
+
+
+\subsection{Interface Between Front End and Device}
+The assumption for this section is that the interface is independent of the Raspberry Pi.
+
+\subsubsection{USB}
+There is an interface option available for Android to communicate with a computer via USB \cite{USB}.
+This would be a reliable data transfer method as there would be no possibility for interference.
+Hard wiring also means that devices would not need to find each other again if power is lost.
+Given that lives do not depend on brew.ai, it has to be assumed that the device will lose power at some point.
+A USB connection would make startup and resuming simpler and faster than wireless connection.
+
+
+\subsubsection{BlueTooth}
+BlueTooth is a common interface for many devices, including Android \cite{BlueTooth}.
+Using this communication method could allow the interface to connect directly to the microcontroller and receive data.
+This could be useful to provide instant measurements of the batch without having to connect through the Raspberry Pi.
+A BlueTooth connection would also allow the interface to process the data itself without having to relay through any device.
+
+
+\subsubsection{Wifi Direct}
+Wifi Direct would allow the interface to communicate through the Raspberry Pi directly \cite{PiWifiDirect}.
+Both the Raspberry Pi and the Android have wifi Direct interfaces \cite{AndroidWifiDirect}
+The benefit of Wifi Direct is that it allows the interface to be completely separate from the Controller to avoid possible shorts due to moisture.
+In addition, using wireless communication eliminates the failure point of the wire for communication, but the Android still needs to be plugged into power so the wire is not removed from the equation.
+
+\subsection{Recommendation}
+Android is the best option for an interface as it allows the processing to be spread over multiple devices rather than just one.
+The touch screen is complicated, and the screen and buttons limit the growth of the interface.
+The Android interface also allows the data analysis workload to be spread over multiple devices.
+Connection to the Controller through BlueTooth makes data flow simpler as the Controller can format it before sending it to the Android Interface.
+BlueTooth connection arguably wins over wired connection because of this feature.
+However, connection to the Controller should be wired, as it segregates commands given to the Controller and data received from the microcontroller.
+Wired connection also removes the need for a separate power supply for the interface.
+
+
